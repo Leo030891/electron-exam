@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import 'MainScreen';
+@import 'MainNav';
+@import 'Cover';
+
+* {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}

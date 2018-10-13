@@ -1,0 +1,9 @@
+.main-menu-top {
+  width: 50vw;
+  display: flex;
+  justify-content: space-around;
+
+  .items {
+    cursor: pointer;
+  }
+}

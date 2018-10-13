@@ -1,0 +1,88 @@
+{
+  "title": "Oracle Database",
+  "code": "1z0-061",
+  "group": "",
+  "time": 120,
+  "cover": [
+    {
+      "type": 0,
+      "src": ""
+    },
+    {
+      "type": 1,
+      "text": "Oracle 1z0-061 Database Fundamentals"
+    }
+  ],
+  "test": [
+    {
+      "type": 1,
+      "question": [
+        {
+          "type": 1,
+          "text": "Which three tasks can be performed using SQL functions built into Oracle Database?"
+        }
+      ],
+      "choices": [
+        {
+          "id": 1,
+          "text": "Displaying a date in nondefault format"
+        },
+        {
+          "id": 2,
+          "text": "Finding the number of characters in an expression"
+        },
+        {
+          "id": 3,
+          "text": "Substituting a character string in a text expression with a specified string"
+        },
+        {
+          "id": 4,
+          "text": "Combining more than two columns or expressions into a single column in the output"
+        }
+      ],
+      "answer": [1, 2, 3],
+      "explanation": ""
+    },
+    {
+      "type": 1,
+      "question": [
+        {
+          "type": 1,
+          "text": "View the Exhibit and examine the description of SALES and PROMOTIONS tables."
+        },
+        {
+          "type": 0,
+          "src": "https://s3.amazonaws.com/electron-exam/2e.PNG"
+        },
+        {
+          "type": 1,
+          "text": "You want to delete rows from the sales table, where the PROMO_NAME column in the promotions table has either blowout sale of everyday low prices as values."
+        },
+        {
+          "type": 1,
+          "text": "Which three delete statements are valid?"
+        }
+      ],
+      "choices": [
+        {
+          "id": 1,
+          "text": "Option A"
+        },
+        {
+          "id": 2,
+          "text": "Option B"
+        },
+        {
+          "id": 3,
+          "text": "Option C"
+        },
+        {
+          "id": 4,
+          "text": "Option D"
+        }
+      ],
+      "answer": [2, 3, 4],
+      "explanation": ""
+    }
+  ]
+}
