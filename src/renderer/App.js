@@ -3,6 +3,8 @@ import { remote } from 'electron'
 import MainNav from './components/MainNav/MainNav'
 import MainScreen from './components/MainScreen/MainScreen'
 import CoverScreen from './components/CoverScreen/CoverScreen'
+import ExamNav from './components/ExamNav/ExamNav'
+import ExamScreen from './components/ExamScreen/ExamScreen'
 import { readDirectory, getFile } from './utils/fileHelpers'
 import fs from 'fs'
 import path from 'path'
@@ -24,6 +26,7 @@ export default class App extends Component {
       mainMode: 0,
       exams: null,
       exam: null,
+      question: 0,
       fileData: null,
       filepaths: null
     }
@@ -89,10 +92,17 @@ export default class App extends Component {
     this.setState({ mode: 1, exam: this.state.exams[i] })
   }
 
+  setQuestion = question => {
+    if (question < 0 || question > this.state.exam.test.length - 1) return
+    this.setState({ question })
+  }
+
+  setMode = mode => this.setState({ mode })
+
   setMainMode = mainMode => this.setState({ mainMode })
 
   render() {
-    const { loading, mode, mainMode, exams, exam, fileData, filepaths } = this.state
+    const { loading, mode, mainMode, exams, exam, question, fileData, filepaths } = this.state
     if (mode === 0) {
       return (
         <MainNav setMainMode={this.setMainMode} loadLocalExam={this.loadLocalExam}>
@@ -107,7 +117,13 @@ export default class App extends Component {
         </MainNav>
       )
     } else if (mode === 1) {
-      return <CoverScreen exam={exam} />
+      return <CoverScreen cover={exam.cover} setMode={this.setMode} />
+    } else if (mode === 2) {
+      return (
+        <ExamNav>
+          <ExamScreen exam={exam} question={question} setQuestion={this.setQuestion} />
+        </ExamNav>
+      )
     } else {
       return null
     }

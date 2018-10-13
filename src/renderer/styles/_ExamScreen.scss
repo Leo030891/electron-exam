@@ -1,0 +1,27 @@
+.ExamScreen {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+
+  .question {
+    padding-top: 10px;
+    margin-bottom: 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .choices {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0px;
+    height: 50px;
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    background-color: #f2f2f2;
+  }
+}

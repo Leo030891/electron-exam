@@ -9,7 +9,7 @@
 }
 ```
 
-- entries
+- entries - elements of question
 
   - type 0 - image
   - type 1 - text
