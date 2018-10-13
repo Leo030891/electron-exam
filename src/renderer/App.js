@@ -27,6 +27,8 @@ export default class App extends Component {
       exams: null,
       exam: null,
       question: 0,
+      answers: null,
+      time: null,
       fileData: null,
       filepaths: null
     }
@@ -79,6 +81,10 @@ export default class App extends Component {
     )
   }
 
+  setMode = mode => this.setState({ mode })
+
+  setMainMode = mainMode => this.setState({ mainMode })
+
   onSummaryClick = i => {
     let template = [
       { label: 'Open Exam', click: () => this.enterTestMode(i) },
@@ -88,8 +94,18 @@ export default class App extends Component {
     menu.popup({ window: mainWin })
   }
 
+  initTimer = () => {
+    this.timer = setInterval(() => {
+      this.setState({ time: this.state.time - 1 })
+    }, 1000)
+  }
+
   enterTestMode = i => {
-    this.setState({ mode: 1, exam: this.state.exams[i] })
+    let answers = []
+    let exam = this.state.exams[i]
+    let time = exam.time * 60
+    exam.test.forEach(t => answers.push(Array(t.choices.length).fill(false)))
+    this.setState({ mode: 1, exam, answers, time })
   }
 
   setQuestion = question => {
@@ -97,12 +113,14 @@ export default class App extends Component {
     this.setState({ question })
   }
 
-  setMode = mode => this.setState({ mode })
-
-  setMainMode = mainMode => this.setState({ mainMode })
+  onAnswerCheck = (checked, x, y) => {
+    let { answers } = this.state
+    answers[x][y] = checked
+    this.setState({ answers })
+  }
 
   render() {
-    const { loading, mode, mainMode, exams, exam, question, fileData, filepaths } = this.state
+    const { loading, mode, mainMode, exams, exam, question, time, fileData, filepaths } = this.state
     if (mode === 0) {
       return (
         <MainNav setMainMode={this.setMainMode} loadLocalExam={this.loadLocalExam}>
@@ -117,11 +135,17 @@ export default class App extends Component {
         </MainNav>
       )
     } else if (mode === 1) {
-      return <CoverScreen cover={exam.cover} setMode={this.setMode} />
+      return <CoverScreen cover={exam.cover} setMode={this.setMode} initTimer={this.initTimer} />
     } else if (mode === 2) {
       return (
         <ExamNav>
-          <ExamScreen exam={exam} question={question} setQuestion={this.setQuestion} />
+          <ExamScreen
+            exam={exam}
+            question={question}
+            time={time}
+            setQuestion={this.setQuestion}
+            onAnswerCheck={this.onAnswerCheck}
+          />
         </ExamNav>
       )
     } else {

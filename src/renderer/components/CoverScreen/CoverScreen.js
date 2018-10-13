@@ -21,6 +21,7 @@ class CoverScreen extends Component {
       response => {
         if (response === 1) return
         this.props.setMode(2)
+        this.props.initTimer()
       }
     )
   }

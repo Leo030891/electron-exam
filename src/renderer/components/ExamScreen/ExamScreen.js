@@ -2,15 +2,13 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import ForwardIcon from '@material-ui/icons/ArrowForward'
-import BackIcon from '@material-ui/icons/ArrowBack'
+import BottomBar from './BottomBar'
 
 const styles = theme => ({})
 
-function ExamScreen({ exam, question, setQuestion, classes }) {
+function ExamScreen({ exam, question, time, setQuestion, onAnswerCheck, classes }) {
   return (
     <div className="ExamScreen">
       <Typography variant="h3">{`${exam.title}, Q${question + 1}`}</Typography>
@@ -39,8 +37,14 @@ function ExamScreen({ exam, question, setQuestion, classes }) {
                         return (
                           <FormControlLabel
                             key={`choice-${i}-${k}`}
-                            control={<Checkbox />}
-                            label={c.text}
+                            control={
+                              <Checkbox onChange={(e, checked) => onAnswerCheck(checked, i, k)} />
+                            }
+                            label={
+                              <Typography variant="subtitle1">
+                                <b>{c.label}.</b> {c.text}
+                              </Typography>
+                            }
                           />
                         )
                       }
@@ -51,16 +55,11 @@ function ExamScreen({ exam, question, setQuestion, classes }) {
             )
         })}
       </div>
-      <div className="bottom-bar">
-        <div>
-          <IconButton onClick={() => setQuestion(question - 1)}>
-            <BackIcon />
-          </IconButton>
-          <IconButton onClick={() => setQuestion(question + 1)}>
-            <ForwardIcon />
-          </IconButton>
-        </div>
-      </div>
+      <BottomBar
+        time={time}
+        onBackClick={() => setQuestion(question - 1)}
+        onForwardClick={() => setQuestion(question + 1)}
+      />
     </div>
   )
 }

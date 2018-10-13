@@ -6,7 +6,7 @@
   "cover": [
     {
       "type": 0,
-      "src": ""
+      "src": "https://www.oracle.com/webfolder/s/brand/assets/i/specimens/identity/logo/primary-sig.gif"
     },
     {
       "type": 1,
@@ -24,23 +24,23 @@
       ],
       "choices": [
         {
-          "id": 1,
+          "label": "A",
           "text": "Displaying a date in nondefault format"
         },
         {
-          "id": 2,
+          "label": "B",
           "text": "Finding the number of characters in an expression"
         },
         {
-          "id": 3,
+          "label": "C",
           "text": "Substituting a character string in a text expression with a specified string"
         },
         {
-          "id": 4,
+          "label": "D",
           "text": "Combining more than two columns or expressions into a single column in the output"
         }
       ],
-      "answer": [1, 2, 3],
+      "answer": [true, true, true, false],
       "explanation": ""
     },
     {
@@ -61,27 +61,31 @@
         {
           "type": 1,
           "text": "Which three delete statements are valid?"
+        },
+        {
+          "type": 0,
+          "src": "https://s3.amazonaws.com/electron-exam/2a.PNG"
         }
       ],
       "choices": [
         {
-          "id": 1,
+          "label": "A",
           "text": "Option A"
         },
         {
-          "id": 2,
+          "label": "B",
           "text": "Option B"
         },
         {
-          "id": 3,
+          "label": "C",
           "text": "Option C"
         },
         {
-          "id": 4,
+          "label": "D",
           "text": "Option D"
         }
       ],
-      "answer": [2, 3, 4],
+      "answer": [false, true, true, true],
       "explanation": ""
     }
   ]

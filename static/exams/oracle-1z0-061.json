@@ -20,18 +20,18 @@
         }
       ],
       "choices": [
-        { "id": 1, "text": "Displaying a date in nondefault format" },
-        { "id": 2, "text": "Finding the number of characters in an expression" },
+        { "label": "A", "text": "Displaying a date in nondefault format" },
+        { "label": "B", "text": "Finding the number of characters in an expression" },
         {
-          "id": 3,
+          "label": "C",
           "text": "Substituting a character string in a text expression with a specified string"
         },
         {
-          "id": 4,
+          "label": "D",
           "text": "Combining more than two columns or expressions into a single column in the output"
         }
       ],
-      "answer": [1, 2, 3],
+      "answer": [true, true, true, false],
       "explanation": ""
     },
     {
@@ -46,15 +46,16 @@
           "type": 1,
           "text": "You want to delete rows from the sales table, where the PROMO_NAME column in the promotions table has either blowout sale of everyday low prices as values."
         },
-        { "type": 1, "text": "Which three delete statements are valid?" }
+        { "type": 1, "text": "Which three delete statements are valid?" },
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/2a.PNG" }
       ],
       "choices": [
-        { "id": 1, "text": "Option A" },
-        { "id": 2, "text": "Option B" },
-        { "id": 3, "text": "Option C" },
-        { "id": 4, "text": "Option D" }
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
       ],
-      "answer": [2, 3, 4],
+      "answer": [false, true, true, true],
       "explanation": ""
     }
   ]
