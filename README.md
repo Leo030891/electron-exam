@@ -23,6 +23,9 @@
 - mode
 
   - 0 - main screen - exams, history, session
+  - 1 - cover of selected exam
+  - 2 - exam interface
+  - 3 - review results
 
 - mainMode
 
@@ -36,3 +39,5 @@
 
 - [ ] handle fs errors
 - [ ] handle user attempt to load duplicate filename
+- [ ] replace electron popups menus with Mui - popups too small
+- [ ] replace electron dialogs with Mui - annoying sound

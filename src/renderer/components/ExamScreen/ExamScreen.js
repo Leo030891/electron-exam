@@ -8,7 +8,9 @@ import BottomBar from './BottomBar'
 
 const styles = theme => ({})
 
-function ExamScreen({ exam, question, time, setQuestion, onAnswerCheck, classes }) {
+function ExamScreen(props) {
+  const { exam, question, time, classes } = props
+  const { setQuestion, onAnswerCheck, openTestMenu } = props
   return (
     <div className="ExamScreen">
       <Typography variant="h3">{`${exam.title}, Q${question + 1}`}</Typography>
@@ -59,6 +61,7 @@ function ExamScreen({ exam, question, time, setQuestion, onAnswerCheck, classes 
         time={time}
         onBackClick={() => setQuestion(question - 1)}
         onForwardClick={() => setQuestion(question + 1)}
+        openTestMenu={openTestMenu}
       />
     </div>
   )

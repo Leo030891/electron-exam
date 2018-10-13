@@ -5,7 +5,10 @@ import MainScreen from './components/MainScreen/MainScreen'
 import CoverScreen from './components/CoverScreen/CoverScreen'
 import ExamNav from './components/ExamNav/ExamNav'
 import ExamScreen from './components/ExamScreen/ExamScreen'
+import ReviewNav from './components/ReviewNav/ReviewNav'
+import ReviewScreen from './components/ReviewScreen/ReviewScreen'
 import { readDirectory, getFile } from './utils/fileHelpers'
+import isEqual from 'lodash/isEqual'
 import fs from 'fs'
 import path from 'path'
 import { promisify } from 'util'
@@ -29,6 +32,7 @@ export default class App extends Component {
       question: 0,
       answers: null,
       time: null,
+      report: null,
       fileData: null,
       filepaths: null
     }
@@ -100,6 +104,15 @@ export default class App extends Component {
     }, 1000)
   }
 
+  pauseTimer = () => {
+    clearInterval(this.timer)
+    remote.dialog.showMessageBox(
+      mainWin,
+      { title: 'Exam Paused', message: 'Click OK to unpause exam' },
+      () => this.initTimer()
+    )
+  }
+
   enterTestMode = i => {
     let answers = []
     let exam = this.state.exams[i]
@@ -108,9 +121,52 @@ export default class App extends Component {
     this.setState({ mode: 1, exam, answers, time })
   }
 
+  exitTest = () => {
+    remote.dialog.showMessageBox(
+      mainWin,
+      {
+        type: 'warning',
+        title: 'Exit Exam',
+        message: 'Exit Exam',
+        detail: 'Are you sure you want to exit exam?',
+        buttons: ['OK', 'Cancel']
+      },
+      response => {
+        if (response === 1) return
+        clearInterval(this.timer)
+        const { exam, answers } = this.state
+        let correct = []
+        let incorrect = []
+        let incomplete = []
+        answers.forEach((a, i) => {
+          let answer = exam.test[i].answer
+          if (answer.indexOf(true) === -1) {
+            incomplete.push(i)
+          } else if (isEqual(a, answer)) {
+            correct.push(i)
+          } else {
+            incorrect.push(i)
+          }
+        })
+        let score = Math.round((correct.length / exam.test.length) * 100)
+        let report = { score, correct, incorrect, incomplete }
+        this.setState({ mode: 3, report })
+      }
+    )
+  }
+
   setQuestion = question => {
     if (question < 0 || question > this.state.exam.test.length - 1) return
     this.setState({ question })
+  }
+
+  openTestMenu = () => {
+    let template = [
+      { label: 'Pause Exam', click: () => this.pauseTimer() },
+      { label: 'End Exam', click: () => this.exitTest() }
+    ]
+    let menu = remote.Menu.buildFromTemplate(template)
+    menu.popup({ window: mainWin })
   }
 
   onAnswerCheck = (checked, x, y) => {
@@ -120,7 +176,8 @@ export default class App extends Component {
   }
 
   render() {
-    const { loading, mode, mainMode, exams, exam, question, time, fileData, filepaths } = this.state
+    const { loading, mode, mainMode } = this.state
+    const { exams, exam, question, time, report, fileData, filepaths } = this.state
     if (mode === 0) {
       return (
         <MainNav setMainMode={this.setMainMode} loadLocalExam={this.loadLocalExam}>
@@ -145,8 +202,15 @@ export default class App extends Component {
             time={time}
             setQuestion={this.setQuestion}
             onAnswerCheck={this.onAnswerCheck}
+            openTestMenu={this.openTestMenu}
           />
         </ExamNav>
+      )
+    } else if (mode === 3) {
+      return (
+        <ReviewNav>
+          <ReviewScreen exam={exam} report={report} />
+        </ReviewNav>
       )
     } else {
       return null

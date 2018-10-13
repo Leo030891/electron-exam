@@ -3,6 +3,7 @@
   "code": "1z0-061",
   "group": "",
   "time": 120,
+  "pass": 65,
   "cover": [
     {
       "type": 0,
@@ -44,7 +45,7 @@
         { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/2e.PNG" },
         {
           "type": 1,
-          "text": "You want to delete rows from the sales table, where the PROMO_NAME column in the promotions table has either blowout sale of everyday low prices as values."
+          "text": "You want to delete rows from the sales table, where the PROMO_NAME column in the promotions table has either blowout sale or everyday low prices as values."
         },
         { "type": 1, "text": "Which three delete statements are valid?" },
         { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/2a.PNG" }

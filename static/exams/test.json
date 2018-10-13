@@ -56,7 +56,7 @@
         },
         {
           "type": 1,
-          "text": "You want to delete rows from the sales table, where the PROMO_NAME column in the promotions table has either blowout sale of everyday low prices as values."
+          "text": "You want to delete rows from the sales table, where the PROMO_NAME column in the promotions table has either blowout sale or everyday low prices as values."
         },
         {
           "type": 1,
@@ -68,22 +68,10 @@
         }
       ],
       "choices": [
-        {
-          "label": "A",
-          "text": "Option A"
-        },
-        {
-          "label": "B",
-          "text": "Option B"
-        },
-        {
-          "label": "C",
-          "text": "Option C"
-        },
-        {
-          "label": "D",
-          "text": "Option D"
-        }
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
       ],
       "answer": [false, true, true, true],
       "explanation": ""

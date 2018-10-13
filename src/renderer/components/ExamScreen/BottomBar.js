@@ -8,7 +8,7 @@ import FirstIcon from '@material-ui/icons/FirstPage'
 import TimerIcon from '@material-ui/icons/Timer'
 import MenuIcon from '@material-ui/icons/Menu'
 
-function BottomBar({ time, onBackClick, onForwardClick }) {
+function BottomBar({ time, onBackClick, onForwardClick, openTestMenu }) {
   return (
     <div className="bottom-bar">
       <div className="timer">
@@ -32,7 +32,7 @@ function BottomBar({ time, onBackClick, onForwardClick }) {
         </IconButton>
       </div>
       <div className="menu-icon">
-        <IconButton>
+        <IconButton onClick={openTestMenu}>
           <MenuIcon />
         </IconButton>
         <Typography variant="subtitle1">Menu</Typography>
