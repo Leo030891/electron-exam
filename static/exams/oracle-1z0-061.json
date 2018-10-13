@@ -58,6 +58,44 @@
       ],
       "answer": [false, true, true, true],
       "explanation": ""
+    },
+    {
+      "type": 1,
+      "question": [
+        {
+          "type": 1,
+          "text": "Which three SQL statements would display the value 1890.55 as $1,890.55?"
+        },
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/3a.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" },
+        { "label": "E", "text": "Option E" }
+      ],
+      "answer": [true, false, false, true, true],
+      "explanation": ""
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "You want to display 5 percent of the employees with the highest salaries in the EMPLOYEES table."
+        },
+        { "type": 1, "text": "Which query will generate the required result?" },
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/4a.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
+      ],
+      "answer": [false, true, false, false],
+      "explanation": ""
     }
   ]
 }

@@ -175,6 +175,8 @@ export default class App extends Component {
     this.setState({ answers })
   }
 
+  onAnswerMultiple = () => {}
+
   render() {
     const { loading, mode, mainMode } = this.state
     const { exams, exam, question, time, report, fileData, filepaths } = this.state
@@ -202,6 +204,7 @@ export default class App extends Component {
             time={time}
             setQuestion={this.setQuestion}
             onAnswerCheck={this.onAnswerCheck}
+            onAnswerMultiple={this.onAnswerMultiple}
             openTestMenu={this.openTestMenu}
           />
         </ExamNav>

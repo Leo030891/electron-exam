@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles'
 import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
 import Checkbox from '@material-ui/core/Checkbox'
 import BottomBar from './BottomBar'
 
@@ -32,11 +34,24 @@ function ExamScreen(props) {
                         )
                     })}
                   </div>
-                  <div className="choices">
-                    {t.choices.map((c, k) => {
-                      if (t.type === 0) return null
-                      else if (t.type === 1) {
-                        return (
+                  <div>
+                    {t.type === 0 ? (
+                      <RadioGroup className="choices">
+                        {t.choices.map((c, k) => (
+                          <FormControlLabel
+                            key={`choice-${i}-${k}`}
+                            control={<Radio />}
+                            label={
+                              <Typography variant="subtitle1">
+                                <b>{c.label}.</b> {c.text}
+                              </Typography>
+                            }
+                          />
+                        ))}
+                      </RadioGroup>
+                    ) : (
+                      <div className="choices">
+                        {t.choices.map((c, k) => (
                           <FormControlLabel
                             key={`choice-${i}-${k}`}
                             control={
@@ -48,9 +63,9 @@ function ExamScreen(props) {
                               </Typography>
                             }
                           />
-                        )
-                      }
-                    })}
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </Slide>
@@ -59,8 +74,10 @@ function ExamScreen(props) {
       </div>
       <BottomBar
         time={time}
+        onFirstClick={() => setQuestion(0)}
         onBackClick={() => setQuestion(question - 1)}
         onForwardClick={() => setQuestion(question + 1)}
+        onLastClick={() => setQuestion(exam.test.length - 1)}
         openTestMenu={openTestMenu}
       />
     </div>
