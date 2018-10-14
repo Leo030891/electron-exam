@@ -19,7 +19,7 @@ const drawerWidth = 240
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: screenHeight,
+    height: '100vh',
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -103,7 +103,7 @@ class MainNav extends Component {
   }
 
   render() {
-    const { setMainMode, loadLocalExam, classes } = this.props
+    const { setMainMode, loadLocalExam, openPromptLR, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -135,7 +135,7 @@ class MainNav extends Component {
             </IconButton>
           </div>
           <Divider />
-          <MainMenuLeft loadLocalExam={loadLocalExam} />
+          <MainMenuLeft loadLocalExam={loadLocalExam} openPromptLR={openPromptLR} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />

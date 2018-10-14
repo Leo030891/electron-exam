@@ -7,6 +7,9 @@ import ExamNav from './components/ExamNav/ExamNav'
 import ExamScreen from './components/ExamScreen/ExamScreen'
 import ReviewNav from './components/ReviewNav/ReviewNav'
 import ReviewScreen from './components/ReviewScreen/ReviewScreen'
+import Prompt from './components/App/Prompt'
+import Confirm from './components/App/Confirm'
+import DeleteIcon from '@material-ui/icons/DeleteSharp'
 import { readDirectory, getFile } from './utils/fileHelpers'
 import isEqual from 'lodash/isEqual'
 import fs from 'fs'
@@ -16,6 +19,7 @@ import { promisify } from 'util'
 const readdir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
+const deleteFile = promisify(fs.unlink)
 
 const mainWin = remote.BrowserWindow.fromId(1)
 
@@ -32,9 +36,13 @@ export default class App extends Component {
       question: 0,
       answers: null,
       time: null,
+      explanation: false,
       report: null,
       fileData: null,
-      filepaths: null
+      filepaths: null,
+      promptLR: false,
+      confirmDE: false,
+      indexExam: null
     }
   }
 
@@ -70,6 +78,7 @@ export default class App extends Component {
         properties: ['openFile']
       },
       filepath => {
+        if (!filepath) return
         const { filepaths } = this.state
         if (filepaths.includes(filepath[0])) {
           // already exists overwrite/error message
@@ -85,6 +94,38 @@ export default class App extends Component {
     )
   }
 
+  openPromptLR = () => this.setState({ promptLR: true })
+
+  closePromptLR = () => this.setState({ promptLR: false })
+
+  loadRemoteExam = str => {
+    const url = new URL(str)
+    const filename = url.pathname.split('/')[2] + '.json'
+    const request = remote.net.request(url.href)
+    request.on('response', response => {
+      response.on('data', data => {
+        writeFile(path.resolve(__static, 'exams', filename), data)
+          .then(this.loadExams)
+          .catch(console.error)
+      })
+    })
+    request.end()
+  }
+
+  openConfirmDE = i => this.setState({ confirmDE: true, indexExam: i })
+
+  closeConfirmDE = () => this.setState({ confirmDE: false })
+
+  deleteExam = () => {
+    deleteFile(this.state.filepaths[this.state.indexExam])
+      .then(() => {
+        this.loadExams()
+        this.setState({ indexExam: null })
+        this.closeConfirmDE()
+      })
+      .catch(console.error)
+  }
+
   setMode = mode => this.setState({ mode })
 
   setMainMode = mainMode => this.setState({ mainMode })
@@ -92,7 +133,7 @@ export default class App extends Component {
   onSummaryClick = i => {
     let template = [
       { label: 'Open Exam', click: () => this.enterTestMode(i) },
-      { label: 'Delete Exam', click: () => {} }
+      { label: 'Delete Exam', click: () => this.openConfirmDE(i) }
     ]
     let menu = remote.Menu.buildFromTemplate(template)
     menu.popup({ window: mainWin })
@@ -157,7 +198,11 @@ export default class App extends Component {
 
   setQuestion = question => {
     if (question < 0 || question > this.state.exam.test.length - 1) return
-    this.setState({ question })
+    this.setState({ question, explanation: false })
+  }
+
+  viewExplanation = () => {
+    this.setState({ explanation: true })
   }
 
   openTestMenu = () => {
@@ -185,11 +230,17 @@ export default class App extends Component {
   }
 
   render() {
-    const { loading, mode, mainMode } = this.state
-    const { exams, exam, question, time, answers, report, fileData, filepaths } = this.state
+    const { loading, mode, mainMode, promptLR, confirmDE } = this.state
+    const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
+    const { report } = this.state
     if (mode === 0) {
-      return (
-        <MainNav setMainMode={this.setMainMode} loadLocalExam={this.loadLocalExam}>
+      return [
+        <MainNav
+          key="main"
+          setMainMode={this.setMainMode}
+          loadLocalExam={this.loadLocalExam}
+          openPromptLR={this.openPromptLR}
+        >
           <MainScreen
             loading={loading}
             mainMode={mainMode}
@@ -198,8 +249,27 @@ export default class App extends Component {
             filepaths={filepaths}
             onSummaryClick={this.onSummaryClick}
           />
-        </MainNav>
-      )
+        </MainNav>,
+        <Prompt
+          key="load-remote"
+          open={promptLR}
+          title="Load Remote Exam"
+          message="File must have Electron Exam format and JSON extension"
+          label="Enter URL"
+          onClose={this.closePromptLR}
+          onOkay={this.loadRemoteExam}
+        />,
+        <Confirm
+          key="delete-exam"
+          open={confirmDE}
+          title="Delete Exam"
+          message="Delete Exam"
+          detail="Do you want to permenantly delete this exam?"
+          icon={<DeleteIcon fontSize="inherit" />}
+          onClose={this.closeConfirmDE}
+          onOkay={this.deleteExam}
+        />
+      ]
     } else if (mode === 1) {
       return <CoverScreen cover={exam.cover} setMode={this.setMode} initTimer={this.initTimer} />
     } else if (mode === 2) {
@@ -210,9 +280,11 @@ export default class App extends Component {
             question={question}
             time={time}
             answers={answers}
+            explanation={explanation}
             setQuestion={this.setQuestion}
             onAnswerCheck={this.onAnswerCheck}
             onAnswerMultiple={this.onAnswerMultiple}
+            viewExplanation={this.viewExplanation}
             openTestMenu={this.openTestMenu}
           />
         </ExamNav>

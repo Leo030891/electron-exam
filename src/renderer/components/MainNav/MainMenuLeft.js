@@ -4,12 +4,16 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import AddIcon from '@material-ui/icons/PlaylistAddSharp'
+import AddLocalIcon from '@material-ui/icons/PlaylistAddSharp'
+import AddRemoteIcon from '@material-ui/icons/CloudDownloadSharp'
 
 const styles = theme => ({})
 
-function MainMenuLeft({ loadLocalExam, classes }) {
-  const list = [{ text: 'Load Local File', icon: <AddIcon />, click: loadLocalExam }]
+function MainMenuLeft({ loadLocalExam, openPromptLR, classes }) {
+  const list = [
+    { text: 'Load Local File', icon: <AddLocalIcon />, click: loadLocalExam },
+    { text: 'Load Remote File', icon: <AddRemoteIcon />, click: openPromptLR }
+  ]
   return (
     <List>
       {list.map((l, i) => (

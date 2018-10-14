@@ -9,16 +9,17 @@
 }
 ```
 
+### App Codes
+
 - entries - elements of question
 
   - type 0 - image
   - type 1 - text
 
 - questions
+
   - type 0 - multiple choice
   - type 1 - checkbox
-
-### App State
 
 - mode
 
@@ -35,10 +36,9 @@
 
 ### Todos
 
-**App**
-
 - [ ] handle fs errors
 - [ ] handle user attempt to load duplicate filename
+- [ ] handle errors and build out remote exam load
 - [ ] replace electron popups menus with Mui - popups too small
 - [ ] replace electron dialogs with Mui - annoying sound
 - [ ] find better calculator icon

@@ -1,18 +1,18 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Slide from '@material-ui/core/Slide'
-import Typography from '@material-ui/core/Typography'
 import TopBar from './TopBar'
 import Question from './Question'
 import Checkboxes from './Checkboxes'
 import MultipleChoice from './MultipleChoice'
+import Explanation from './Explanation'
 import BottomBar from './BottomBar'
 
 const styles = theme => ({})
 
 function ExamScreen(props) {
-  const { exam, question, time, answers, classes } = props
-  const { setQuestion, onAnswerCheck, onAnswerMultiple, openTestMenu } = props
+  const { exam, question, time, answers, explanation, classes } = props
+  const { setQuestion, onAnswerCheck, onAnswerMultiple, viewExplanation, openTestMenu } = props
   return (
     <div className="ExamScreen">
       <TopBar title={exam.title} question={question} totalQuestions={exam.test.length} />
@@ -46,6 +46,13 @@ function ExamScreen(props) {
                       />
                     )}
                   </div>
+                  {explanation && (
+                    <Explanation
+                      answers={answers[i]}
+                      correctAnswers={t.answer}
+                      explanation={t.explanation}
+                    />
+                  )}
                 </div>
               </Slide>
             )
@@ -57,6 +64,7 @@ function ExamScreen(props) {
         onBackClick={() => setQuestion(question - 1)}
         onForwardClick={() => setQuestion(question + 1)}
         onLastClick={() => setQuestion(exam.test.length - 1)}
+        viewExplanation={viewExplanation}
         openTestMenu={openTestMenu}
       />
     </div>

@@ -14,6 +14,14 @@ body {
   margin: 0;
 }
 
+.confirm-de-content {
+  width: 66%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 45px;
+}
+
 ::-webkit-scrollbar {
   width: 12.5px;
 }
