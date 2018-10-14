@@ -2,69 +2,48 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import Checkbox from '@material-ui/core/Checkbox'
+import TopBar from './TopBar'
+import Question from './Question'
+import Checkboxes from './Checkboxes'
+import MultipleChoice from './MultipleChoice'
 import BottomBar from './BottomBar'
 
 const styles = theme => ({})
 
 function ExamScreen(props) {
-  const { exam, question, time, classes } = props
-  const { setQuestion, onAnswerCheck, openTestMenu } = props
+  const { exam, question, time, answers, classes } = props
+  const { setQuestion, onAnswerCheck, onAnswerMultiple, openTestMenu } = props
   return (
     <div className="ExamScreen">
-      <Typography variant="h3">{`${exam.title}, Q${question + 1}`}</Typography>
-      <Typography variant="caption">{`Question ${question + 1} of ${exam.test.length}`}</Typography>
+      <TopBar title={exam.title} question={question} totalQuestions={exam.test.length} />
       <div className="question">
         {exam.test.map((t, i) => {
           if (question === i)
             return (
-              <Slide key={`question-${i}`} in={question === i} direction="left">
+              <Slide
+                key={`question-${i}`}
+                in={question === i}
+                direction="left"
+                timeout={{ enter: 500, exit: 200 }}
+                unmountOnExit
+              >
                 <div>
-                  <div>
-                    {t.question.map((q, j) => {
-                      if (q.type === 0) return <img key={`img-${j}`} src={q.src} />
-                      else if (q.type === 1)
-                        return (
-                          <Typography key={`text-${j}`} variant="subtitle1">
-                            {q.text}
-                          </Typography>
-                        )
-                    })}
-                  </div>
+                  <Question question={t.question} />
                   <div>
                     {t.type === 0 ? (
-                      <RadioGroup className="choices">
-                        {t.choices.map((c, k) => (
-                          <FormControlLabel
-                            key={`choice-${i}-${k}`}
-                            control={<Radio />}
-                            label={
-                              <Typography variant="subtitle1">
-                                <b>{c.label}.</b> {c.text}
-                              </Typography>
-                            }
-                          />
-                        ))}
-                      </RadioGroup>
+                      <MultipleChoice
+                        choices={t.choices}
+                        question={i}
+                        answers={answers[i]}
+                        onAnswerMultiple={onAnswerMultiple}
+                      />
                     ) : (
-                      <div className="choices">
-                        {t.choices.map((c, k) => (
-                          <FormControlLabel
-                            key={`choice-${i}-${k}`}
-                            control={
-                              <Checkbox onChange={(e, checked) => onAnswerCheck(checked, i, k)} />
-                            }
-                            label={
-                              <Typography variant="subtitle1">
-                                <b>{c.label}.</b> {c.text}
-                              </Typography>
-                            }
-                          />
-                        ))}
-                      </div>
+                      <Checkboxes
+                        choices={t.choices}
+                        question={i}
+                        answers={answers[i]}
+                        onAnswerCheck={onAnswerCheck}
+                      />
                     )}
                   </div>
                 </div>

@@ -6,9 +6,24 @@
   .question {
     padding-top: 10px;
     padding-left: 5px;
+    padding-bottom: 20px;
     margin-bottom: 40px;
     overflow-y: auto;
     overflow-x: hidden;
+  }
+
+  .top-bar {
+    display: block;
+
+    .top-left {
+      float: left;
+      margin-left: 10px;
+    }
+
+    .top-right {
+      float: right;
+      margin-right: 30px;
+    }
   }
 
   .choices {

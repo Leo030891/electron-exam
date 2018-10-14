@@ -41,3 +41,4 @@
 - [ ] handle user attempt to load duplicate filename
 - [ ] replace electron popups menus with Mui - popups too small
 - [ ] replace electron dialogs with Mui - annoying sound
+- [ ] find better calculator icon

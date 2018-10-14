@@ -33,7 +33,7 @@
         }
       ],
       "answer": [true, true, true, false],
-      "explanation": ""
+      "explanation": []
     },
     {
       "type": 1,
@@ -42,13 +42,13 @@
           "type": 1,
           "text": "View the Exhibit and examine the description of SALES and PROMOTIONS tables."
         },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/2e.PNG" },
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2e.PNG" },
         {
           "type": 1,
           "text": "You want to delete rows from the sales table, where the PROMO_NAME column in the promotions table has either blowout sale or everyday low prices as values."
         },
         { "type": 1, "text": "Which three delete statements are valid?" },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/2a.PNG" }
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2a.PNG" }
       ],
       "choices": [
         { "label": "A", "text": "Option A" },
@@ -57,7 +57,7 @@
         { "label": "D", "text": "Option D" }
       ],
       "answer": [false, true, true, true],
-      "explanation": ""
+      "explanation": []
     },
     {
       "type": 1,
@@ -66,7 +66,7 @@
           "type": 1,
           "text": "Which three SQL statements would display the value 1890.55 as $1,890.55?"
         },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/3a.PNG" }
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/3a.PNG" }
       ],
       "choices": [
         { "label": "A", "text": "Option A" },
@@ -76,7 +76,7 @@
         { "label": "E", "text": "Option E" }
       ],
       "answer": [true, false, false, true, true],
-      "explanation": ""
+      "explanation": []
     },
     {
       "type": 0,
@@ -86,7 +86,7 @@
           "text": "You want to display 5 percent of the employees with the highest salaries in the EMPLOYEES table."
         },
         { "type": 1, "text": "Which query will generate the required result?" },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/4a.PNG" }
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/4a.PNG" }
       ],
       "choices": [
         { "label": "A", "text": "Option A" },
@@ -95,7 +95,60 @@
         { "label": "D", "text": "Option D" }
       ],
       "answer": [false, true, false, false],
-      "explanation": ""
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "In the customers table, the CUST_CITY column contains the value 'Paris' for the CUST_FIRST_NAME 'Abigail'."
+        },
+        { "type": 1, "text": "Evaluate the following query:" },
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/5e.PNG" },
+        { "type": 1, "text": "What would be the outcome?" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Abigail PA" },
+        { "label": "B", "text": "Abigail Pa" },
+        { "label": "C", "text": "Abigail IS" },
+        { "label": "D", "text": "An error message" }
+      ],
+      "answer": [false, true, false, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "View the Exhibit and evaluate the structure and data in the CUST_STATUS table."
+        },
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e1.PNG" },
+        { "type": 1, "text": "You issue the following SQL statement:" },
+        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e2.PNG" },
+        { "type": 1, "text": "Which statement is true regarding the execution of the above query?" }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "It produces an error because the AMT_SPENT column contains a null value."
+        },
+        {
+          "label": "B",
+          "text": "It displays a bonus of 1000 for all customers whose AMT_SPENT is less than CREDIT_LIMIT."
+        },
+        {
+          "label": "C",
+          "text": "It displays a bonus of 1000 for all customers whose AMT_SPENT equals CREDIT_LIMIT, or AMT_SPENT is null."
+        },
+        {
+          "label": "D",
+          "text": "It produces an error because the TO_NUMBER function must be used to convert the result of the NULLIF function before it can be used by the NVL2 function."
+        }
+      ],
+      "answer": [false, false, true, false],
+      "explanation": []
     }
   ]
 }

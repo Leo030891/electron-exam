@@ -1,12 +1,12 @@
 import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-import ForwardIcon from '@material-ui/icons/ChevronRight'
-import BackIcon from '@material-ui/icons/ChevronLeft'
-import LastIcon from '@material-ui/icons/LastPage'
-import FirstIcon from '@material-ui/icons/FirstPage'
-import TimerIcon from '@material-ui/icons/Timer'
-import MenuIcon from '@material-ui/icons/Menu'
+import ForwardIcon from '@material-ui/icons/ChevronRightSharp'
+import BackIcon from '@material-ui/icons/ChevronLeftSharp'
+import LastIcon from '@material-ui/icons/LastPageSharp'
+import FirstIcon from '@material-ui/icons/FirstPageSharp'
+import TimerIcon from '@material-ui/icons/TimerSharp'
+import MenuIcon from '@material-ui/icons/MenuSharp'
 
 function BottomBar({ time, onFirstClick, onBackClick, onForwardClick, onLastClick, openTestMenu }) {
   return (

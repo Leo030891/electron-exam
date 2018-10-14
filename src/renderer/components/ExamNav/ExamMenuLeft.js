@@ -1,15 +1,19 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import AddIcon from '@material-ui/icons/PlaylistAddSharp'
+import CalcIcon from '@material-ui/icons/ListAlt'
+import { execFile } from 'child_process'
 
-const styles = theme => ({})
-
-function MainMenuLeft({ loadLocalExam, classes }) {
-  const list = [{ text: 'Load Local File', icon: <AddIcon />, click: loadLocalExam }]
+function ExamMenuLeft() {
+  const list = [
+    {
+      text: 'Calculator',
+      icon: <CalcIcon />,
+      click: () => execFile(`C:/Windows/System32/calc.exe`)
+    }
+  ]
   return (
     <List>
       {list.map((l, i) => (
@@ -22,4 +26,4 @@ function MainMenuLeft({ loadLocalExam, classes }) {
   )
 }
 
-export default withStyles(styles)(MainMenuLeft)
+export default ExamMenuLeft

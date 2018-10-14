@@ -175,11 +175,18 @@ export default class App extends Component {
     this.setState({ answers })
   }
 
-  onAnswerMultiple = () => {}
+  onAnswerMultiple = (x, y) => {
+    let { answers } = this.state
+    for (let i = 0; i < answers[x].length; i++) {
+      if (i === y) answers[x][i] = true
+      else answers[x][i] = false
+    }
+    this.setState({ answers })
+  }
 
   render() {
     const { loading, mode, mainMode } = this.state
-    const { exams, exam, question, time, report, fileData, filepaths } = this.state
+    const { exams, exam, question, time, answers, report, fileData, filepaths } = this.state
     if (mode === 0) {
       return (
         <MainNav setMainMode={this.setMainMode} loadLocalExam={this.loadLocalExam}>
@@ -202,6 +209,7 @@ export default class App extends Component {
             exam={exam}
             question={question}
             time={time}
+            answers={answers}
             setQuestion={this.setQuestion}
             onAnswerCheck={this.onAnswerCheck}
             onAnswerMultiple={this.onAnswerMultiple}
