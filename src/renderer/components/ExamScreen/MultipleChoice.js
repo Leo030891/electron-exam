@@ -26,7 +26,7 @@ class MultipleChoice extends Component {
   }
 
   render() {
-    const { choices } = this.props
+    const { choices, explanation, correctAnswers } = this.props
     const { value } = this.state
     return (
       <RadioGroup value={value} onChange={this.onChange} className="choices">
@@ -34,9 +34,19 @@ class MultipleChoice extends Component {
           <FormControlLabel
             key={`choice-${k}`}
             value={k.toString()}
-            control={<Radio />}
+            control={<Radio color="default" disabled={explanation} />}
             label={
-              <Typography variant="subtitle1">
+              <Typography
+                variant="subtitle1"
+                style={{
+                  color:
+                    explanation && correctAnswers[k]
+                      ? 'green'
+                      : explanation && !correctAnswers[k]
+                        ? 'red'
+                        : 'rgba(0, 0, 0, 0.87)'
+                }}
+              >
                 <b>{c.label}.</b> {c.text}
               </Typography>
             }

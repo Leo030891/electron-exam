@@ -10,6 +10,7 @@ import ReviewScreen from './components/ReviewScreen/ReviewScreen'
 import Prompt from './components/App/Prompt'
 import Confirm from './components/App/Confirm'
 import DeleteIcon from '@material-ui/icons/DeleteSharp'
+import StartExamIcon from '@material-ui/icons/PowerSettingsNewSharp'
 import { readDirectory, getFile } from './utils/fileHelpers'
 import isEqual from 'lodash/isEqual'
 import fs from 'fs'
@@ -42,6 +43,7 @@ export default class App extends Component {
       filepaths: null,
       promptLR: false,
       confirmDE: false,
+      confirmSE: false,
       indexExam: null
     }
   }
@@ -154,12 +156,22 @@ export default class App extends Component {
     )
   }
 
+  openConfirmSE = () => this.setState({ confirmSE: true })
+
+  closeConfirmSE = () => this.setState({ confirmSE: false })
+
   enterTestMode = i => {
     let answers = []
     let exam = this.state.exams[i]
     let time = exam.time * 60
     exam.test.forEach(t => answers.push(Array(t.choices.length).fill(false)))
     this.setState({ mode: 1, exam, answers, time })
+  }
+
+  startExam = () => {
+    this.closeConfirmSE()
+    this.setMode(2)
+    this.initTimer()
   }
 
   exitTest = () => {
@@ -202,7 +214,7 @@ export default class App extends Component {
   }
 
   viewExplanation = () => {
-    this.setState({ explanation: true })
+    this.setState({ explanation: !this.state.explanation })
   }
 
   openTestMenu = () => {
@@ -230,7 +242,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { loading, mode, mainMode, promptLR, confirmDE } = this.state
+    const { loading, mode, mainMode, promptLR, confirmDE, confirmSE } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
     const { report } = this.state
     if (mode === 0) {
@@ -271,7 +283,25 @@ export default class App extends Component {
         />
       ]
     } else if (mode === 1) {
-      return <CoverScreen cover={exam.cover} setMode={this.setMode} initTimer={this.initTimer} />
+      return [
+        <CoverScreen
+          key="cover-screen"
+          cover={exam.cover}
+          setMode={this.setMode}
+          initTimer={this.initTimer}
+          openConfirmSE={this.openConfirmSE}
+        />,
+        <Confirm
+          key="start-exam"
+          open={confirmSE}
+          title="Start Exam"
+          message="Start Exam"
+          detail="Do you want to begin taking this exam?"
+          icon={<StartExamIcon fontSize="inherit" />}
+          onClose={this.closeConfirmSE}
+          onOkay={this.startExam}
+        />
+      ]
     } else if (mode === 2) {
       return (
         <ExamNav>

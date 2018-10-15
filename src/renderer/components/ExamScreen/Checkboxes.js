@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import CheckedIcon from '@material-ui/icons/CheckBoxSharp'
+import UnCheckedIcon from '@material-ui/icons/CheckBoxOutlineBlankSharp'
 
 class Checkboxes extends Component {
   constructor(props) {
@@ -17,7 +19,7 @@ class Checkboxes extends Component {
   }
 
   render() {
-    const { choices } = this.props
+    const { choices, explanation, correctAnswers } = this.props
     return (
       <div className="choices">
         {choices.map((c, k) => (
@@ -28,10 +30,24 @@ class Checkboxes extends Component {
                 checked={this.state.values[k]}
                 value={k.toString()}
                 onChange={this.onChange}
+                color="default"
+                disabled={explanation}
+                checkedIcon={<CheckedIcon />}
+                icon={<UnCheckedIcon />}
               />
             }
             label={
-              <Typography variant="subtitle1">
+              <Typography
+                variant="subtitle1"
+                style={{
+                  color:
+                    explanation && correctAnswers[k]
+                      ? 'green'
+                      : explanation && !correctAnswers[k]
+                        ? 'red'
+                        : 'rgba(0, 0, 0, 0.87)'
+                }}
+              >
                 <b>{c.label}.</b> {c.text}
               </Typography>
             }

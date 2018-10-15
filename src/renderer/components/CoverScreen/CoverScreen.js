@@ -27,7 +27,7 @@ class CoverScreen extends Component {
   }
 
   render() {
-    const { cover, setMode, classes } = this.props
+    const { cover, setMode, openConfirmSE, classes } = this.props
     return (
       <div>
         <div className="cover-top">
@@ -36,7 +36,7 @@ class CoverScreen extends Component {
             <IconButton onClick={() => setMode(0)}>
               <BackIcon />
             </IconButton>
-            <IconButton onClick={this.confirmExamStart}>
+            <IconButton onClick={openConfirmSE}>
               <ForwardIcon />
             </IconButton>
           </div>

@@ -47,8 +47,8 @@ export default createMuiTheme({
         outline: '1px outset rgb(206, 206, 206)',
         fontSize: '.75rem',
         '&:hover': {
-          backgroundColor: theme.palette.background.default,
-          outline: '2px outset rgb(206, 206, 206)'
+          backgroundColor: 'rgb(225, 242, 255)',
+          outline: '2px outset rgb(1, 139, 244)'
         }
       }
     },
@@ -77,6 +77,14 @@ export default createMuiTheme({
         alignItems: 'center',
         marginTop: theme.spacing.unit * 3,
         paddingTop: 10
+      }
+    },
+    MuiDialogActions: {
+      root: {
+        margin: 0,
+        padding: '8px 4px',
+        backgroundColor: theme.palette.grey[200],
+        borderTop: theme.palette.grey[400]
       }
     }
   }

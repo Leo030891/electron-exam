@@ -24,7 +24,7 @@ function Confirm({ open, title, message, detail, icon, onClose, onOkay, classes 
       </DialogTitle>
       <DialogContent>
         <div className="confirm-de-content">
-          <div>{icon}</div>
+          {icon}
           <div>
             <Typography variant="h6">{message}</Typography>
             <Typography variant="caption">{detail}</Typography>

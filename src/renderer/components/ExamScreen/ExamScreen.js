@@ -35,6 +35,8 @@ function ExamScreen(props) {
                         choices={t.choices}
                         question={i}
                         answers={answers[i]}
+                        correctAnswers={t.answer}
+                        explanation={explanation}
                         onAnswerMultiple={onAnswerMultiple}
                       />
                     ) : (
@@ -42,6 +44,8 @@ function ExamScreen(props) {
                         choices={t.choices}
                         question={i}
                         answers={answers[i]}
+                        correctAnswers={t.answer}
+                        explanation={explanation}
                         onAnswerCheck={onAnswerCheck}
                       />
                     )}
