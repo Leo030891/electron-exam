@@ -12,6 +12,7 @@ import Confirm from './components/App/Confirm'
 import Loading from './components/App/Loading'
 import DeleteIcon from '@material-ui/icons/DeleteSharp'
 import StartExamIcon from '@material-ui/icons/PowerSettingsNewSharp'
+import ExitExamIcon from '@material-ui/icons/StopSharp'
 import { readDirectory, getFile } from './utils/fileHelpers'
 import isEqual from 'lodash/isEqual'
 import fs from 'fs'
@@ -45,8 +46,11 @@ export default class App extends Component {
       promptLR: false,
       confirmDE: false,
       confirmSE: false,
+      confirmEE: false,
       indexExam: null
     }
+
+    this.explanation = React.createRef()
   }
 
   componentDidMount() {
@@ -175,41 +179,32 @@ export default class App extends Component {
     this.initTimer()
   }
 
+  openConfirmEE = () => this.setState({ confirmEE: true })
+
+  closeConfirmEE = () => this.setState({ confirmEE: false })
+
   exitTest = () => {
-    remote.dialog.showMessageBox(
-      mainWin,
-      {
-        type: 'warning',
-        title: 'Exit Exam',
-        message: 'Exit Exam',
-        detail: 'Are you sure you want to exit exam?',
-        buttons: ['OK', 'Cancel']
-      },
-      response => {
-        if (response === 1) return
-        clearInterval(this.timer)
-        const { exam, answers, time } = this.state
-        let correct = []
-        let incorrect = []
-        let incomplete = []
-        answers.forEach((a, i) => {
-          let answer = exam.test[i].answer
-          if (answer.indexOf(true) === -1) {
-            incomplete.push(i)
-          } else if (isEqual(a, answer)) {
-            correct.push(i)
-          } else {
-            incorrect.push(i)
-          }
-        })
-        let score = Math.round((correct.length / exam.test.length) * 100)
-        let status = score >= exam.pass
-        let date = new Date()
-        let elapsed = exam.time * 60 - time
-        let report = { status, score, correct, incorrect, incomplete, date, elapsed }
-        this.setState({ mode: 3, report })
+    clearInterval(this.timer)
+    const { exam, answers, time } = this.state
+    let correct = []
+    let incorrect = []
+    let incomplete = []
+    answers.forEach((a, i) => {
+      let answer = exam.test[i].answer
+      if (answer.indexOf(true) === -1) {
+        incomplete.push(i)
+      } else if (isEqual(a, answer)) {
+        correct.push(i)
+      } else {
+        incorrect.push(i)
       }
-    )
+    })
+    let score = Math.round((correct.length / exam.test.length) * 100)
+    let status = score >= exam.pass
+    let date = new Date()
+    let elapsed = exam.time * 60 - time
+    let report = { status, score, correct, incorrect, incomplete, date, elapsed }
+    this.setState({ mode: 3, report, confirmEE: false })
   }
 
   setQuestion = question => {
@@ -218,13 +213,23 @@ export default class App extends Component {
   }
 
   viewExplanation = () => {
-    this.setState({ explanation: !this.state.explanation })
+    this.setState({ explanation: !this.state.explanation }, () => {
+      if (this.state.explanation) {
+        setTimeout(() => {
+          this.explanation.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'end'
+          })
+        }, 500)
+      }
+    })
   }
 
   openTestMenu = () => {
     let template = [
       { label: 'Pause Exam', click: () => this.pauseTimer() },
-      { label: 'End Exam', click: () => this.exitTest() }
+      { label: 'End Exam', click: () => this.openConfirmEE() }
     ]
     let menu = remote.Menu.buildFromTemplate(template)
     menu.popup({ window: mainWin })
@@ -246,14 +251,14 @@ export default class App extends Component {
   }
 
   render() {
-    const { loading, mode, mainMode, promptLR, confirmDE, confirmSE } = this.state
+    const { loading, mode, mainMode, promptLR, confirmDE, confirmSE, confirmEE } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
     const { report } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
       return [
         <MainNav
-          key="main"
+          key="main-screen"
           setMainMode={this.setMainMode}
           loadLocalExam={this.loadLocalExam}
           openPromptLR={this.openPromptLR}
@@ -281,8 +286,8 @@ export default class App extends Component {
           open={confirmDE}
           title="Delete Exam"
           message="Delete Exam"
-          detail="Do you want to permenantly delete this exam?"
-          icon={<DeleteIcon fontSize="inherit" />}
+          detail="Do you want to permanently delete this exam?"
+          icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmDE}
           onOkay={this.deleteExam}
         />
@@ -302,15 +307,16 @@ export default class App extends Component {
           title="Start Exam"
           message="Start Exam"
           detail="Do you want to begin taking this exam?"
-          icon={<StartExamIcon fontSize="inherit" className="start-exam-icon" />}
+          icon={<StartExamIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmSE}
           onOkay={this.startExam}
         />
       ]
     } else if (mode === 2) {
-      return (
-        <ExamNav title={exam.code}>
+      return [
+        <ExamNav key="exam-screen" title={exam.code}>
           <ExamScreen
+            expRef={this.explanation}
             exam={exam}
             question={question}
             time={time}
@@ -322,8 +328,18 @@ export default class App extends Component {
             viewExplanation={this.viewExplanation}
             openTestMenu={this.openTestMenu}
           />
-        </ExamNav>
-      )
+        </ExamNav>,
+        <Confirm
+          key="exit-exam"
+          open={confirmEE}
+          title="Exit Exam"
+          message="Exit Exam"
+          detail="Do you want to permanently exit current exam?"
+          icon={<ExitExamIcon fontSize="inherit" className="confirm-icon" />}
+          onClose={this.closeConfirmEE}
+          onOkay={this.exitTest}
+        />
+      ]
     } else if (mode === 3) {
       return (
         <ReviewNav title={exam.title} code={exam.code}>

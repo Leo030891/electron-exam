@@ -5,7 +5,7 @@ function Question({ question }) {
   return (
     <div>
       {question.map((q, j) => {
-        if (q.type === 0) return <img key={`img-${j}`} src={q.src} />
+        if (q.type === 0) return <img key={`img-${j}`} src={q.text} />
         else if (q.type === 1)
           return (
             <Typography key={`text-${j}`} variant="subtitle1">

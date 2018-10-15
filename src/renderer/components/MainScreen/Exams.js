@@ -11,7 +11,8 @@ import { getFile } from '../../utils/fileHelpers'
 
 const styles = theme => ({
   panelRoot: {
-    marginTop: 0
+    marginTop: 0,
+    borderRadius: 0
   },
   summaryRoot: {
     backgroundColor: theme.palette.grey[300],
@@ -21,9 +22,9 @@ const styles = theme => ({
 
 function Exams({ exams, filepaths, fileData, onSummaryClick, classes }) {
   return (
-    <div>
+    <div className="exams">
       <Typography variant="h4">Exam Files</Typography>
-      <ExpansionPanel elevation={1} defaultExpanded classes={{ root: classes.panelRoot }}>
+      <ExpansionPanel square elevation={1} defaultExpanded classes={{ root: classes.panelRoot }}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           classes={{ root: classes.summaryRoot, expanded: classes.summaryExpanded }}

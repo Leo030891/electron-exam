@@ -1,4 +1,6 @@
 import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import classNames from 'classnames'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import ForwardIcon from '@material-ui/icons/ChevronRightSharp'
@@ -10,8 +12,15 @@ import MenuIcon from '@material-ui/icons/MenuSharp'
 import CheckIcon from '@material-ui/icons/DoneOutlineSharp'
 import { getTimeHHMMSS } from '../../utils/dateHelpers'
 
+const styles = theme => ({
+  explaining: {
+    backgroundColor: '#999999',
+    color: '#FAFAFA'
+  }
+})
+
 function BottomBar(props) {
-  const { time, openTestMenu, viewExplanation } = props
+  const { time, explanation, openTestMenu, viewExplanation, classes } = props
   const { onFirstClick, onBackClick, onForwardClick, onLastClick } = props
   return (
     <div className="bottom-bar">
@@ -34,7 +43,10 @@ function BottomBar(props) {
         </IconButton>
       </div>
       <div className="menu-icon">
-        <IconButton onClick={viewExplanation}>
+        <IconButton
+          onClick={viewExplanation}
+          classes={{ root: classNames({ [`${classes.explaining}`]: explanation }) }}
+        >
           <CheckIcon />
         </IconButton>
         <IconButton onClick={openTestMenu}>
@@ -45,4 +57,4 @@ function BottomBar(props) {
   )
 }
 
-export default BottomBar
+export default withStyles(styles)(BottomBar)

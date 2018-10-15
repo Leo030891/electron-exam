@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import AddLocalIcon from '@material-ui/icons/PlaylistAddSharp'
-import AddRemoteIcon from '@material-ui/icons/CloudDownloadSharp'
+import { AddRemoteIcon } from '../Icons'
 
 const styles = theme => ({})
 

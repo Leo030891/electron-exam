@@ -7,7 +7,7 @@
   "cover": [
     {
       "type": 0,
-      "src": "https://www.oracle.com/webfolder/s/brand/assets/i/specimens/identity/logo/primary-sig.gif"
+      "text": "https://www.oracle.com/webfolder/s/brand/assets/i/specimens/identity/logo/primary-sig.gif"
     },
     {
       "type": 1,
@@ -53,7 +53,7 @@
         },
         {
           "type": 0,
-          "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2e.PNG"
+          "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2e.PNG"
         },
         {
           "type": 1,
@@ -65,7 +65,7 @@
         },
         {
           "type": 0,
-          "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2a.PNG"
+          "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2a.PNG"
         }
       ],
       "choices": [
@@ -98,7 +98,7 @@
         },
         {
           "type": 0,
-          "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/3a.PNG"
+          "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/3a.PNG"
         }
       ],
       "choices": [
@@ -139,7 +139,7 @@
         },
         {
           "type": 0,
-          "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/4a.PNG"
+          "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/4a.PNG"
         }
       ],
       "choices": [
@@ -176,7 +176,7 @@
         },
         {
           "type": 0,
-          "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/5e.PNG"
+          "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/5e.PNG"
         },
         {
           "type": 1,
@@ -213,7 +213,7 @@
         },
         {
           "type": 0,
-          "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e1.PNG"
+          "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e1.PNG"
         },
         {
           "type": 1,
@@ -221,7 +221,7 @@
         },
         {
           "type": 0,
-          "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e2.PNG"
+          "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e2.PNG"
         },
         {
           "type": 1,

@@ -6,10 +6,10 @@ import isEqual from 'lodash/isEqual'
 
 const styles = theme => ({})
 
-function Explanation({ answers, correctAnswers, explanation, classes }) {
+function Explanation({ expRef, answers, correctAnswers, explanation, classes }) {
   const status = isEqual(answers, correctAnswers)
   return (
-    <div className="explanation">
+    <div ref={expRef} className="explanation">
       <Typography variant="subtitle1">
         Your answer is{' '}
         <span style={{ color: status ? 'green' : 'red' }}>{status ? 'CORRECT' : 'INCORRECT'}</span>

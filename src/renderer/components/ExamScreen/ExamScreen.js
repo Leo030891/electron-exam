@@ -11,7 +11,7 @@ import BottomBar from './BottomBar'
 const styles = theme => ({})
 
 function ExamScreen(props) {
-  const { exam, question, time, answers, explanation, classes } = props
+  const { exam, question, time, answers, explanation, expRef, classes } = props
   const { setQuestion, onAnswerCheck, onAnswerMultiple, viewExplanation, openTestMenu } = props
   return (
     <div className="ExamScreen">
@@ -58,6 +58,7 @@ function ExamScreen(props) {
                       unmountOnExit
                     >
                       <Explanation
+                        expRef={expRef}
                         answers={answers[i]}
                         correctAnswers={t.answer}
                         explanation={t.explanation}
@@ -71,6 +72,7 @@ function ExamScreen(props) {
       </div>
       <BottomBar
         time={time}
+        explanation={explanation}
         onFirstClick={() => setQuestion(0)}
         onBackClick={() => setQuestion(question - 1)}
         onForwardClick={() => setQuestion(question + 1)}

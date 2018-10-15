@@ -7,7 +7,7 @@
   "cover": [
     {
       "type": 0,
-      "src": "https://www.oracle.com/webfolder/s/brand/assets/i/specimens/identity/logo/primary-sig.gif"
+      "text": "https://www.oracle.com/webfolder/s/brand/assets/i/specimens/identity/logo/primary-sig.gif"
     },
     { "type": 1, "text": "Oracle 1z0-061 Database Fundamentals" }
   ],
@@ -42,13 +42,13 @@
           "type": 1,
           "text": "View the Exhibit and examine the description of SALES and PROMOTIONS tables."
         },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2e.PNG" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2e.PNG" },
         {
           "type": 1,
           "text": "You want to delete rows from the sales table, where the PROMO_NAME column in the promotions table has either blowout sale or everyday low prices as values."
         },
         { "type": 1, "text": "Which three delete statements are valid?" },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2a.PNG" }
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/2a.PNG" }
       ],
       "choices": [
         { "label": "A", "text": "Option A" },
@@ -66,7 +66,7 @@
           "type": 1,
           "text": "Which three SQL statements would display the value 1890.55 as $1,890.55?"
         },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/3a.PNG" }
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/3a.PNG" }
       ],
       "choices": [
         { "label": "A", "text": "Option A" },
@@ -86,7 +86,7 @@
           "text": "You want to display 5 percent of the employees with the highest salaries in the EMPLOYEES table."
         },
         { "type": 1, "text": "Which query will generate the required result?" },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/4a.PNG" }
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/4a.PNG" }
       ],
       "choices": [
         { "label": "A", "text": "Option A" },
@@ -105,7 +105,7 @@
           "text": "In the customers table, the CUST_CITY column contains the value 'Paris' for the CUST_FIRST_NAME 'Abigail'."
         },
         { "type": 1, "text": "Evaluate the following query:" },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/5e.PNG" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/5e.PNG" },
         { "type": 1, "text": "What would be the outcome?" }
       ],
       "choices": [
@@ -124,9 +124,9 @@
           "type": 1,
           "text": "View the Exhibit and evaluate the structure and data in the CUST_STATUS table."
         },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e1.PNG" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e1.PNG" },
         { "type": 1, "text": "You issue the following SQL statement:" },
-        { "type": 0, "src": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e2.PNG" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/6e2.PNG" },
         { "type": 1, "text": "Which statement is true regarding the execution of the above query?" }
       ],
       "choices": [
@@ -148,6 +148,63 @@
         }
       ],
       "answer": [false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "Which normal form is a table in if it has no multi-valued attributes and no partial dependencies?"
+        }
+      ],
+      "choices": [
+        { "label": "A", "text": "First Normal Form" },
+        { "label": "B", "text": "Second Normal Form" },
+        { "label": "C", "text": "Third Normal Form" },
+        { "label": "D", "text": "Fourth Normal Form" }
+      ],
+      "answer": [false, true, false, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "Examine the types and examples of relationships that follow:" },
+        { "type": 1, "text": "1. One-to-One    a) Teacher to Student" },
+        { "type": 1, "text": "2. One-to-Many   b) Employess to Manager" },
+        { "type": 1, "text": "3. Many-to-One   c) Person to SSN" },
+        { "type": 1, "text": "4. Many-to-Many  d) Customers to Products" },
+        { "type": 1, "text": "Which option indicates the correctly matched relationships?" }
+      ],
+      "choices": [
+        { "label": "A", "text": "1-a, 2-b, 3-c, 4-d" },
+        { "label": "B", "text": "1-c, 2-d, 3-a, 4-b" },
+        { "label": "C", "text": "1-c, 2-a, 3-b, 4-d" },
+        { "label": "D", "text": "1-d, 2-b, 3-a, 4-c" }
+      ],
+      "answer": [false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "View the Exhibit and examine the structure of the customers table." },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/9a.PNG" },
+        {
+          "type": 1,
+          "text": "Using the customers table, you need to generate a report that shows an increase in the credit limit by 15% for all customers. Customers whose credit limit has not been entered should have the message 'Not Available' displayed."
+        },
+        { "type": 1, "text": "Which SQL statement would produce the required result?" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/9b.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
+      ],
+      "answer": [false, false, false, true],
       "explanation": []
     }
   ]

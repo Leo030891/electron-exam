@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/schema.json",
+  "title": "Exam Schema",
+  "description": "An Exam for Electron Exam Simulator",
+  "type": "object",
+  "required": ["title", "code", "group", "time", "pass", "cover", "test"],
+  "properties": {
+    "title": {
+      "$id": "#/properties/title",
+      "type": "string",
+      "title": "Title Schema",
+      "description": "The title of the exam",
+      "default": "Generic Exam",
+      "examples": ["CompTIA A+ Certification", "Oracle Database Fundamentals"]
+    },
+    "code": {
+      "$id": "#/properties/code",
+      "type": "string",
+      "title": "Code Schema",
+      "description": "The vendor code for the exam",
+      "default": "",
+      "examples": ["1z0-061", "220-901"]
+    },
+    "group": {
+      "$id": "#/properties/group",
+      "type": "string",
+      "title": "The Group Schema",
+      "default": "Home",
+      "examples": ["My Exams", "Oracle Exams"]
+    },
+    "time": {
+      "$id": "#/properties/time",
+      "type": "integer",
+      "title": "Time Schema",
+      "description": "The time limit for exam",
+      "default": 0,
+      "examples": [60, 120]
+    },
+    "pass": {
+      "$id": "#/properties/pass",
+      "type": "integer",
+      "title": "Pass Schema",
+      "description": "The minimum passing score percentage",
+      "default": 0,
+      "examples": [65, 80]
+    }
+  }
+}

@@ -44,7 +44,7 @@ class CoverScreen extends Component {
         <div className="cover-content">
           {cover.map((c, i) => {
             if (c.type === 0) {
-              return <img key={i} src={c.src} />
+              return <img key={i} src={c.text} />
             } else if (c.type === 1) {
               return (
                 <Typography key={i} variant="subtitle1">
