@@ -23,10 +23,12 @@ function Confirm({ open, title, message, detail, icon, onClose, onOkay, classes 
         </Typography>
       </DialogTitle>
       <DialogContent>
-        <div className="confirm-de-content">
+        <div className="confirm-content">
           {icon}
           <div>
-            <Typography variant="h6">{message}</Typography>
+            <Typography variant="h6" className="message">
+              {message}
+            </Typography>
             <Typography variant="caption">{detail}</Typography>
           </div>
         </div>

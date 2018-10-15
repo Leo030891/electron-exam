@@ -2,6 +2,8 @@
 
 ### Test Format
 
+- `.json`
+
 **Exam**
 
 ```

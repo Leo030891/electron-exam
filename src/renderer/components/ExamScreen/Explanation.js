@@ -17,7 +17,9 @@ function Explanation({ answers, correctAnswers, explanation, classes }) {
       <Typography variant="subtitle1">
         The correct answer is <strong>{decodeCorrect(correctAnswers)}</strong>
       </Typography>
-      <Typography variant="subtitle1">Explanation: </Typography>
+      <Typography variant="subtitle1">
+        <strong>Explanation: </strong>
+      </Typography>
       <Typography variant="subtitle1">{explanation}</Typography>
     </div>
   )

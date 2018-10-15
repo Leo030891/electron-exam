@@ -9,6 +9,7 @@ import ReviewNav from './components/ReviewNav/ReviewNav'
 import ReviewScreen from './components/ReviewScreen/ReviewScreen'
 import Prompt from './components/App/Prompt'
 import Confirm from './components/App/Confirm'
+import Loading from './components/App/Loading'
 import DeleteIcon from '@material-ui/icons/DeleteSharp'
 import StartExamIcon from '@material-ui/icons/PowerSettingsNewSharp'
 import { readDirectory, getFile } from './utils/fileHelpers'
@@ -187,7 +188,7 @@ export default class App extends Component {
       response => {
         if (response === 1) return
         clearInterval(this.timer)
-        const { exam, answers } = this.state
+        const { exam, answers, time } = this.state
         let correct = []
         let incorrect = []
         let incomplete = []
@@ -202,7 +203,10 @@ export default class App extends Component {
           }
         })
         let score = Math.round((correct.length / exam.test.length) * 100)
-        let report = { score, correct, incorrect, incomplete }
+        let status = score >= exam.pass
+        let date = new Date()
+        let elapsed = exam.time * 60 - time
+        let report = { status, score, correct, incorrect, incomplete, date, elapsed }
         this.setState({ mode: 3, report })
       }
     )
@@ -245,7 +249,8 @@ export default class App extends Component {
     const { loading, mode, mainMode, promptLR, confirmDE, confirmSE } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
     const { report } = this.state
-    if (mode === 0) {
+    if (loading) return <Loading />
+    else if (mode === 0) {
       return [
         <MainNav
           key="main"
@@ -297,14 +302,14 @@ export default class App extends Component {
           title="Start Exam"
           message="Start Exam"
           detail="Do you want to begin taking this exam?"
-          icon={<StartExamIcon fontSize="inherit" />}
+          icon={<StartExamIcon fontSize="inherit" className="start-exam-icon" />}
           onClose={this.closeConfirmSE}
           onOkay={this.startExam}
         />
       ]
     } else if (mode === 2) {
       return (
-        <ExamNav>
+        <ExamNav title={exam.code}>
           <ExamScreen
             exam={exam}
             question={question}
@@ -321,7 +326,7 @@ export default class App extends Component {
       )
     } else if (mode === 3) {
       return (
-        <ReviewNav>
+        <ReviewNav title={exam.title} code={exam.code}>
           <ReviewScreen exam={exam} report={report} />
         </ReviewNav>
       )

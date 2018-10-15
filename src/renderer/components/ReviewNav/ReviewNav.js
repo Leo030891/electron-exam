@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import screenDimens from 'common/screenDimens'
+import Typography from '@material-ui/core/Typography'
 
 const [screenWidth, screenHeight] = screenDimens()
 
@@ -101,7 +102,7 @@ class ReviewNav extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { title, code, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -117,7 +118,9 @@ class ReviewNav extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <p>Review Nav</p>
+            <Typography variant="subtitle1">
+              {title} {code}
+            </Typography>
           </Toolbar>
         </AppBar>
         <Drawer

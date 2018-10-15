@@ -51,11 +51,18 @@ function ExamScreen(props) {
                     )}
                   </div>
                   {explanation && (
-                    <Explanation
-                      answers={answers[i]}
-                      correctAnswers={t.answer}
-                      explanation={t.explanation}
-                    />
+                    <Slide
+                      in={explanation}
+                      direction="up"
+                      timeout={{ enter: 500, exit: 200 }}
+                      unmountOnExit
+                    >
+                      <Explanation
+                        answers={answers[i]}
+                        correctAnswers={t.answer}
+                        explanation={t.explanation}
+                      />
+                    </Slide>
                   )}
                 </div>
               </Slide>

@@ -52,6 +52,14 @@ export default createMuiTheme({
         }
       }
     },
+    MuiIconButton: {
+      root: {
+        borderRadius: 0,
+        '&:hover': {
+          backgroundColor: 'none'
+        }
+      }
+    },
     MuiDialog: {
       paper: {
         width: '50%',

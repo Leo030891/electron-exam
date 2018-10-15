@@ -2,9 +2,8 @@ import React from 'react'
 import Slide from '@material-ui/core/Slide'
 import Exams from './Exams'
 
-function MainScreen({ loading, mainMode, exams, fileData, filepaths, onSummaryClick }) {
-  if (loading) return <h3>Loading...</h3>
-  else if (mainMode === 0) {
+function MainScreen({ mainMode, exams, fileData, filepaths, onSummaryClick }) {
+  if (mainMode === 0) {
     return (
       <Slide key="exams" in={mainMode === 0} direction="left">
         <Exams

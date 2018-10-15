@@ -8,6 +8,7 @@ import FirstIcon from '@material-ui/icons/FirstPageSharp'
 import TimerIcon from '@material-ui/icons/TimerSharp'
 import MenuIcon from '@material-ui/icons/MenuSharp'
 import CheckIcon from '@material-ui/icons/DoneOutlineSharp'
+import { getTimeHHMMSS } from '../../utils/dateHelpers'
 
 function BottomBar(props) {
   const { time, openTestMenu, viewExplanation } = props
@@ -16,9 +17,7 @@ function BottomBar(props) {
     <div className="bottom-bar">
       <div className="timer">
         <TimerIcon className="clock-icon" />
-        <Typography variant="subtitle1">
-          {new Date(time * 1000).toISOString().substr(11, 8)}
-        </Typography>
+        <Typography variant="subtitle1">{getTimeHHMMSS(time)}</Typography>
       </div>
       <div>
         <IconButton onClick={onFirstClick}>

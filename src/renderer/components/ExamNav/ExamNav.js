@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ExamMenuLeft from './ExamMenuLeft'
@@ -102,7 +103,7 @@ class ExamNav extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { title, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -118,7 +119,7 @@ class ExamNav extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <p>Exam Nav</p>
+            <Typography variant="h6">{title}</Typography>
           </Toolbar>
         </AppBar>
         <Drawer
