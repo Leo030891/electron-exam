@@ -27,7 +27,7 @@ function Exams({ exams, filepaths, fileData, onSummaryClick, classes }) {
       <ExpansionPanel square elevation={1} defaultExpanded classes={{ root: classes.panelRoot }}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
-          classes={{ root: classes.summaryRoot, expanded: classes.summaryExpanded }}
+          classes={{ root: classes.summaryRoot }}
         >
           <HomeIcon />
         </ExpansionPanelSummary>

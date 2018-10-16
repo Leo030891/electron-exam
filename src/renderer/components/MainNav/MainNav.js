@@ -84,6 +84,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
+    height: '90vh',
     backgroundColor: theme.palette.common.white
     //padding: theme.spacing.unit * 3
   }
