@@ -14,6 +14,6 @@ export function readDirectory(dir, filenames) {
   return Promise.all(arr.map(el => Promise.all(el)))
 }
 
-export function getFile(filepath) {
+export function getFilename(filepath) {
   return filepath.split('\\').pop()
 }

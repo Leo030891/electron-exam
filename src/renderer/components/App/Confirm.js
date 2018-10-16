@@ -14,7 +14,7 @@ const styles = theme => ({
   }
 })
 
-function Confirm({ open, title, message, detail, icon, onClose, onOkay, classes }) {
+function Confirm({ alert, open, title, message, detail, icon, onClose, onOkay, classes }) {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle disableTypography>
@@ -35,7 +35,7 @@ function Confirm({ open, title, message, detail, icon, onClose, onOkay, classes 
       </DialogContent>
       <DialogActions>
         <Button onClick={onOkay}>Ok</Button>
-        <Button onClick={onClose}>Cancel</Button>
+        {!alert && <Button onClick={onClose}>Cancel</Button>}
       </DialogActions>
     </Dialog>
   )

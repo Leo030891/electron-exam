@@ -2,7 +2,7 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import TopBar from './TopBar'
 import SummaryCard from './SummaryCard'
-import ScoreComp from './ScoreComp'
+import ScoreComp from './ScoreProgress'
 
 function ReviewScreen({ exam, report }) {
   const { status, score, correct, incorrect, incomplete, date, elapsed } = report

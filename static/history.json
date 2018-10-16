@@ -1,0 +1,26 @@
+[
+  {
+    "code": "1z0-061",
+    "title": "Oracle Database Fundamentals",
+    "filename": "C:\\Users\\Benjamin\\Desktop\\project\\electron-exam\\static\\exams\\oracle-1z0-061.json",
+    "status": true,
+    "score": 73,
+    "correct": [0, 1, 2, 3, 4, 5, 6, 7],
+    "incorrect": [8, 9, 10],
+    "incomplete": [],
+    "date": "2018-10-16T12:58:22.716Z",
+    "elapsed": 45
+  },
+  {
+    "code": "220-901",
+    "title": "CompTIA A+",
+    "filename": "C:\\Users\\Benjamin\\Desktop\\project\\electron-exam\\static\\exams\\oracle-1z0-061.json",
+    "status": true,
+    "score": 73,
+    "correct": [0, 1, 2, 3, 4, 5, 6, 7],
+    "incorrect": [8, 9, 10],
+    "incomplete": [],
+    "date": "2018-10-16T12:58:22.716Z",
+    "elapsed": 45
+  }
+]

@@ -1,34 +1,34 @@
-.exams {
+.panels {
   padding: 5px;
 }
 
-.exam-details {
+.panel-details {
   display: flex;
   flex-direction: column;
 }
 
-.exam-summary {
+.panel-summary {
   display: flex;
   align-items: center;
   width: 75vw;
   margin-bottom: 10px;
   padding: 2px;
-  background-color: #f2f2f2;
+  background-color: rgb(255, 254, 219);
   border: 1px solid;
   font-size: 48px;
   cursor: pointer;
   &:hover {
-    background-color: darken($color: #f2f2f2, $amount: 10);
+    background-color: darken($color: rgb(255, 254, 219), $amount: 10);
   }
 
-  .exam-icon {
+  .panel-icon {
     margin-right: 20px;
   }
 
-  .exam-info {
+  .panel-info {
     display: flex;
 
-    .exam-exam {
+    .panel-exam {
       margin-right: 15px;
     }
   }

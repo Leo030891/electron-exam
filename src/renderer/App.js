@@ -10,10 +10,12 @@ import ReviewScreen from './components/ReviewScreen/ReviewScreen'
 import Prompt from './components/App/Prompt'
 import Confirm from './components/App/Confirm'
 import Loading from './components/App/Loading'
+import Popup from './components/App/Popup'
 import DeleteIcon from '@material-ui/icons/DeleteSharp'
 import StartExamIcon from '@material-ui/icons/PowerSettingsNewSharp'
 import ExitExamIcon from '@material-ui/icons/StopSharp'
-import { readDirectory, getFile } from './utils/fileHelpers'
+import TimerIcon from '@material-ui/icons/TimerSharp'
+import { readDirectory, getFilename } from './utils/fileHelpers'
 import isEqual from 'lodash/isEqual'
 import fs from 'fs'
 import path from 'path'
@@ -35,6 +37,7 @@ export default class App extends Component {
       mode: 0,
       mainMode: 0,
       exams: null,
+      history: null,
       exam: null,
       question: 0,
       answers: null,
@@ -47,7 +50,10 @@ export default class App extends Component {
       confirmDE: false,
       confirmSE: false,
       confirmEE: false,
-      indexExam: null
+      confirmRE: false,
+      indexExam: null,
+      anchorEl1: null,
+      anchorEl2: null
     }
 
     this.explanation = React.createRef()
@@ -55,6 +61,7 @@ export default class App extends Component {
 
   componentDidMount() {
     this.loadExams()
+    this.loadHistory()
   }
 
   loadExams = () => {
@@ -75,6 +82,16 @@ export default class App extends Component {
       .catch(console.error)
   }
 
+  loadHistory = () => {
+    let filepath = path.resolve(__static, 'history.json')
+    readFile(filepath)
+      .then(data => {
+        let history = data.length ? JSON.parse(data) : []
+        this.setState({ history })
+      })
+      .catch(console.error)
+  }
+
   loadLocalExam = () => {
     remote.dialog.showOpenDialog(
       mainWin,
@@ -91,7 +108,7 @@ export default class App extends Component {
           // already exists overwrite/error message
           return
         } else {
-          let file = getFile(filepath[0])
+          let file = getFilename(filepath[0])
           readFile(filepath[0])
             .then(data => writeFile(path.resolve(__static, 'exams', file), data))
             .then(this.loadExams)
@@ -119,7 +136,7 @@ export default class App extends Component {
     request.end()
   }
 
-  openConfirmDE = i => this.setState({ confirmDE: true, indexExam: i })
+  openConfirmDE = () => this.setState({ confirmDE: true, anchorEl1: null })
 
   closeConfirmDE = () => this.setState({ confirmDE: false })
 
@@ -137,14 +154,11 @@ export default class App extends Component {
 
   setMainMode = mainMode => this.setState({ mainMode })
 
-  onSummaryClick = i => {
-    let template = [
-      { label: 'Open Exam', click: () => this.enterTestMode(i) },
-      { label: 'Delete Exam', click: () => this.openConfirmDE(i) }
-    ]
-    let menu = remote.Menu.buildFromTemplate(template)
-    menu.popup({ window: mainWin })
+  onSummaryClick = (e, i) => {
+    this.setState({ anchorEl1: { left: e.clientX, top: e.clientY }, indexExam: i })
   }
+
+  closeanchorEl1 = () => this.setState({ anchorEl1: null })
 
   initTimer = () => {
     this.timer = setInterval(() => {
@@ -153,24 +167,25 @@ export default class App extends Component {
   }
 
   pauseTimer = () => {
+    this.setState({ confirmRE: true, anchorEl2: null })
     clearInterval(this.timer)
-    remote.dialog.showMessageBox(
-      mainWin,
-      { title: 'Exam Paused', message: 'Click OK to unpause exam' },
-      () => this.initTimer()
-    )
+  }
+
+  closeConfirmRE = () => {
+    this.initTimer()
+    this.setState({ confirmRE: false })
   }
 
   openConfirmSE = () => this.setState({ confirmSE: true })
 
   closeConfirmSE = () => this.setState({ confirmSE: false })
 
-  enterTestMode = i => {
+  enterTestMode = () => {
     let answers = []
-    let exam = this.state.exams[i]
+    let exam = this.state.exams[this.state.indexExam]
     let time = exam.time * 60
     exam.test.forEach(t => answers.push(Array(t.choices.length).fill(false)))
-    this.setState({ mode: 1, exam, answers, time })
+    this.setState({ mode: 1, exam, answers, time, anchorEl1: null })
   }
 
   startExam = () => {
@@ -179,13 +194,13 @@ export default class App extends Component {
     this.initTimer()
   }
 
-  openConfirmEE = () => this.setState({ confirmEE: true })
+  openConfirmEE = () => this.setState({ confirmEE: true, anchorEl2: null })
 
   closeConfirmEE = () => this.setState({ confirmEE: false })
 
   exitTest = () => {
     clearInterval(this.timer)
-    const { exam, answers, time } = this.state
+    const { exam, answers, time, history, filepaths, indexExam } = this.state
     let correct = []
     let incorrect = []
     let incomplete = []
@@ -203,8 +218,24 @@ export default class App extends Component {
     let status = score >= exam.pass
     let date = new Date()
     let elapsed = exam.time * 60 - time
-    let report = { status, score, correct, incorrect, incomplete, date, elapsed }
-    this.setState({ mode: 3, report, confirmEE: false })
+    let filename = filepaths[indexExam]
+    let report = {
+      filename,
+      title: exam.title,
+      code: exam.code,
+      status,
+      score,
+      correct,
+      incorrect,
+      incomplete,
+      date,
+      elapsed
+    }
+    history.push(report)
+    this.setState({ mode: 3, report, confirmEE: false, history, indexExam: null }, () => {
+      let filepath = path.resolve(__static, 'history.json')
+      writeFile(filepath, JSON.stringify(history)).catch(console.error)
+    })
   }
 
   setQuestion = question => {
@@ -226,13 +257,8 @@ export default class App extends Component {
     })
   }
 
-  openTestMenu = () => {
-    let template = [
-      { label: 'Pause Exam', click: () => this.pauseTimer() },
-      { label: 'End Exam', click: () => this.openConfirmEE() }
-    ]
-    let menu = remote.Menu.buildFromTemplate(template)
-    menu.popup({ window: mainWin })
+  openTestMenu = e => {
+    this.setState({ anchorEl2: { left: e.clientX, top: e.clientY } })
   }
 
   onAnswerCheck = (checked, x, y) => {
@@ -251,11 +277,16 @@ export default class App extends Component {
   }
 
   render() {
-    const { loading, mode, mainMode, promptLR, confirmDE, confirmSE, confirmEE } = this.state
+    const { loading, mode, mainMode } = this.state
+    const { promptLR, confirmDE, confirmSE, confirmEE, confirmRE } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
-    const { report } = this.state
+    const { report, history, anchorEl1, anchorEl2 } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
+      const menuItems1 = [
+        { text: 'Start Exam', click: this.enterTestMode },
+        { text: 'Delete Exam', click: this.openConfirmDE }
+      ]
       return [
         <MainNav
           key="main-screen"
@@ -264,11 +295,11 @@ export default class App extends Component {
           openPromptLR={this.openPromptLR}
         >
           <MainScreen
-            loading={loading}
             mainMode={mainMode}
             exams={exams}
             fileData={fileData}
             filepaths={filepaths}
+            history={history}
             onSummaryClick={this.onSummaryClick}
           />
         </MainNav>,
@@ -290,6 +321,13 @@ export default class App extends Component {
           icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmDE}
           onOkay={this.deleteExam}
+        />,
+        <Popup
+          key="popup-1"
+          anchorEl={anchorEl1}
+          anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+          menuItems={menuItems1}
+          onClose={this.closeanchorEl1}
         />
       ]
     } else if (mode === 1) {
@@ -313,6 +351,10 @@ export default class App extends Component {
         />
       ]
     } else if (mode === 2) {
+      const menuItems2 = [
+        { text: 'Pause Exam', click: this.pauseTimer },
+        { text: 'End Exam', click: this.openConfirmEE }
+      ]
       return [
         <ExamNav key="exam-screen" title={exam.code}>
           <ExamScreen
@@ -330,6 +372,16 @@ export default class App extends Component {
           />
         </ExamNav>,
         <Confirm
+          key="pause-exam"
+          alert={true}
+          open={confirmRE}
+          title="Exam Paused"
+          message="Exam Paused"
+          detail="Click OK to start timer and unpause exam."
+          icon={<TimerIcon fontSize="inherit" className="confirm-icon" />}
+          onOkay={this.closeConfirmRE}
+        />,
+        <Confirm
           key="exit-exam"
           open={confirmEE}
           title="Exit Exam"
@@ -338,6 +390,13 @@ export default class App extends Component {
           icon={<ExitExamIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmEE}
           onOkay={this.exitTest}
+        />,
+        <Popup
+          key="popup-2"
+          anchorEl={anchorEl2}
+          anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+          menuItems={menuItems2}
+          onClose={this.closeanchorEl2}
         />
       ]
     } else if (mode === 3) {
