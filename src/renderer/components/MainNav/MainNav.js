@@ -10,9 +10,6 @@ import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import MainMenuTop from './MainMenuTop'
 import MainMenuLeft from './MainMenuLeft'
-import screenDimens from 'common/screenDimens'
-
-const [screenWidth, screenHeight] = screenDimens()
 
 const drawerWidth = 240
 
@@ -104,7 +101,7 @@ class MainNav extends Component {
   }
 
   render() {
-    const { setMainMode, loadLocalExam, openPromptLR, classes } = this.props
+    const { mainMode, setMainMode, loadLocalExam, openPromptLR, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -120,7 +117,7 @@ class MainNav extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <MainMenuTop setMainMode={setMainMode} />
+            <MainMenuTop mainMode={mainMode} setMainMode={setMainMode} />
           </Toolbar>
         </AppBar>
         <Drawer

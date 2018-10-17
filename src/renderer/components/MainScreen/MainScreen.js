@@ -3,7 +3,9 @@ import Slide from '@material-ui/core/Slide'
 import Exams from './Exams'
 import History from './History'
 
-function MainScreen({ mainMode, exams, fileData, filepaths, history, onSummaryClick }) {
+function MainScreen(props) {
+  const { mainMode, exams, fileData, filepaths, history } = props
+  const { onSummaryClick, onHistoryClick } = props
   if (mainMode === 0) {
     return (
       <Slide key="exams" in={mainMode === 0} direction="left">
@@ -18,7 +20,7 @@ function MainScreen({ mainMode, exams, fileData, filepaths, history, onSummaryCl
   } else if (mainMode === 1) {
     return (
       <Slide key="history" in={mainMode === 1} direction="left">
-        <History history={history} />
+        <History history={history} onHistoryClick={onHistoryClick} />
       </Slide>
     )
   } else if (mainMode === 2) {

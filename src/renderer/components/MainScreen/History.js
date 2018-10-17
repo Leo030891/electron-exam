@@ -7,7 +7,9 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { HistoryIcon } from '../Icons'
 import { getFilename } from '../../utils/fileHelpers'
+import { getDateString, getTimeString, getTimeHHMMSS } from '../../utils/dateHelpers'
 import groupBy from 'lodash/groupBy'
+import isEqual from 'lodash/isEqual'
 
 const styles = theme => ({
   panelRoot: {
@@ -16,7 +18,8 @@ const styles = theme => ({
   },
   summaryRoot: {
     backgroundColor: theme.palette.grey[300],
-    minHeight: 64
+    minHeight: 64,
+    marginTop: 10
   }
 })
 
@@ -31,9 +34,20 @@ class History extends Component {
   }
 
   componentDidMount() {
+    this.groupHistory()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(prevProps.history, this.props.history)) {
+      this.groupHistory()
+    }
+  }
+
+  groupHistory = () => {
     const { history } = this.props
     let codes = []
-    history.forEach(el => {
+    history.forEach((el, i) => {
+      el.indexHist = i
       if (codes.indexOf(el.code) === -1) codes.push(el.code)
     })
     let grouped = groupBy(history, 'code')
@@ -41,7 +55,7 @@ class History extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { onHistoryClick, classes } = this.props
     const { grouped, codes } = this.state
     return (
       <div className="panels">
@@ -53,13 +67,45 @@ class History extends Component {
                 expandIcon={<ExpandMoreIcon />}
                 classes={{ root: classes.summaryRoot }}
               >
-                <Typography variant="subtitle1">{c}</Typography>
+                <Typography variant="subtitle1">{`${c}   /   ${grouped[c][0].title}`}</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <div className="panel-details">
                   {grouped[c].map((g, j) => (
-                    <div key={`${i}-${j}`} className="panel-summary">
+                    <div
+                      key={`${i}-${j}`}
+                      className="panel-summary"
+                      onClick={e => onHistoryClick(e, g.indexHist)}
+                    >
                       <HistoryIcon fontSize="inherit" className="panel-icon" />
+                      <div>
+                        <div className="panel-info">
+                          <Typography
+                            variant="subtitle1"
+                            className="panel-exam"
+                            style={{ color: g.status ? 'green' : 'red' }}
+                          >
+                            {g.status ? 'PASS' : 'FAIL'}
+                          </Typography>
+                          <Typography variant="subtitle1">{g.score}%</Typography>
+                        </div>
+                        <div className="panel-info">
+                          <Typography variant="caption" className="panel-exam">
+                            Date: {getDateString(g.date)}
+                          </Typography>
+                          <Typography variant="caption" className="panel-exam">
+                            Time: {getTimeString(g.date)}
+                          </Typography>
+                          <Typography variant="caption">
+                            Elapsed Time: {getTimeHHMMSS(g.elapsed)}
+                          </Typography>
+                        </div>
+                        <div className="panel-info">
+                          <Typography variant="caption">
+                            Filename: {getFilename(g.filename)}
+                          </Typography>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>

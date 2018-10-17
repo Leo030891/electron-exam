@@ -51,9 +51,12 @@ export default class App extends Component {
       confirmSE: false,
       confirmEE: false,
       confirmRE: false,
-      indexExam: null,
+      confirmDH: false,
       anchorEl1: null,
-      anchorEl2: null
+      anchorEl2: null,
+      anchorEl3: null,
+      indexExam: null,
+      indexHist: null
     }
 
     this.explanation = React.createRef()
@@ -158,7 +161,28 @@ export default class App extends Component {
     this.setState({ anchorEl1: { left: e.clientX, top: e.clientY }, indexExam: i })
   }
 
-  closeanchorEl1 = () => this.setState({ anchorEl1: null })
+  closeAnchorEl1 = () => this.setState({ anchorEl1: null })
+
+  onHistoryClick = (e, i) => {
+    this.setState({ anchorEl3: { left: e.clientX, top: e.clientY }, indexHist: i })
+  }
+
+  closeAnchorEl3 = () => this.setState({ anchorEl3: null })
+
+  openConfirmDH = () => this.setState({ confirmDH: true, anchorEl3: null })
+
+  closeConfirmDH = () => this.setState({ confirmDH: false })
+
+  deleteHistory = () => {
+    const { history, indexHist } = this.state
+    let newHistory = history.filter((h, i) => indexHist !== i)
+    this.setState({ history: newHistory, confirmDH: false }, () => {
+      let filepath = path.resolve(__static, 'history.json')
+      writeFile(filepath, JSON.stringify(newHistory))
+        .then(() => this.setState({ indexHist: null }))
+        .catch(console.error)
+    })
+  }
 
   initTimer = () => {
     this.timer = setInterval(() => {
@@ -278,18 +302,23 @@ export default class App extends Component {
 
   render() {
     const { loading, mode, mainMode } = this.state
-    const { promptLR, confirmDE, confirmSE, confirmEE, confirmRE } = this.state
+    const { promptLR, confirmDE, confirmSE, confirmEE, confirmRE, confirmDH } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
-    const { report, history, anchorEl1, anchorEl2 } = this.state
+    const { report, history, anchorEl1, anchorEl2, anchorEl3 } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
       const menuItems1 = [
         { text: 'Start Exam', click: this.enterTestMode },
         { text: 'Delete Exam', click: this.openConfirmDE }
       ]
+      const menuItems3 = [
+        { text: 'Review History', click: () => {} },
+        { text: 'Delete History', click: this.openConfirmDH }
+      ]
       return [
         <MainNav
           key="main-screen"
+          mainMode={mainMode}
           setMainMode={this.setMainMode}
           loadLocalExam={this.loadLocalExam}
           openPromptLR={this.openPromptLR}
@@ -301,6 +330,7 @@ export default class App extends Component {
             filepaths={filepaths}
             history={history}
             onSummaryClick={this.onSummaryClick}
+            onHistoryClick={this.onHistoryClick}
           />
         </MainNav>,
         <Prompt
@@ -322,12 +352,29 @@ export default class App extends Component {
           onClose={this.closeConfirmDE}
           onOkay={this.deleteExam}
         />,
+        <Confirm
+          key="delete-history"
+          open={confirmDH}
+          title="Delete History"
+          message="Delete History"
+          detail="Do you want to permanently delete this history?"
+          icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
+          onClose={this.closeConfirmDH}
+          onOkay={this.deleteHistory}
+        />,
         <Popup
           key="popup-1"
           anchorEl={anchorEl1}
           anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
           menuItems={menuItems1}
-          onClose={this.closeanchorEl1}
+          onClose={this.closeAnchorEl1}
+        />,
+        <Popup
+          key="popup-3"
+          anchorEl={anchorEl3}
+          anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+          menuItems={menuItems3}
+          onClose={this.closeAnchorEl3}
         />
       ]
     } else if (mode === 1) {
