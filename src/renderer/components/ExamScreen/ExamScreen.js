@@ -32,6 +32,7 @@ function ExamScreen(props) {
                   <div>
                     {t.type === 0 ? (
                       <MultipleChoice
+                        review={false}
                         choices={t.choices}
                         question={i}
                         answers={answers[i]}
@@ -41,6 +42,7 @@ function ExamScreen(props) {
                       />
                     ) : (
                       <Checkboxes
+                        review={false}
                         choices={t.choices}
                         question={i}
                         answers={answers[i]}

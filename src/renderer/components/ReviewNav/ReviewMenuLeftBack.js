@@ -3,10 +3,10 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import { HistoryIcon } from '../Icons'
+import ExitIcon from '@material-ui/icons/ArrowBackSharp'
 
-function ReviewMenuLeftBottom({ backToSummary }) {
-  const list = [{ text: 'Back to Summary', icon: <HistoryIcon />, click: backToSummary }]
+function ReviewMenuLeftBack({ exit }) {
+  const list = [{ text: 'Back to Main', icon: <ExitIcon />, click: exit }]
   return (
     <List disablePadding>
       {list.map((l, i) => (
@@ -19,4 +19,4 @@ function ReviewMenuLeftBottom({ backToSummary }) {
   )
 }
 
-export default ReviewMenuLeftBottom
+export default ReviewMenuLeftBack

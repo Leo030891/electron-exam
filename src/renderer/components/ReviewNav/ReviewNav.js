@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import Typography from '@material-ui/core/Typography'
 import ReviewMenuLeftTop from './ReviewMenuLeftTop'
+import ReviewMenuLeftBack from './ReviewMenuLeftBack'
 import ReviewMenuLeftBottom from './ReviewMenuLeftBottom'
 import ResultGrid from './ResultGrid'
 
@@ -82,6 +83,9 @@ const styles = theme => ({
     padding: '0 8px',
     ...theme.mixins.toolbar
   },
+  chevron: {
+    borderRight: `1px solid ${theme.palette.divider}`
+  },
   content: {
     flexGrow: 1,
     height: '90vh',
@@ -102,8 +106,18 @@ class ReviewNav extends Component {
     this.setState({ open: false })
   }
 
+  setReviewType = reviewType => {
+    this.props.setReviewMode(1)
+    this.props.setReviewType(reviewType)
+  }
+
+  backToSummary = () => {
+    this.props.setReviewMode(0)
+    this.props.setReviewType(null)
+  }
+
   render() {
-    const { title, code, report, total, exit, classes } = this.props
+    const { reviewMode, title, code, report, total, exit, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -131,23 +145,26 @@ class ReviewNav extends Component {
           }}
           open={this.state.open}
         >
-          <div className={classes.toolbar}>
-            <IconButton className="close-drawer" onClick={this.handleDrawerClose}>
+          <div className={classNames(classes.toolbar, classes.chevron)}>
+            <IconButton onClick={this.handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
-          <Divider />
-          <ReviewMenuLeftBottom exit={exit} />
           <Divider />
           {this.state.open && (
             <Typography variant="subtitle1" align="center">
               Review
             </Typography>
           )}
-          <ReviewMenuLeftTop total={total} report={report} />
+          <ReviewMenuLeftTop total={total} report={report} setReviewType={this.setReviewType} />
           <Divider />
-          {this.state.open && <ResultGrid total={total} report={report} />}
+          {this.state.open && (
+            <ResultGrid total={total} report={report} setReviewType={this.setReviewType} />
+          )}
           {this.state.open && <Divider />}
+          {reviewMode !== 0 && <ReviewMenuLeftBottom backToSummary={this.backToSummary} />}
+          <Divider />
+          <ReviewMenuLeftBack exit={exit} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />

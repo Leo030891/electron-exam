@@ -1,13 +1,11 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 
-function TopBar({ score, status }) {
+function TopBar({ top, bottom }) {
   return (
-    <div>
-      <Typography variant="h4">Review Exam Results</Typography>
-      <Typography variant="caption">
-        Your Score: {score}% - {status ? 'PASS' : 'FAIL'}
-      </Typography>
+    <div className="review-exam-top">
+      <Typography variant="h4">{top}</Typography>
+      <Typography variant="caption">{bottom}</Typography>
     </div>
   )
 }

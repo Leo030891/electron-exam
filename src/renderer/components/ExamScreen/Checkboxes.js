@@ -14,12 +14,19 @@ class Checkboxes extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.answers !== this.props.answers && this.props.review) {
+      this.setState({ values: this.props.answers })
+    }
+  }
+
   onChange = (e, checked) => {
     this.props.onAnswerCheck(checked, this.props.question, parseInt(e.target.value, 10))
   }
 
   render() {
     const { choices, explanation, correctAnswers } = this.props
+    const { values } = this.state
     return (
       <div className="choices">
         {choices.map((c, k) => (
@@ -27,7 +34,7 @@ class Checkboxes extends Component {
             key={`choice-${k}`}
             control={
               <Checkbox
-                checked={this.state.values[k]}
+                checked={values[k]}
                 value={k.toString()}
                 onChange={this.onChange}
                 color="default"

@@ -14,6 +14,16 @@ class MultipleChoice extends Component {
   }
 
   componentDidMount() {
+    this.setValue()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.answers !== this.props.answers && this.props.review) {
+      this.setValue()
+    }
+  }
+
+  setValue = () => {
     let { answers } = this.props
     answers.forEach((a, i) => {
       if (!!a) this.setState({ value: i.toString() })

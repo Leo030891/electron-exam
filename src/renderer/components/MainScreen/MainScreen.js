@@ -5,16 +5,11 @@ import History from './History'
 
 function MainScreen(props) {
   const { mainMode, exams, fileData, filepaths, history } = props
-  const { onSummaryClick, onHistoryClick } = props
+  const { onExamClick, onHistoryClick } = props
   if (mainMode === 0) {
     return (
       <Slide key="exams" in={mainMode === 0} direction="left">
-        <Exams
-          exams={exams}
-          fileData={fileData}
-          filepaths={filepaths}
-          onSummaryClick={onSummaryClick}
-        />
+        <Exams exams={exams} fileData={fileData} filepaths={filepaths} onExamClick={onExamClick} />
       </Slide>
     )
   } else if (mainMode === 1) {

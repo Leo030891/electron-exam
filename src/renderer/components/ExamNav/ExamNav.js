@@ -10,9 +10,6 @@ import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ExamMenuLeft from './ExamMenuLeft'
-import screenDimens from 'common/screenDimens'
-
-const [screenWidth, screenHeight] = screenDimens()
 
 const drawerWidth = 240
 

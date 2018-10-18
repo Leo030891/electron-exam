@@ -20,7 +20,7 @@ const styles = theme => ({
   }
 })
 
-function Exams({ exams, filepaths, fileData, onSummaryClick, classes }) {
+function Exams({ exams, filepaths, fileData, onExamClick, classes }) {
   return (
     <div className="panels">
       <Typography variant="h4">Exam Files</Typography>
@@ -36,7 +36,7 @@ function Exams({ exams, filepaths, fileData, onSummaryClick, classes }) {
             {exams.map((exam, i) => (
               <div
                 key={`${exam.title}-${i}`}
-                onClick={e => onSummaryClick(e, i)}
+                onClick={e => onExamClick(e, i)}
                 className="panel-summary"
               >
                 <SchoolIcon fontSize="inherit" className="panel-icon" />

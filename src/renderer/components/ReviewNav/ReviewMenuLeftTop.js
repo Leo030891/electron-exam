@@ -8,20 +8,25 @@ import AllIcon from '@material-ui/icons/ListAltSharp'
 import IncorrectIcon from '@material-ui/icons/CloseSharp'
 import { IncompleteIcon } from '../Icons'
 
-function ReviewMenuLeftTop({ total, report: { incomplete, incorrect } }) {
+function ReviewMenuLeftTop({ total, report: { incomplete, incorrect }, setReviewType }) {
   const list = [
-    { text: 'All Questions', total: `(${total})`, icon: <AllIcon />, click: () => {} },
+    {
+      text: 'All Questions',
+      total: `(${total})`,
+      icon: <AllIcon />,
+      click: () => setReviewType('all')
+    },
     {
       text: 'Incorrect Answers',
       total: `(${incorrect.length})`,
       icon: <IncorrectIcon />,
-      click: () => {}
+      click: () => setReviewType('incorrect')
     },
     {
       text: 'Incomplete',
       total: `(${incomplete.length})`,
       icon: <IncompleteIcon />,
-      click: () => {}
+      click: () => setReviewType('incomplete')
     }
   ]
   return (

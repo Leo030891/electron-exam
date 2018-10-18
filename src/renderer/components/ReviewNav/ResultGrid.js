@@ -20,19 +20,20 @@ class ResultGrid extends Component {
   }
 
   render() {
-    const { total, report } = this.props
-    const { status, score, correct, incorrect, incomplete, date, elapsed } = report
+    const { total, setReviewType } = this.props
     return (
       <div className="ResultGrid">
-        <Typography variant="subtitle1" align="center">
-          Correct: {correct.length}
-        </Typography>
+        <div className="title">
+          Correct <div className="mini-green" /> Incorrect <div className="mini-red" /> Incomplete{' '}
+          <div className="mini-grey" />
+        </div>
         <div className="grid">
           {[...Array(total)].map((x, i) => (
             <div
               key={`item-${i}`}
               className="result-item"
               style={{ backgroundColor: this.getBackgroundColor(i) }}
+              onClick={() => setReviewType(i)}
             >
               <Typography variant="overline">{i + 1}</Typography>
             </div>

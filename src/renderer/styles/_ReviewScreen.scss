@@ -2,7 +2,6 @@
   height: 90vh;
   display: flex;
   flex-direction: column;
-  padding: 5px;
 
   .summary {
     height: 70%;
@@ -30,14 +29,59 @@
   }
 }
 
+.review-exam-top {
+  display: block;
+  height: 64px;
+  padding-left: 10px;
+}
+
+.review-bottom-bar {
+  position: absolute;
+  bottom: -3px;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #f2f2f2;
+}
+
 .ResultGrid {
   width: 240px;
-  height: 50vh;
+  height: 40vh;
   overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 5px;
+
+  .title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.65rem;
+
+    .mini-green {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(215, 251, 203);
+      border: 0.25px solid;
+    }
+
+    .mini-red {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(251, 203, 203);
+      border: 0.25px solid;
+    }
+
+    .mini-grey {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(227, 227, 227);
+      border: 0.25px solid;
+    }
+  }
 
   .grid {
     width: 220px;

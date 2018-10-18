@@ -37,6 +37,7 @@ export default class App extends Component {
       mode: 0,
       mainMode: 0,
       reviewMode: 0,
+      reviewType: null,
       exams: null,
       history: null,
       exam: null,
@@ -122,10 +123,6 @@ export default class App extends Component {
     )
   }
 
-  openPromptLR = () => this.setState({ promptLR: true })
-
-  closePromptLR = () => this.setState({ promptLR: false })
-
   loadRemoteExam = str => {
     const url = new URL(str)
     const filename = url.pathname.split('/')[2] + '.json'
@@ -140,9 +137,9 @@ export default class App extends Component {
     request.end()
   }
 
-  openConfirmDE = () => this.setState({ confirmDE: true, anchorEl1: null })
+  openPromptLR = () => this.setState({ promptLR: true })
 
-  closeConfirmDE = () => this.setState({ confirmDE: false })
+  closePromptLR = () => this.setState({ promptLR: false })
 
   deleteExam = () => {
     deleteFile(this.state.filepaths[this.state.indexExam])
@@ -154,68 +151,25 @@ export default class App extends Component {
       .catch(console.error)
   }
 
+  openConfirmDE = () => this.setState({ confirmDE: true, anchorEl1: null })
+
+  closeConfirmDE = () => this.setState({ confirmDE: false })
+
   setMode = mode => this.setState({ mode })
 
   setMainMode = mainMode => this.setState({ mainMode })
 
-  onSummaryClick = (e, i) => {
+  setReviewMode = reviewMode => this.setState({ reviewMode })
+
+  setReviewType = reviewType => this.setState({ reviewType })
+
+  onExamClick = (e, i) => {
     this.setState({ anchorEl1: { left: e.clientX, top: e.clientY }, indexExam: i })
   }
-
-  closeAnchorEl1 = () => this.setState({ anchorEl1: null })
 
   onHistoryClick = (e, i) => {
     this.setState({ anchorEl3: { left: e.clientX, top: e.clientY }, indexHist: i })
   }
-
-  enterReviewMode = () => {
-    const { history, exams, filepaths, indexHist } = this.state
-    let report = history[indexHist]
-    let indexExam = filepaths.indexOf(report.filename)
-    let exam = exams[indexExam]
-    this.setState({ report, exam, mode: 3 })
-  }
-
-  exitReviewMode = () => {
-    this.setState({ mode: 0, mainMode: 0, anchorEl3: null })
-  }
-
-  closeAnchorEl3 = () => this.setState({ anchorEl3: null })
-
-  openConfirmDH = () => this.setState({ confirmDH: true, anchorEl3: null })
-
-  closeConfirmDH = () => this.setState({ confirmDH: false })
-
-  deleteHistory = () => {
-    const { history, indexHist } = this.state
-    let newHistory = history.filter((h, i) => indexHist !== i)
-    this.setState({ history: newHistory, confirmDH: false }, () => {
-      let filepath = path.resolve(__static, 'history.json')
-      writeFile(filepath, JSON.stringify(newHistory))
-        .then(() => this.setState({ indexHist: null }))
-        .catch(console.error)
-    })
-  }
-
-  initTimer = () => {
-    this.timer = setInterval(() => {
-      this.setState({ time: this.state.time - 1 })
-    }, 1000)
-  }
-
-  pauseTimer = () => {
-    this.setState({ confirmRE: true, anchorEl2: null })
-    clearInterval(this.timer)
-  }
-
-  closeConfirmRE = () => {
-    this.initTimer()
-    this.setState({ confirmRE: false })
-  }
-
-  openConfirmSE = () => this.setState({ confirmSE: true })
-
-  closeConfirmSE = () => this.setState({ confirmSE: false })
 
   enterTestMode = () => {
     let answers = []
@@ -231,49 +185,15 @@ export default class App extends Component {
     this.initTimer()
   }
 
-  openConfirmEE = () => this.setState({ confirmEE: true, anchorEl2: null })
+  initTimer = () => {
+    this.timer = setInterval(() => {
+      this.setState({ time: this.state.time - 1 })
+    }, 1000)
+  }
 
-  closeConfirmEE = () => this.setState({ confirmEE: false })
-
-  exitTest = () => {
+  pauseTimer = () => {
+    this.setState({ confirmRE: true, anchorEl2: null })
     clearInterval(this.timer)
-    const { exam, answers, time, history, filepaths, indexExam } = this.state
-    let correct = []
-    let incorrect = []
-    let incomplete = []
-    answers.forEach((a, i) => {
-      let answer = exam.test[i].answer
-      if (a.indexOf(true) === -1) {
-        incomplete.push(i)
-      } else if (isEqual(a, answer)) {
-        correct.push(i)
-      } else {
-        incorrect.push(i)
-      }
-    })
-    let score = Math.round((correct.length / exam.test.length) * 100)
-    let status = score >= exam.pass
-    let date = new Date()
-    let elapsed = exam.time * 60 - time
-    let filename = filepaths[indexExam]
-    let report = {
-      filename,
-      title: exam.title,
-      code: exam.code,
-      status,
-      score,
-      correct,
-      incorrect,
-      incomplete,
-      answers,
-      date,
-      elapsed
-    }
-    history.push(report)
-    this.setState({ mode: 3, report, confirmEE: false, history, indexExam: null }, () => {
-      let filepath = path.resolve(__static, 'history.json')
-      writeFile(filepath, JSON.stringify(history)).catch(console.error)
-    })
   }
 
   setQuestion = question => {
@@ -314,8 +234,96 @@ export default class App extends Component {
     this.setState({ answers })
   }
 
+  exitExam = () => {
+    clearInterval(this.timer)
+    const { exam, answers, time, history, filepaths, indexExam } = this.state
+    let correct = []
+    let incorrect = []
+    let incomplete = []
+    answers.forEach((a, i) => {
+      let answer = exam.test[i].answer
+      if (a.indexOf(true) === -1) {
+        incomplete.push(i)
+      } else if (isEqual(a, answer)) {
+        correct.push(i)
+      } else {
+        incorrect.push(i)
+      }
+    })
+    let score = Math.round((correct.length / exam.test.length) * 100)
+    let status = score >= exam.pass
+    let date = new Date()
+    let elapsed = exam.time * 60 - time
+    let filename = filepaths[indexExam]
+    let report = {
+      filename,
+      title: exam.title,
+      code: exam.code,
+      status,
+      score,
+      correct,
+      incorrect,
+      incomplete,
+      answers,
+      date,
+      elapsed
+    }
+    history.push(report)
+    this.setState(
+      { mode: 3, reviewMode: 0, report, confirmEE: false, history, indexExam: null },
+      () => {
+        let filepath = path.resolve(__static, 'history.json')
+        writeFile(filepath, JSON.stringify(history)).catch(console.error)
+      }
+    )
+  }
+
+  enterReviewMode = () => {
+    const { history, exams, filepaths, indexHist } = this.state
+    let report = history[indexHist]
+    let indexExam = filepaths.indexOf(report.filename)
+    let exam = exams[indexExam]
+    this.setState({ report, exam, mode: 3 })
+  }
+
+  exitReviewMode = () => {
+    this.setState({ mode: 0, mainMode: 0, anchorEl3: null })
+  }
+
+  deleteHistory = () => {
+    const { history, indexHist } = this.state
+    let newHistory = history.filter((h, i) => indexHist !== i)
+    this.setState({ history: newHistory, confirmDH: false }, () => {
+      let filepath = path.resolve(__static, 'history.json')
+      writeFile(filepath, JSON.stringify(newHistory))
+        .then(() => this.setState({ indexHist: null }))
+        .catch(console.error)
+    })
+  }
+
+  closeAnchorEl1 = () => this.setState({ anchorEl1: null })
+
+  closeAnchorEl3 = () => this.setState({ anchorEl3: null })
+
+  openConfirmDH = () => this.setState({ confirmDH: true, anchorEl3: null })
+
+  closeConfirmDH = () => this.setState({ confirmDH: false })
+
+  closeConfirmRE = () => {
+    this.initTimer()
+    this.setState({ confirmRE: false })
+  }
+
+  openConfirmSE = () => this.setState({ confirmSE: true })
+
+  closeConfirmSE = () => this.setState({ confirmSE: false })
+
+  openConfirmEE = () => this.setState({ confirmEE: true, anchorEl2: null })
+
+  closeConfirmEE = () => this.setState({ confirmEE: false })
+
   render() {
-    const { loading, mode, mainMode, reviewMode } = this.state
+    const { loading, mode, mainMode, reviewMode, reviewType } = this.state
     const { promptLR, confirmDE, confirmSE, confirmEE, confirmRE, confirmDH } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
     const { report, history, anchorEl1, anchorEl2, anchorEl3 } = this.state
@@ -343,7 +351,7 @@ export default class App extends Component {
             fileData={fileData}
             filepaths={filepaths}
             history={history}
-            onSummaryClick={this.onSummaryClick}
+            onExamClick={this.onExamClick}
             onHistoryClick={this.onHistoryClick}
           />
         </MainNav>,
@@ -450,7 +458,7 @@ export default class App extends Component {
           detail="Do you want to permanently exit current exam?"
           icon={<ExitExamIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmEE}
-          onOkay={this.exitTest}
+          onOkay={this.exitExam}
         />,
         <Popup
           key="popup-2"
@@ -463,13 +471,21 @@ export default class App extends Component {
     } else if (mode === 3) {
       return (
         <ReviewNav
+          reviewMode={reviewMode}
           title={exam.title}
           code={exam.code}
           total={exam.test.length}
           report={report}
           exit={this.exitReviewMode}
+          setReviewMode={this.setReviewMode}
+          setReviewType={this.setReviewType}
         >
-          <ReviewScreen reviewMode={reviewMode} exam={exam} report={report} />
+          <ReviewScreen
+            reviewMode={reviewMode}
+            reviewType={reviewType}
+            exam={exam}
+            report={report}
+          />
         </ReviewNav>
       )
     } else {
