@@ -217,7 +217,7 @@
         { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/10a.PNG" },
         { "type": 1, "text": "Evaluate the following SQL statement:" },
         { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/10b.PNG" },
-        { "type": 0, "text": "Which statement is true regarding the outcome of the above query?" }
+        { "type": 1, "text": "Which statement is true regarding the outcome of the above query?" }
       ],
       "choices": [
         { "label": "A", "text": "It shows COST_REMARK for all the promos in the table." },

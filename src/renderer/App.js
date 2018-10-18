@@ -36,6 +36,7 @@ export default class App extends Component {
       loading: true,
       mode: 0,
       mainMode: 0,
+      reviewMode: 0,
       exams: null,
       history: null,
       exam: null,
@@ -167,6 +168,18 @@ export default class App extends Component {
     this.setState({ anchorEl3: { left: e.clientX, top: e.clientY }, indexHist: i })
   }
 
+  enterReviewMode = () => {
+    const { history, exams, filepaths, indexHist } = this.state
+    let report = history[indexHist]
+    let indexExam = filepaths.indexOf(report.filename)
+    let exam = exams[indexExam]
+    this.setState({ report, exam, mode: 3 })
+  }
+
+  exitReviewMode = () => {
+    this.setState({ mode: 0, mainMode: 0, anchorEl3: null })
+  }
+
   closeAnchorEl3 = () => this.setState({ anchorEl3: null })
 
   openConfirmDH = () => this.setState({ confirmDH: true, anchorEl3: null })
@@ -230,7 +243,7 @@ export default class App extends Component {
     let incomplete = []
     answers.forEach((a, i) => {
       let answer = exam.test[i].answer
-      if (answer.indexOf(true) === -1) {
+      if (a.indexOf(true) === -1) {
         incomplete.push(i)
       } else if (isEqual(a, answer)) {
         correct.push(i)
@@ -252,6 +265,7 @@ export default class App extends Component {
       correct,
       incorrect,
       incomplete,
+      answers,
       date,
       elapsed
     }
@@ -301,7 +315,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { loading, mode, mainMode } = this.state
+    const { loading, mode, mainMode, reviewMode } = this.state
     const { promptLR, confirmDE, confirmSE, confirmEE, confirmRE, confirmDH } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
     const { report, history, anchorEl1, anchorEl2, anchorEl3 } = this.state
@@ -312,7 +326,7 @@ export default class App extends Component {
         { text: 'Delete Exam', click: this.openConfirmDE }
       ]
       const menuItems3 = [
-        { text: 'Review History', click: () => {} },
+        { text: 'Review History', click: this.enterReviewMode },
         { text: 'Delete History', click: this.openConfirmDH }
       ]
       return [
@@ -448,8 +462,14 @@ export default class App extends Component {
       ]
     } else if (mode === 3) {
       return (
-        <ReviewNav title={exam.title} code={exam.code}>
-          <ReviewScreen exam={exam} report={report} />
+        <ReviewNav
+          title={exam.title}
+          code={exam.code}
+          total={exam.test.length}
+          report={report}
+          exit={this.exitReviewMode}
+        >
+          <ReviewScreen reviewMode={reviewMode} exam={exam} report={report} />
         </ReviewNav>
       )
     } else {

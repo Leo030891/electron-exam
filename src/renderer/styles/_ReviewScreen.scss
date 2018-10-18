@@ -1,11 +1,14 @@
-.ReviewScreen {
+.review-screen {
   height: 90vh;
   display: flex;
   flex-direction: column;
+  padding: 5px;
 
   .summary {
+    height: 70%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 
     .card {
@@ -23,6 +26,39 @@
       flex-direction: column;
       justify-content: space-around;
       margin-top: 30px;
+    }
+  }
+}
+
+.ResultGrid {
+  width: 240px;
+  height: 50vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+
+  .grid {
+    width: 220px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .result-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    margin: 3px;
+    cursor: pointer;
+
+    &:hover {
+      outline: 2px solid grey;
     }
   }
 }

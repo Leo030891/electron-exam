@@ -24,3 +24,19 @@ export function HistoryIcon(props) {
     </SvgIcon>
   )
 }
+
+export function IncorrectIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M2,6V8H14V6H2M2,10V12H11V10H2M14.17,10.76L12.76,12.17L15.59,15L12.76,17.83L14.17,19.24L17,16.41L19.83,19.24L21.24,17.83L18.41,15L21.24,12.17L19.83,10.76L17,13.59L14.17,10.76M2,14V16H11V14H2Z" />
+    </SvgIcon>
+  )
+}
+
+export function IncompleteIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10,19H13V22H10V19M12,2C17.35,2.22 19.68,7.62 16.5,11.67C15.67,12.67 14.33,13.33 13.67,14.17C13,15 13,16 13,17H10C10,15.33 10,13.92 10.67,12.92C11.33,11.92 12.67,11.33 13.5,10.67C15.92,8.43 15.32,5.26 12,5A3,3 0 0,0 9,8H6A6,6 0 0,1 12,2Z" />
+    </SvgIcon>
+  )
+}

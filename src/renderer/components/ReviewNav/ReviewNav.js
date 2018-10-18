@@ -8,10 +8,10 @@ import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import screenDimens from 'common/screenDimens'
 import Typography from '@material-ui/core/Typography'
-
-const [screenWidth, screenHeight] = screenDimens()
+import ReviewMenuLeftTop from './ReviewMenuLeftTop'
+import ReviewMenuLeftBottom from './ReviewMenuLeftBottom'
+import ResultGrid from './ResultGrid'
 
 const drawerWidth = 240
 
@@ -48,7 +48,8 @@ const styles = theme => ({
     marginLeft: 0,
     marginRight: 36,
     backgroundColor: theme.palette.background.default,
-    borderRadius: 0
+    borderRadius: 0,
+    borderRight: `1px solid ${theme.palette.divider}`
   },
   hide: {
     display: 'none'
@@ -102,7 +103,7 @@ class ReviewNav extends Component {
   }
 
   render() {
-    const { title, code, classes } = this.props
+    const { title, code, report, total, exit, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -131,11 +132,22 @@ class ReviewNav extends Component {
           open={this.state.open}
         >
           <div className={classes.toolbar}>
-            <IconButton onClick={this.handleDrawerClose}>
+            <IconButton className="close-drawer" onClick={this.handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
           <Divider />
+          <ReviewMenuLeftBottom exit={exit} />
+          <Divider />
+          {this.state.open && (
+            <Typography variant="subtitle1" align="center">
+              Review
+            </Typography>
+          )}
+          <ReviewMenuLeftTop total={total} report={report} />
+          <Divider />
+          {this.state.open && <ResultGrid total={total} report={report} />}
+          {this.state.open && <Divider />}
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
