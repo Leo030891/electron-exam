@@ -11,7 +11,7 @@ const styles = theme => ({
   }
 })
 
-function TopBar({ title, question, totalQuestions, classes }) {
+function TopBar({ title, question, marked, totalQuestions, markQuestion, classes }) {
   return (
     <div className="top-bar">
       <div className="top-left">
@@ -19,8 +19,12 @@ function TopBar({ title, question, totalQuestions, classes }) {
         <Typography variant="caption">{`Question ${question + 1} of ${totalQuestions}`}</Typography>
       </div>
       <div className="top-right">
-        <IconButton classes={{ root: classes.bookmark }}>
-          <BookmarkOutlineIcon fontSize="inherit" />
+        <IconButton onClick={() => markQuestion(question)} classes={{ root: classes.bookmark }}>
+          {marked[question] ? (
+            <BookmarkIcon fontSize="inherit" />
+          ) : (
+            <BookmarkOutlineIcon fontSize="inherit" />
+          )}
         </IconButton>
       </div>
     </div>

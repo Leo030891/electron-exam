@@ -253,6 +253,499 @@
       ],
       "answer": [true, false, true, true, false],
       "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "View the Exhibit and examine the data in the products table." },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/12a.PNG" },
+        {
+          "type": 1,
+          "text": "You need to display product names from the products table that belong to the 'software/other' category with minimum prices as either 2000 or 4000 and no unit of measure."
+        },
+        { "type": 1, "text": "You issue the following query:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/12b.PNG" },
+        { "type": 1, "text": "Which statement is true regarding the above query?" }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "It generates an error because the condition specified for PROD_UNIT_OF_MEASURE is not valid."
+        },
+        { "label": "B", "text": "It executes successfully and returns the required result." },
+        {
+          "label": "C",
+          "text": "It generates an error because the condition specified for the prod category column is not valid."
+        },
+        { "label": "D", "text": "It executes successfully but returns no result." }
+      ],
+      "answer": [false, false, false, true],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "You need to display the date 11-oct-2007 in words as ‘Eleventh of October, Two Thousand Seven'. Which SQL statement would give the required result?"
+        },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/13a.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
+      ],
+      "answer": [false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "Exhibit contains the structure of PRODUCTS table:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/14a.PNG" },
+        { "type": 1, "text": "Evaluate the following query:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/14b.PNG" },
+        { "type": 1, "text": "What would be the outcome of executing the above SQL statement?" }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "It shown the names of all products whose list price is less than the maximum list price"
+        },
+        {
+          "label": "B",
+          "text": "It shows the names of products whose list price is the second highest in the table"
+        },
+        { "label": "C", "text": "It shows the names of all products in the table" },
+        { "label": "D", "text": "It produces an error" }
+      ],
+      "answer": [false, true, false, false],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [{ "type": 1, "text": "Which two statements are true regarding constraints?" }],
+      "choices": [
+        { "label": "A", "text": "A column with the unique constraint can contain null values." },
+        {
+          "label": "B",
+          "text": "All constraints can be defined at the column level as well as the table level."
+        },
+        {
+          "label": "C",
+          "text": "A constraint can be disabled even if the constraint column contains data."
+        },
+        { "label": "D", "text": "A foreign key cannot contain null values." },
+        {
+          "label": "E",
+          "text": "A constraint is enforced only for the insert operation on a table."
+        }
+      ],
+      "answer": [true, false, true, false, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "The PART_CODE column in the SPARES table contains the following list of values:"
+        },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/16a.PNG" },
+        { "type": 1, "text": "Which statement is true regarding the outcome of the above query?" }
+      ],
+      "choices": [
+        { "label": "A", "text": "It displays all values" },
+        { "label": "B", "text": "It displays only the values A%_WQ123 and AB_WQ123" },
+        { "label": "C", "text": "It produces an error" },
+        { "label": "D", "text": "It displays only the values A%_WQ123 and A%BWQ123" },
+        { "label": "E", "text": "It displays only the values A%BWQ123 and AB_WQ123" }
+      ],
+      "answer": [false, false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "If SYSDATE returns 12-JUL-2016, what is returned by the following statement?"
+        },
+        { "type": 1, "text": "SELECT TO_CHAR(SYSDATE, 'fmMONTH, YEAR') FROM DUAL;" },
+        { "type": 1, "text": "(Choose the best answer.)" }
+      ],
+      "choices": [
+        { "label": "A", "text": "JULY, TWO THOUSAND SIXTEEN" },
+        { "label": "B", "text": "None of the above" },
+        { "label": "C", "text": "JUL, 2016" },
+        { "label": "D", "text": "JUL-16" }
+      ],
+      "answer": [true, false, false, false],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        { "type": 1, "text": "Which types of constraint require an index?" },
+        { "type": 1, "text": "(Choose all that apply.)" }
+      ],
+      "choices": [
+        { "label": "A", "text": "PRIMARY KEY" },
+        { "label": "B", "text": "NOT NULL" },
+        { "label": "C", "text": "UNIQUE" },
+        { "label": "D", "text": "CHECK" }
+      ],
+      "answer": [true, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        { "type": 1, "text": "Examine the structure of the EMPLOYEES table:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/19a.PNG" },
+        { "type": 1, "text": "Which INSERT statement is valid?" }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "INSERT INTO employees(employee_id, first_name, last_name, Hire_date) VALUES ( 1000, ‘John’, ‘Smith’, To_date(‘01/01/01’));"
+        },
+        {
+          "label": "B",
+          "text": "INSERT INTO employees(employee_id, first_name, last_name, hire_date) VALUES ( 1000, ‘John’, ‘Smith’, ’01-Jan-01′);"
+        },
+        {
+          "label": "C",
+          "text": "INSERT INTO employees(employee_id, first_name, last_name, hire_date) VALUES ( 1000, ‘John’, ‘Smith’, ’01 January 01′);"
+        },
+        {
+          "label": "D",
+          "text": "INSERT INTO employees (employee_id, first_name, last_name, hire_date) VALUES ( 1000, ‘John’, ‘Smith’, ‘01/01/01’);"
+        }
+      ],
+      "answer": [false, true, true, false],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        { "type": 1, "text": "Which two statements are true regarding the ORDER BY clause?" },
+        { "type": 1, "text": "(Choose Two)" }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "You cannot specify a column name followed by an expression in this clause."
+        },
+        { "label": "B", "text": "It must be the last clause in the SELECT statement." },
+        { "label": "C", "text": "It is executed first in the query execution." },
+        {
+          "label": "D",
+          "text": "It cannot be used in a SELECT statement containing a HAVING clause."
+        },
+        {
+          "label": "E",
+          "text": "You can specify a combination of numeric positions and column names in this clause."
+        }
+      ],
+      "answer": [false, true, false, false, true],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        { "type": 1, "text": "Examine the structure of the employees table." },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/21a.PNG" },
+        {
+          "type": 1,
+          "text": "You want to display the maximum and minimum salaries of employees hired 1 year ago. Which two statements would get the correct output?"
+        },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/21b.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
+      ],
+      "answer": [true, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "Which line in the following query contains an error?" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/22a.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Line 2" },
+        { "label": "B", "text": "Line 5" },
+        { "label": "C", "text": "Line 4" },
+        { "label": "D", "text": "Line 3" }
+      ],
+      "answer": [false, true, false, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "You need to create a table with the following column specifications:"
+        },
+        { "type": 1, "text": "1. Employee ID (numeric data type) for each employee" },
+        {
+          "type": 1,
+          "text": "2. Employee Name (character data type) that stores the employee name"
+        },
+        {
+          "type": 1,
+          "text": "3. Hire date, which stores the date of joining the organization for each employee"
+        },
+        {
+          "type": 1,
+          "text": "4. Status (character data type), that contains the value 'active' if no data is entered"
+        },
+        {
+          "type": 1,
+          "text": "5. Resume (character large object [CLOB] data type), which contains the resume submitted by the employee"
+        },
+        { "type": 1, "text": "Which is the correct syntax to create this table?" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/23a.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
+      ],
+      "answer": [false, false, false, true],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        {
+          "type": 1,
+          "text": "Which arithmetic operations can be performed on a column by using a SQL function that is built into Oracle database?"
+        },
+        { "type": 1, "text": "(Choose Three)" }
+      ],
+      "choices": [
+        { "label": "A", "text": "raise to a power" },
+        { "label": "B", "text": "finding the quotient" },
+        { "label": "C", "text": "subtraction" },
+        { "label": "D", "text": "finding the lowest value" },
+        { "label": "E", "text": "addition" }
+      ],
+      "answer": [true, false, false, true, true],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "You work as a database administrator at ABC.com. You study the CUSTOMER table carefully."
+        },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/25a.PNG" },
+        { "type": 1, "text": "Evaluate the following query." },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/25b.PNG" },
+        {
+          "type": 1,
+          "text": "The above query produces an error on execution. What is the reason for the error?"
+        }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "The alias MIDPOINT should be enclosed within double quotation marks for the CUST_CREDIT_LIMIT/2  expression"
+        },
+        {
+          "label": "B",
+          "text": "The MIDPOINT +100 expression gives an error because CUST_CREDIT_LIMIT contains NULL values"
+        },
+        {
+          "label": "C",
+          "text": "The alias NAME should not be enclosed within double quotation marks"
+        },
+        { "label": "D", "text": "An alias cannot be used in an expression" }
+      ],
+      "answer": [false, false, false, true],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        { "type": 1, "text": "Which two of the following conditions are equivalent to each other?" }
+      ],
+      "choices": [
+        { "label": "A", "text": "WHERE SALARY <=5000 AND SALARY >=2000" },
+        { "label": "B", "text": "WHERE SALARY IN (2000, 3000, 4000, 5000)" },
+        { "label": "C", "text": "WHERE SALARY > 2000 AND SALARY < 5000" },
+        { "label": "D", "text": "WHERE SALARY BETWEEN 2000 AND 5000" },
+        { "label": "E", "text": "WHERE SALARY >=2000 AND <=5000" }
+      ],
+      "answer": [true, false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "The following table describes the DEPARTMENTS table:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/27a.PNG" },
+        { "type": 1, "text": "Which of the following INSERT statements will raise an exception?" }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "INSERT INTO departments VALUES(280,'Corporate Giving',266,1700);"
+        },
+        {
+          "label": "B",
+          "text": "INSERT INTO departments (dept_id, dept_name, location_id) VALUES(280,'Security',1700);"
+        },
+        { "label": "C", "text": "INSERT INTO departments VALUES(280,'Security',1700);" },
+        { "label": "D", "text": "None of these statements will raise an exception." }
+      ],
+      "answer": [false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "Consider the following code segment. How many rows will be in the CARS table after all these statements are executed?"
+        },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/28a.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "28" },
+        { "label": "B", "text": "29" },
+        { "label": "C", "text": "32" },
+        { "label": "D", "text": "30" }
+      ],
+      "answer": [false, true, false, false],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        { "type": 1, "text": "Examine the structure of the sales table:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/29a.PNG" },
+        { "type": 1, "text": "Evaluate the following create table statement:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/29b.PNG" },
+        {
+          "type": 1,
+          "text": "Which two statements are true about the creation of the SALES1 table?"
+        }
+      ],
+      "choices": [
+        { "label": "A", "text": "The SALES1 table is created with no rows but only a structure." },
+        {
+          "label": "B",
+          "text": "The SALES1 table would have primary key and unique constraints on the specified columns."
+        },
+        {
+          "label": "C",
+          "text": "The SALES1 table would not be created because column-specified names in the select and create table clauses do not match."
+        },
+        {
+          "label": "D",
+          "text": "The SALES1 table would have not null constraint on the specified columns."
+        },
+        {
+          "label": "E",
+          "text": "The SALES1 table would not be created because of the invalid where clause."
+        }
+      ],
+      "answer": [true, false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "Examine the description of the EMP_DETAILS table given below:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/30a.PNG" },
+        {
+          "type": 1,
+          "text": "Which two statements are true regarding SQL statements that can be executed on the EMP_DETAIL table?"
+        },
+        { "type": 1, "text": "(Choose Two)" }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "You can alter the table to include the NOT NULL constraint on the EMP_IMAGE column"
+        },
+        { "label": "B", "text": "An EMP_IMAGE column cannot be included in the ORDER BY clause" },
+        { "label": "C", "text": "An EMP_IMAGE column can be included in the GROUP BY clause" },
+        {
+          "label": "D",
+          "text": "You cannot add a new column to the table with LONG as the data type"
+        }
+      ],
+      "answer": [false, true, false, true],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        {
+          "type": 1,
+          "text": "What are the distinguishing characteristics of a public synonym rather than a private synonym?"
+        },
+        { "type": 1, "text": "(Choose Two)" }
+      ],
+      "choices": [
+        {
+          "label": "A",
+          "text": "Public synonyms can be accessed by name without a schema qualifier."
+        },
+        {
+          "label": "B",
+          "text": "Public synonyms can be selected from without needing any permissions."
+        },
+        { "label": "C", "text": "Public synonyms can have the same names as tables or views." },
+        { "label": "D", "text": "Public synonyms are always visible to all users." }
+      ],
+      "answer": [true, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "View the Exhibit and examine the structure of the customers table." },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/32a.PNG" },
+        {
+          "type": 1,
+          "text": "Using the customers table, you need to generate a report that shows the average credit limit for customers in Washington and NEW YORK. Which SQL statement would produce the required result?"
+        },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/32b.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
+      ],
+      "answer": [false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [{ "type": 1, "text": "An entity-relationship diagram shows data modeled into" }],
+      "choices": [
+        { "label": "A", "text": "Object-oriented structures" },
+        { "label": "B", "text": "Hierarchical structures" },
+        { "label": "C", "text": "Two-dimensional structures" },
+        { "label": "D", "text": "Multidimensional structures" }
+      ],
+      "answer": [false, false, true, false],
+      "explanation": []
     }
   ]
 }

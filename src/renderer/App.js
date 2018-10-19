@@ -11,10 +11,12 @@ import Prompt from './components/App/Prompt'
 import Confirm from './components/App/Confirm'
 import Loading from './components/App/Loading'
 import Popup from './components/App/Popup'
+import ErrorIcon from '@material-ui/icons/ErrorSharp'
 import DeleteIcon from '@material-ui/icons/DeleteSharp'
 import StartExamIcon from '@material-ui/icons/PowerSettingsNewSharp'
 import ExitExamIcon from '@material-ui/icons/StopSharp'
 import TimerIcon from '@material-ui/icons/TimerSharp'
+import SaveIcon from '@material-ui/icons/SaveSharp'
 import { readDirectory, getFilename } from './utils/fileHelpers'
 import isEqual from 'lodash/isEqual'
 import fs from 'fs'
@@ -40,9 +42,11 @@ export default class App extends Component {
       reviewType: null,
       exams: null,
       history: null,
+      sessions: null,
       exam: null,
       question: 0,
       answers: null,
+      marked: null,
       time: null,
       explanation: false,
       report: null,
@@ -54,11 +58,17 @@ export default class App extends Component {
       confirmEE: false,
       confirmRE: false,
       confirmDH: false,
+      confirmSS: false,
+      confirmDS: false,
+      confirmRS: false,
+      confirmFAE: false,
       anchorEl1: null,
       anchorEl2: null,
       anchorEl3: null,
+      anchorEl4: null,
       indexExam: null,
-      indexHist: null
+      indexHist: null,
+      indexSess: null
     }
 
     this.explanation = React.createRef()
@@ -67,6 +77,7 @@ export default class App extends Component {
   componentDidMount() {
     this.loadExams()
     this.loadHistory()
+    this.loadSessions()
   }
 
   loadExams = () => {
@@ -97,6 +108,16 @@ export default class App extends Component {
       .catch(console.error)
   }
 
+  loadSessions = () => {
+    let filepath = path.resolve(__static, 'sessions.json')
+    readFile(filepath)
+      .then(data => {
+        let sessions = data.length ? JSON.parse(data) : []
+        this.setState({ sessions })
+      })
+      .catch(console.error)
+  }
+
   loadLocalExam = () => {
     remote.dialog.showOpenDialog(
       mainWin,
@@ -110,8 +131,7 @@ export default class App extends Component {
         if (!filepath) return
         const { filepaths } = this.state
         if (filepaths.includes(filepath[0])) {
-          // already exists overwrite/error message
-          return
+          this.setState({ confirmFAE: true })
         } else {
           let file = getFilename(filepath[0])
           readFile(filepath[0])
@@ -142,13 +162,33 @@ export default class App extends Component {
   closePromptLR = () => this.setState({ promptLR: false })
 
   deleteExam = () => {
-    deleteFile(this.state.filepaths[this.state.indexExam])
+    const { filepaths, indexExam, sessions, history } = this.state
+    let filename = filepaths[indexExam]
+    let newHistory = history.filter(h => h.filename !== filename)
+    let newSessions = sessions.filter(s => s.filename !== filename)
+    deleteFile(filename)
       .then(() => {
         this.loadExams()
         this.setState({ indexExam: null })
+        newHistory.length < history.length && this.updateHistory(newHistory)
+        newSessions.length < sessions.length && this.updateSessions(newSessions)
         this.closeConfirmDE()
       })
       .catch(console.error)
+  }
+
+  updateHistory = history => {
+    let filepath = path.resolve(__static, 'history.json')
+    this.setState({ history }, () => {
+      writeFile(filepath, JSON.stringify(history)).catch(console.error)
+    })
+  }
+
+  updateSessions = sessions => {
+    let filepath = path.resolve(__static, 'sessions.json')
+    this.setState({ sessions }, () => {
+      writeFile(filepath, JSON.stringify(sessions)).catch(console.error)
+    })
   }
 
   openConfirmDE = () => this.setState({ confirmDE: true, anchorEl1: null })
@@ -171,12 +211,20 @@ export default class App extends Component {
     this.setState({ anchorEl3: { left: e.clientX, top: e.clientY }, indexHist: i })
   }
 
+  onSessionClick = (e, i) => {
+    this.setState({ anchorEl4: { left: e.clientX, top: e.clientY }, indexSess: i })
+  }
+
   enterTestMode = () => {
     let answers = []
+    let marked = []
     let exam = this.state.exams[this.state.indexExam]
     let time = exam.time * 60
-    exam.test.forEach(t => answers.push(Array(t.choices.length).fill(false)))
-    this.setState({ mode: 1, exam, answers, time, anchorEl1: null })
+    exam.test.forEach(t => {
+      answers.push(Array(t.choices.length).fill(false))
+      marked.push(false)
+    })
+    this.setState({ mode: 1, exam, answers, marked, time, anchorEl1: null })
   }
 
   startExam = () => {
@@ -199,6 +247,12 @@ export default class App extends Component {
   setQuestion = question => {
     if (question < 0 || question > this.state.exam.test.length - 1) return
     this.setState({ question, explanation: false })
+  }
+
+  markQuestion = i => {
+    const { marked } = this.state
+    marked[i] = !marked[i]
+    this.setState({ marked })
   }
 
   viewExplanation = () => {
@@ -301,9 +355,64 @@ export default class App extends Component {
     })
   }
 
+  saveSession = () => {
+    clearInterval(this.timer)
+    const { exam, answers, question, time, filepaths, indexExam, sessions } = this.state
+    let date = new Date()
+    let filename = filepaths[indexExam]
+    let completed = 0
+    answers.forEach((a, i) => {
+      if (a.indexOf(true) !== -1) {
+        completed++
+      }
+    })
+    let session = {
+      filename,
+      title: exam.title,
+      code: exam.code,
+      completed,
+      answers,
+      question,
+      time,
+      date
+    }
+    sessions.push(session)
+    this.setState({ mode: 0, sessions, indexExam: null, confirmSS: false }, () => {
+      let filepath = path.resolve(__static, 'sessions.json')
+      writeFile(filepath, JSON.stringify(sessions)).catch(console.error)
+    })
+  }
+
+  resumeSession = () => {
+    const { sessions, indexSess, exams, filepaths } = this.state
+    let session = sessions[indexSess]
+    let { time, question, answers, filename } = session
+    let indexExam = filepaths.indexOf(filename)
+    let exam = exams[indexExam]
+    this.setState(
+      { mode: 2, mainMode: 0, confirmRS: false, indexExam, exam, time, question, answers },
+      () => {
+        this.initTimer()
+      }
+    )
+  }
+
+  deleteSession = () => {
+    const { sessions, indexSess } = this.state
+    let newSessions = sessions.filter((s, i) => i !== indexSess)
+    this.setState({ sessions: newSessions, indexSess: null, confirmDS: false }, () => {
+      let filepath = path.resolve(__static, 'sessions.json')
+      writeFile(filepath, JSON.stringify(newSessions)).catch(console.error)
+    })
+  }
+
   closeAnchorEl1 = () => this.setState({ anchorEl1: null })
 
+  closeAnchorEl2 = () => this.setState({ anchorEl2: null })
+
   closeAnchorEl3 = () => this.setState({ anchorEl3: null })
+
+  closeAnchorEl4 = () => this.setState({ anchorEl4: null })
 
   openConfirmDH = () => this.setState({ confirmDH: true, anchorEl3: null })
 
@@ -322,11 +431,28 @@ export default class App extends Component {
 
   closeConfirmEE = () => this.setState({ confirmEE: false })
 
+  openConfirmSS = () => this.setState({ confirmSS: true, anchorEl2: null })
+
+  closeConfirmSS = () => this.setState({ confirmSS: false })
+
+  openConfirmDS = () => this.setState({ confirmDS: true, anchorEl4: null })
+
+  closeConfirmDS = () => this.setState({ confirmDS: false })
+
+  openConfirmRS = () => this.setState({ confirmRS: true, anchorEl4: null })
+
+  closeConfirmRS = () => this.setState({ confirmRS: false })
+
+  openConfirmFAE = () => this.setState({ confirmFAE: true })
+
+  closeConfirmFAE = () => this.setState({ confirmFAE: false })
+
   render() {
-    const { loading, mode, mainMode, reviewMode, reviewType } = this.state
-    const { promptLR, confirmDE, confirmSE, confirmEE, confirmRE, confirmDH } = this.state
+    const { loading, mode, mainMode, reviewMode, reviewType, confirmRS, confirmFAE } = this.state
+    const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
+    const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR, confirmDS } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
-    const { report, history, anchorEl1, anchorEl2, anchorEl3 } = this.state
+    const { report, history, sessions, marked } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
       const menuItems1 = [
@@ -336,6 +462,10 @@ export default class App extends Component {
       const menuItems3 = [
         { text: 'Review History', click: this.enterReviewMode },
         { text: 'Delete History', click: this.openConfirmDH }
+      ]
+      const menuItems4 = [
+        { text: 'Resume Session', click: this.openConfirmRS },
+        { text: 'Delete Session', click: this.openConfirmDS }
       ]
       return [
         <MainNav
@@ -351,8 +481,11 @@ export default class App extends Component {
             fileData={fileData}
             filepaths={filepaths}
             history={history}
+            sessions={sessions}
             onExamClick={this.onExamClick}
             onHistoryClick={this.onHistoryClick}
+            onSessionClick={this.onSessionClick}
+            setMainMode={this.setMainMode}
           />
         </MainNav>,
         <Prompt
@@ -363,6 +496,17 @@ export default class App extends Component {
           label="Enter URL"
           onClose={this.closePromptLR}
           onOkay={this.loadRemoteExam}
+        />,
+        <Confirm
+          key="file-already-exists"
+          alert={true}
+          open={confirmFAE}
+          title="Error"
+          message="Error"
+          detail="Cannot load exam. Filename already exists."
+          icon={<ErrorIcon fontSize="inherit" className="confirm-icon" />}
+          onClose={this.closeConfirmFAE}
+          onOkay={this.closeConfirmFAE}
         />,
         <Confirm
           key="delete-exam"
@@ -384,6 +528,26 @@ export default class App extends Component {
           onClose={this.closeConfirmDH}
           onOkay={this.deleteHistory}
         />,
+        <Confirm
+          key="resume-session"
+          open={confirmRS}
+          title="Resume Session"
+          message="Resume Session"
+          detail="Do you want to resume this exam session?"
+          icon={<StartExamIcon fontSize="inherit" className="confirm-icon" />}
+          onClose={this.closeConfirmRS}
+          onOkay={this.resumeSession}
+        />,
+        <Confirm
+          key="delete-session"
+          open={confirmDS}
+          title="Delete Session"
+          message="Delete Session"
+          detail="Do you want to permanently delete this session?"
+          icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
+          onClose={this.closeConfirmDS}
+          onOkay={this.deleteSession}
+        />,
         <Popup
           key="popup-1"
           anchorEl={anchorEl1}
@@ -397,6 +561,13 @@ export default class App extends Component {
           anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
           menuItems={menuItems3}
           onClose={this.closeAnchorEl3}
+        />,
+        <Popup
+          key="popup-4"
+          anchorEl={anchorEl4}
+          anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+          menuItems={menuItems4}
+          onClose={this.closeAnchorEl4}
         />
       ]
     } else if (mode === 1) {
@@ -422,6 +593,7 @@ export default class App extends Component {
     } else if (mode === 2) {
       const menuItems2 = [
         { text: 'Pause Exam', click: this.pauseTimer },
+        { text: 'Save Session', click: this.openConfirmSS },
         { text: 'End Exam', click: this.openConfirmEE }
       ]
       return [
@@ -432,8 +604,10 @@ export default class App extends Component {
             question={question}
             time={time}
             answers={answers}
+            marked={marked}
             explanation={explanation}
             setQuestion={this.setQuestion}
+            markQuestion={this.markQuestion}
             onAnswerCheck={this.onAnswerCheck}
             onAnswerMultiple={this.onAnswerMultiple}
             viewExplanation={this.viewExplanation}
@@ -460,12 +634,22 @@ export default class App extends Component {
           onClose={this.closeConfirmEE}
           onOkay={this.exitExam}
         />,
+        <Confirm
+          key="save-session"
+          open={confirmSS}
+          title="Save Session"
+          message="Save Session"
+          detail="Do you want to exit exam and save current session?"
+          icon={<SaveIcon fontSize="inherit" className="confirm-icon" />}
+          onClose={this.closeConfirmSS}
+          onOkay={this.saveSession}
+        />,
         <Popup
           key="popup-2"
           anchorEl={anchorEl2}
           anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
           menuItems={menuItems2}
-          onClose={this.closeanchorEl2}
+          onClose={this.closeAnchorEl2}
         />
       ]
     } else if (mode === 3) {

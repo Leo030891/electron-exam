@@ -11,11 +11,18 @@ import BottomBar from './BottomBar'
 const styles = theme => ({})
 
 function ExamScreen(props) {
-  const { exam, question, time, answers, explanation, expRef, classes } = props
-  const { setQuestion, onAnswerCheck, onAnswerMultiple, viewExplanation, openTestMenu } = props
+  const { exam, question, time, answers, marked, explanation, expRef, classes } = props
+  const { onAnswerCheck, onAnswerMultiple, viewExplanation, openTestMenu } = props
+  const { setQuestion, markQuestion } = props
   return (
     <div className="ExamScreen">
-      <TopBar title={exam.title} question={question} totalQuestions={exam.test.length} />
+      <TopBar
+        title={exam.title}
+        question={question}
+        marked={marked}
+        totalQuestions={exam.test.length}
+        markQuestion={markQuestion}
+      />
       <div className="question">
         {exam.test.map((t, i) => {
           if (question === i)

@@ -9,7 +9,8 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import MainMenuTop from './MainMenuTop'
-import MainMenuLeft from './MainMenuLeft'
+import MainMenuLeftTop from './MainMenuLeftTop'
+import MainMenuLeftBottom from './MainMenuLeftBottom'
 
 const drawerWidth = 240
 
@@ -46,7 +47,8 @@ const styles = theme => ({
     marginLeft: 0,
     marginRight: 36,
     backgroundColor: theme.palette.background.default,
-    borderRadius: 0
+    borderRadius: 0,
+    borderRight: `1px solid ${theme.palette.divider}`
   },
   hide: {
     display: 'none'
@@ -79,11 +81,13 @@ const styles = theme => ({
     padding: '0 8px',
     ...theme.mixins.toolbar
   },
+  chevron: {
+    borderRight: `1px solid ${theme.palette.divider}`
+  },
   content: {
     flexGrow: 1,
     height: '90vh',
     backgroundColor: theme.palette.common.white
-    //padding: theme.spacing.unit * 3
   }
 })
 
@@ -127,13 +131,15 @@ class MainNav extends Component {
           }}
           open={this.state.open}
         >
-          <div className={classes.toolbar}>
+          <div className={classNames(classes.toolbar, classes.chevron)}>
             <IconButton onClick={this.handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
           <Divider />
-          <MainMenuLeft loadLocalExam={loadLocalExam} openPromptLR={openPromptLR} />
+          <MainMenuLeftTop loadLocalExam={loadLocalExam} openPromptLR={openPromptLR} />
+          <Divider />
+          <MainMenuLeftBottom setMainMode={setMainMode} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />

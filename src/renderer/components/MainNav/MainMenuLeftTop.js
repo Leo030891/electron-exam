@@ -9,13 +9,13 @@ import { AddRemoteIcon } from '../Icons'
 
 const styles = theme => ({})
 
-function MainMenuLeft({ loadLocalExam, openPromptLR, classes }) {
+function MainMenuLeftTop({ loadLocalExam, openPromptLR, classes }) {
   const list = [
     { text: 'Load Local File', icon: <AddLocalIcon />, click: loadLocalExam },
     { text: 'Load Remote File', icon: <AddRemoteIcon />, click: openPromptLR }
   ]
   return (
-    <List>
+    <List disablePadding>
       {list.map((l, i) => (
         <ListItem key={l.text} onClick={l.click} button>
           <ListItemIcon>{l.icon}</ListItemIcon>
@@ -26,4 +26,4 @@ function MainMenuLeft({ loadLocalExam, openPromptLR, classes }) {
   )
 }
 
-export default withStyles(styles)(MainMenuLeft)
+export default withStyles(styles)(MainMenuLeftTop)

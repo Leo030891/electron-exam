@@ -18,7 +18,7 @@ class ReviewExam extends Component {
         <TopBar
           top={`${title}, Q${number}`}
           bottom={
-            Number.isInteger(reviewType) ? `question ${reviewType}` : `${reviewType} questions`
+            Number.isInteger(reviewType) ? `question ${reviewType + 1}` : `${reviewType} questions`
           }
         />
         <div className="question">

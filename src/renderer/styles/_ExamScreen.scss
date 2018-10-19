@@ -10,6 +10,14 @@
     margin-bottom: 40px;
     overflow-y: auto;
     overflow-x: hidden;
+
+    .question-img {
+      margin: 10px 0;
+    }
+
+    .question-text {
+      margin: 10px 0;
+    }
   }
 
   .top-bar {
@@ -37,7 +45,7 @@
     flex-direction: column;
     align-items: flex-start;
     margin-top: 10px;
-    padding: 2px;
+    padding: 5px;
     background-color: rgb(255, 253, 179);
     border: 1px solid;
   }

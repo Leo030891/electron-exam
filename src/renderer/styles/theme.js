@@ -55,9 +55,15 @@ export default createMuiTheme({
     MuiIconButton: {
       root: {
         borderRadius: 0,
+        color: theme.palette.grey[800],
         '&:hover': {
           backgroundColor: 'none'
         }
+      }
+    },
+    MuiListItemIcon: {
+      root: {
+        color: theme.palette.grey[800]
       }
     },
     MuiDialog: {
@@ -65,7 +71,7 @@ export default createMuiTheme({
         width: '50%',
         borderRadius: 0,
         boxShadow: theme.shadows[3],
-        border: `1px solid ${theme.palette.primary.main}`
+        border: `1px solid ${theme.palette.grey[600]}`
       }
     },
     MuiDialogTitle: {
@@ -73,8 +79,8 @@ export default createMuiTheme({
         height: 25,
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.getContrastText(theme.palette.primary.main),
+        backgroundColor: theme.palette.grey[600],
+        color: theme.palette.common.white,
         padding: 0
       }
     },
@@ -92,7 +98,7 @@ export default createMuiTheme({
         margin: 0,
         padding: '8px 4px',
         backgroundColor: theme.palette.grey[200],
-        borderTop: theme.palette.grey[400]
+        borderTop: theme.palette.grey[600]
       }
     }
   }
