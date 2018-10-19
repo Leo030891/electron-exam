@@ -49,9 +49,9 @@ class Checkboxes extends Component {
                 style={{
                   color:
                     explanation && correctAnswers[k]
-                      ? 'green'
+                      ? 'rgb(31, 144, 224)'
                       : explanation && !correctAnswers[k]
-                        ? 'red'
+                        ? 'rgba(0, 0, 0, 0.25)'
                         : 'rgba(0, 0, 0, 0.87)'
                 }}
               >

@@ -14,7 +14,7 @@ class ReviewExam extends Component {
   render() {
     const { reviewType, title, index, number, questions, answers, setIndex } = this.props
     return (
-      <div className="ExamScreen">
+      <div className="ReviewExam">
         <TopBar
           top={`${title}, Q${number}`}
           bottom={

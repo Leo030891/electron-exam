@@ -38,6 +38,7 @@ export default class App extends Component {
       loading: true,
       mode: 0,
       mainMode: 0,
+      examMode: 0,
       reviewMode: 0,
       reviewType: null,
       exams: null,
@@ -191,10 +192,6 @@ export default class App extends Component {
     })
   }
 
-  openConfirmDE = () => this.setState({ confirmDE: true, anchorEl1: null })
-
-  closeConfirmDE = () => this.setState({ confirmDE: false })
-
   setMode = mode => this.setState({ mode })
 
   setMainMode = mainMode => this.setState({ mainMode })
@@ -220,10 +217,7 @@ export default class App extends Component {
     let marked = []
     let exam = this.state.exams[this.state.indexExam]
     let time = exam.time * 60
-    exam.test.forEach(t => {
-      answers.push(Array(t.choices.length).fill(false))
-      marked.push(false)
-    })
+    exam.test.forEach(t => answers.push(Array(t.choices.length).fill(false)))
     this.setState({ mode: 1, exam, answers, marked, time, anchorEl1: null })
   }
 
@@ -235,7 +229,12 @@ export default class App extends Component {
 
   initTimer = () => {
     this.timer = setInterval(() => {
-      this.setState({ time: this.state.time - 1 })
+      const { time } = this.state
+      if (time === 0) {
+        clearInterval(this.timer)
+        // end exam show alert
+      }
+      this.setState({ time: time - 1 })
     }, 1000)
   }
 
@@ -244,16 +243,59 @@ export default class App extends Component {
     clearInterval(this.timer)
   }
 
-  setQuestion = question => {
+  setQuestion = (question, mode) => {
     if (question < 0 || question > this.state.exam.test.length - 1) return
-    this.setState({ question, explanation: false })
+    const { examMode } = this.state
+    if (examMode === 0) {
+      this.setState({ question, explanation: false })
+    } else if (examMode === 1) {
+      const { marked } = this.state
+      if (marked.length === 1) return
+      let newQuestion
+      if (mode === 0) {
+        newQuestion = marked[0]
+      } else if (mode === 1) {
+        let i = marked.indexOf(question + 1)
+        if (i === 0) return
+        newQuestion = marked[i - 1]
+      } else if (mode === 2) {
+        let i = marked.indexOf(question - 1)
+        if (i === marked.length - 1) return
+        newQuestion = marked[i + 1]
+      } else if (mode === 3) {
+        newQuestion = marked[marked.length - 1]
+      }
+      this.setState({ question: newQuestion })
+    }
   }
 
   markQuestion = i => {
-    const { marked } = this.state
-    marked[i] = !marked[i]
-    this.setState({ marked })
+    const { marked, examMode } = this.state
+    var newMarked = marked.slice(0)
+    if (marked.indexOf(i) === -1) {
+      newMarked.push(i)
+    } else {
+      newMarked = marked.filter(el => el !== i)
+      if (examMode === 1) {
+        if (!newMarked.length) {
+          this.setExamMode(0)
+        } else {
+          this.setState({ question: newMarked[0] })
+        }
+      }
+    }
+    newMarked.sort((a, b) => a - b)
+    this.setState({ marked: newMarked })
   }
+
+  enterMarkedMode = () => {
+    const { marked } = this.state
+    if (!marked.length) return
+    this.setExamMode(1)
+    this.setState({ question: marked[0] })
+  }
+
+  setExamMode = examMode => this.setState({ examMode })
 
   viewExplanation = () => {
     this.setState({ explanation: !this.state.explanation }, () => {
@@ -357,7 +399,7 @@ export default class App extends Component {
 
   saveSession = () => {
     clearInterval(this.timer)
-    const { exam, answers, question, time, filepaths, indexExam, sessions } = this.state
+    const { exam, answers, question, time, filepaths, indexExam, sessions, marked } = this.state
     let date = new Date()
     let filename = filepaths[indexExam]
     let completed = 0
@@ -372,6 +414,7 @@ export default class App extends Component {
       code: exam.code,
       completed,
       answers,
+      marked,
       question,
       time,
       date
@@ -414,6 +457,10 @@ export default class App extends Component {
 
   closeAnchorEl4 = () => this.setState({ anchorEl4: null })
 
+  openConfirmDE = () => this.setState({ confirmDE: true, anchorEl1: null })
+
+  closeConfirmDE = () => this.setState({ confirmDE: false })
+
   openConfirmDH = () => this.setState({ confirmDH: true, anchorEl3: null })
 
   closeConfirmDH = () => this.setState({ confirmDH: false })
@@ -452,7 +499,7 @@ export default class App extends Component {
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
     const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR, confirmDS } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
-    const { report, history, sessions, marked } = this.state
+    const { report, history, sessions, marked, examMode } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
       const menuItems1 = [
@@ -597,7 +644,13 @@ export default class App extends Component {
         { text: 'End Exam', click: this.openConfirmEE }
       ]
       return [
-        <ExamNav key="exam-screen" title={exam.code}>
+        <ExamNav
+          key="exam-screen"
+          title={exam.code}
+          examMode={examMode}
+          enterMarkedMode={this.enterMarkedMode}
+          setExamMode={this.setExamMode}
+        >
           <ExamScreen
             expRef={this.explanation}
             exam={exam}

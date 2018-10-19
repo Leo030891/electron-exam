@@ -14,8 +14,7 @@ import { getTimeHHMMSS } from '../../utils/dateHelpers'
 
 const styles = theme => ({
   explaining: {
-    backgroundColor: '#999999',
-    color: '#FAFAFA'
+    color: 'rgb(31, 144, 224)'
   }
 })
 

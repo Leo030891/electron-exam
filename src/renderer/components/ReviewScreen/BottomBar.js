@@ -8,7 +8,7 @@ import FirstIcon from '@material-ui/icons/FirstPageSharp'
 function BottomBar(props) {
   const { onFirstClick, onBackClick, onForwardClick, onLastClick } = props
   return (
-    <div className="review-bottom-bar">
+    <div className="bottom-bar">
       <div>
         <IconButton onClick={onFirstClick}>
           <FirstIcon />

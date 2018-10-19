@@ -80,7 +80,13 @@ function Sessions({ sessions, onSessionClick, classes }) {
       </div>
     )
   } else {
-    return <div>No Saved Sessions</div>
+    return (
+      <div className="empty-panels">
+        <Typography variant="h6" align="center" className="message">
+          No Saved Sessions
+        </Typography>
+      </div>
+    )
   }
 }
 

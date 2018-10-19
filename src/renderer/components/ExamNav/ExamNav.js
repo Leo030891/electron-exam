@@ -104,7 +104,7 @@ class ExamNav extends Component {
   }
 
   render() {
-    const { title, classes } = this.props
+    const { title, examMode, enterMarkedMode, setExamMode, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -120,7 +120,9 @@ class ExamNav extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6">{title}</Typography>
+            <Typography variant="h6">
+              {title} - {examMode === 0 ? 'All Questions' : 'Marked Questions'}
+            </Typography>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -136,7 +138,7 @@ class ExamNav extends Component {
             </IconButton>
           </div>
           <Divider />
-          <ExamMenuLeft />
+          <ExamMenuLeft enterMarkedMode={enterMarkedMode} setExamMode={setExamMode} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />

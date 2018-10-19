@@ -15,12 +15,12 @@
   width: 75vw;
   margin-bottom: 10px;
   padding: 2px;
-  background-color: rgb(255, 254, 219);
+  background-color: rgb(232, 244, 252);
   border: 1px solid;
   font-size: 48px;
   cursor: pointer;
   &:hover {
-    background-color: darken($color: rgb(255, 254, 219), $amount: 10);
+    background-color: darken($color: rgb(232, 244, 252), $amount: 10);
   }
 
   .panel-icon {
@@ -34,6 +34,19 @@
     .panel-exam {
       margin-right: 15px;
     }
+  }
+}
+
+.empty-panels {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .message {
+    background-color: rgb(232, 244, 252);
+    border: 1px solid;
+    padding: 20px;
   }
 }
 

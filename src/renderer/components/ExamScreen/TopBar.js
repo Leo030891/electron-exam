@@ -20,7 +20,7 @@ function TopBar({ title, question, marked, totalQuestions, markQuestion, classes
       </div>
       <div className="top-right">
         <IconButton onClick={() => markQuestion(question)} classes={{ root: classes.bookmark }}>
-          {marked[question] ? (
+          {marked.indexOf(question) !== -1 ? (
             <BookmarkIcon fontSize="inherit" />
           ) : (
             <BookmarkOutlineIcon fontSize="inherit" />

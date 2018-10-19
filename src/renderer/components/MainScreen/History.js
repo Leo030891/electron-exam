@@ -55,65 +55,75 @@ class History extends Component {
   }
 
   render() {
-    const { onHistoryClick, classes } = this.props
+    const { history, onHistoryClick, classes } = this.props
     const { grouped, codes } = this.state
-    return (
-      <div className="panels">
-        <Typography variant="h4">History</Typography>
-        {codes &&
-          codes.map((c, i) => (
-            <ExpansionPanel key={c} square elevation={1} defaultExpanded>
-              <ExpansionPanelSummary
-                expandIcon={<ExpandMoreIcon />}
-                classes={{ root: classes.summaryRoot }}
-              >
-                <Typography variant="subtitle1">{`${c}   /   ${grouped[c][0].title}`}</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <div className="panel-details">
-                  {grouped[c].map((g, j) => (
-                    <div
-                      key={`${i}-${j}`}
-                      className="panel-summary"
-                      onClick={e => onHistoryClick(e, g.indexHist)}
-                    >
-                      <HistoryIcon fontSize="inherit" className="panel-icon" />
-                      <div>
-                        <div className="panel-info">
-                          <Typography
-                            variant="subtitle1"
-                            className="panel-exam"
-                            style={{ color: g.status ? 'green' : 'red' }}
-                          >
-                            {g.status ? 'PASS' : 'FAIL'}
-                          </Typography>
-                          <Typography variant="subtitle1">{g.score}%</Typography>
-                        </div>
-                        <div className="panel-info">
-                          <Typography variant="caption" className="panel-exam">
-                            Date: {getDateString(g.date)}
-                          </Typography>
-                          <Typography variant="caption" className="panel-exam">
-                            Time: {getTimeString(g.date)}
-                          </Typography>
-                          <Typography variant="caption">
-                            Elapsed Time: {getTimeHHMMSS(g.elapsed)}
-                          </Typography>
-                        </div>
-                        <div className="panel-info">
-                          <Typography variant="caption">
-                            Filename: {getFilename(g.filename)}
-                          </Typography>
+    if (history.length) {
+      return (
+        <div className="panels">
+          <Typography variant="h4">History</Typography>
+          {codes &&
+            codes.map((c, i) => (
+              <ExpansionPanel key={c} square elevation={1} defaultExpanded>
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  classes={{ root: classes.summaryRoot }}
+                >
+                  <Typography variant="subtitle1">{`${c}   /   ${grouped[c][0].title}`}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <div className="panel-details">
+                    {grouped[c].map((g, j) => (
+                      <div
+                        key={`${i}-${j}`}
+                        className="panel-summary"
+                        onClick={e => onHistoryClick(e, g.indexHist)}
+                      >
+                        <HistoryIcon fontSize="inherit" className="panel-icon" />
+                        <div>
+                          <div className="panel-info">
+                            <Typography
+                              variant="subtitle1"
+                              className="panel-exam"
+                              style={{ color: g.status ? 'green' : 'red' }}
+                            >
+                              {g.status ? 'PASS' : 'FAIL'}
+                            </Typography>
+                            <Typography variant="subtitle1">{g.score}%</Typography>
+                          </div>
+                          <div className="panel-info">
+                            <Typography variant="caption" className="panel-exam">
+                              Date: {getDateString(g.date)}
+                            </Typography>
+                            <Typography variant="caption" className="panel-exam">
+                              Time: {getTimeString(g.date)}
+                            </Typography>
+                            <Typography variant="caption">
+                              Elapsed Time: {getTimeHHMMSS(g.elapsed)}
+                            </Typography>
+                          </div>
+                          <div className="panel-info">
+                            <Typography variant="caption">
+                              Filename: {getFilename(g.filename)}
+                            </Typography>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          ))}
-      </div>
-    )
+                    ))}
+                  </div>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            ))}
+        </div>
+      )
+    } else {
+      return (
+        <div className="empty-panels">
+          <Typography variant="h6" align="center" className="message">
+            No Saved History
+          </Typography>
+        </div>
+      )
+    }
   }
 }
 
