@@ -1,6 +1,6 @@
 .panels {
   height: 90vh;
-  padding: 5px;
+  padding: 10px;
   overflow-y: auto;
 }
 
@@ -55,4 +55,15 @@
   height: 90vh;
   padding: 5px;
   overflow-y: auto;
+}
+
+.main-menu-top {
+  width: 50vw;
+  display: flex;
+  justify-content: space-around;
+
+  .items {
+    line-height: 1.2;
+    cursor: pointer;
+  }
 }

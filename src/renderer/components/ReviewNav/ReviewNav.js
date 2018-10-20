@@ -26,7 +26,8 @@ const styles = theme => ({
     display: 'flex'
   },
   appBar: {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.background.default,
+    borderBottom: `1px solid ${theme.palette.divider}`,
     color: theme.palette.getContrastText(theme.palette.common.white),
     boxShadow: theme.shadows[0],
     zIndex: theme.zIndex.drawer + 1,
@@ -50,7 +51,12 @@ const styles = theme => ({
     marginRight: 36,
     backgroundColor: theme.palette.background.default,
     borderRadius: 0,
-    borderRight: `1px solid ${theme.palette.divider}`
+    borderRight: `1px solid ${theme.palette.divider}`,
+    '&:hover': {
+      backgroundColor: 'rgb(225, 242, 255)',
+      outline: '2px solid rgb(1, 139, 244)',
+      color: 'rgb(1, 139, 244)'
+    }
   },
   hide: {
     display: 'none'

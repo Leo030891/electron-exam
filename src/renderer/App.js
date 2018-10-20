@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { remote } from 'electron'
 import MainNav from './components/MainNav/MainNav'
 import MainScreen from './components/MainScreen/MainScreen'
+import CoverNav from './components/CoverNav/CoverNav'
 import CoverScreen from './components/CoverScreen/CoverScreen'
 import ExamNav from './components/ExamNav/ExamNav'
 import ExamScreen from './components/ExamScreen/ExamScreen'
@@ -19,6 +20,7 @@ import TimerIcon from '@material-ui/icons/TimerSharp'
 import SaveIcon from '@material-ui/icons/SaveSharp'
 import TimeExpiredIcon from '@material-ui/icons/TimerOffSharp'
 import { readDirectory, getFilename } from './utils/fileHelpers'
+import validateExam from './utils/validateExam'
 import isEqual from 'lodash/isEqual'
 import fs from 'fs'
 import path from 'path'
@@ -65,6 +67,7 @@ export default class App extends Component {
       confirmRS: false,
       confirmFAE: false,
       confirmTE: false,
+      confirmSVE: false,
       anchorEl1: null,
       anchorEl2: null,
       anchorEl3: null,
@@ -138,8 +141,13 @@ export default class App extends Component {
         } else {
           let file = getFilename(filepath[0])
           readFile(filepath[0])
-            .then(data => writeFile(path.resolve(__static, 'exams', file), data))
-            .then(this.loadExams)
+            .then(data => {
+              if (validateExam(data) !== 'valid') {
+                this.setState({ confirmSVE: true })
+                return
+              }
+              writeFile(path.resolve(__static, 'exams', file), data).then(this.loadExams)
+            })
             .catch(console.error)
         }
       }
@@ -518,9 +526,11 @@ export default class App extends Component {
 
   closeConfirmTE = () => this.setState({ confirmTE: false })
 
+  closeConfirmSVE = () => this.setState({ confirmSVE: false })
+
   render() {
     const { loading, mode, mainMode, examMode, reviewMode, reviewType } = this.state
-    const { confirmRS, confirmFAE, confirmTE, confirmDS } = this.state
+    const { confirmRS, confirmFAE, confirmTE, confirmDS, confirmSVE } = this.state
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
     const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
@@ -570,11 +580,22 @@ export default class App extends Component {
           onOkay={this.loadRemoteExam}
         />,
         <Confirm
+          key="schema-validation-error"
+          alert={true}
+          open={confirmSVE}
+          title="Error"
+          message="JSON Schema Error"
+          detail="Insert link to get more information here."
+          icon={<ErrorIcon fontSize="inherit" className="confirm-icon" />}
+          onClose={this.closeConfirmSVE}
+          onOkay={this.closeConfirmSVE}
+        />,
+        <Confirm
           key="file-already-exists"
           alert={true}
           open={confirmFAE}
           title="Error"
-          message="Error"
+          message="Duplicate File Error"
           detail="Cannot load exam. Filename already exists."
           icon={<ErrorIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmFAE}
@@ -584,7 +605,7 @@ export default class App extends Component {
           key="delete-exam"
           open={confirmDE}
           title="Delete Exam"
-          message="Delete Exam"
+          message="Delete Exam File"
           detail="Do you want to permanently delete this exam?"
           icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmDE}
@@ -644,13 +665,9 @@ export default class App extends Component {
       ]
     } else if (mode === 1) {
       return [
-        <CoverScreen
-          key="cover-screen"
-          cover={exam.cover}
-          setMode={this.setMode}
-          initTimer={this.initTimer}
-          openConfirmSE={this.openConfirmSE}
-        />,
+        <CoverNav key="cover-screen" setMode={this.setMode} openConfirmSE={this.openConfirmSE}>
+          <CoverScreen cover={exam.cover} />
+        </CoverNav>,
         <Confirm
           key="start-exam"
           open={confirmSE}

@@ -7,7 +7,10 @@ import BookmarkOutlineIcon from '@material-ui/icons/BookmarkBorderSharp'
 
 const styles = theme => ({
   bookmark: {
-    fontSize: 40
+    fontSize: 40,
+    '&:hover': {
+      color: 'rgb(31, 144, 224)'
+    }
   }
 })
 

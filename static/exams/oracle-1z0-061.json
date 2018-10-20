@@ -748,6 +748,178 @@
       ],
       "answer": [false, false, true, false],
       "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "View the Exhibit and examine the data in the promotions table." },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/34a.PNG" },
+        {
+          "type": 1,
+          "text": "PROMO_BEGIN_DATE is stored in the default date format, dd-mon-rr. You need to produce a report that provides the name, cost, and start date of all promos in the post category that were launched before January 1, 2000."
+        },
+        { "type": 1, "text": "Which SQL statement would you use?" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/34b.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
+      ],
+      "answer": [false, false, false, true],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [{ "type": 1, "text": "When a COMMIT is issued, what will happen?" }],
+      "choices": [
+        {
+          "label": "A",
+          "text": "All the change vectors that make up the transaction are written to disk"
+        },
+        { "label": "B", "text": "DBWn writes the change blocks to disk" },
+        { "label": "C", "text": "LGWR writes the log buffer to disk" },
+        {
+          "label": "D",
+          "text": "The undo data is deleted so that the changes can no longer be rolled back"
+        }
+      ],
+      "answer": [false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "Which four are attributes of single row functions?" },
+        { "type": 1, "text": "(Choose Four)" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Accept arguments which can be a column or an expression" },
+        { "label": "B", "text": "Act on each row returned" },
+        { "label": "C", "text": "Accept only one value and return only one value" },
+        { "label": "D", "text": "Manipulate date items" },
+        { "label": "E", "text": "Cannot be nested" },
+        { "label": "F", "text": "Return one result per row" }
+      ],
+      "answer": [true, true, false, true, false, true],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "View the Exhibit and examine the structure of the products table." },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/37a.PNG" },
+        { "type": 1, "text": "Evaluate the following query:" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/37b.PNG" },
+        { "type": 1, "text": "What would be the outcome of executing the above SQL statement?" }
+      ],
+      "choices": [
+        { "label": "A", "text": "It produces an error" },
+        { "label": "B", "text": "It shows the names of all products in the table" },
+        {
+          "label": "C",
+          "text": "It shows the names of products whose list price is the second highest in the table"
+        },
+        {
+          "label": "D",
+          "text": "It shows the names of all products whose list price is less than the maximum list price"
+        }
+      ],
+      "answer": [false, false, true, false],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        { "type": 1, "text": "You issued the following command:" },
+        { "type": 1, "text": "SQL> DROP TABLE employees;" },
+        { "type": 1, "text": "Which three statements are true?" }
+      ],
+      "choices": [
+        { "label": "A", "text": "All uncommitted transactions are committed" },
+        {
+          "label": "B",
+          "text": "All indexes and constraints defined on the table being dropped are also dropped"
+        },
+        { "label": "C", "text": "Sequences used in the employees table become invalid" },
+        { "label": "D", "text": "The space used by the employees table is reclaimed immediately" },
+        { "label": "E", "text": "The employees table can be recovered using the rollback command" },
+        { "label": "F", "text": "The employees table is moved to the recycle bin" }
+      ],
+      "answer": [false, true, true, false, false, true],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        {
+          "type": 1,
+          "text": "Examine the create table statements for the stores and sales tables."
+        },
+        {
+          "type": 1,
+          "text": "SQL> CREATE TABLE stores(store_id NUMBER(4) CONSTRAINT store_id_pk PRIMARY KEY, store_name VARCHAR2(12), store_address VARCHAR2(20), start_date DATE);"
+        },
+        {
+          "type": 1,
+          "text": "SQL> CREATE TABLE sales(sales_id NUMBER(4) CONSTRAINT sales_id_pk PRIMARY KEY, item_id NUMBER(4), quantity NUMBER(10), sales_date DATE, store_id NUMBER(4), CONSTRAINT store_id_fk FOREIGN KEY(store_id) REFERENCES stores(store_id));"
+        },
+        { "type": 1, "text": "You executed the following statement:" },
+        { "type": 1, "text": "SQL> DELETE from stores WHERE store_id=900;" },
+        { "type": 1, "text": "The statement fails due to the integrity constraint error:" },
+        { "type": 1, "text": "ORA-02292: integrity constraint (HR.STORE_ID_FK) violated" },
+        {
+          "type": 1,
+          "text": "Which three options ensure that the statement will execute successfully?"
+        }
+      ],
+      "choices": [
+        { "label": "A", "text": "Disable the PRIMARY KEY in STORES table" },
+        { "label": "B", "text": "Use CASCADE keyword with DELETE statement" },
+        {
+          "label": "C",
+          "text": "DELETE the rows with STORE_ID = 900 from the SALES table and then DELETE rows from STORES table"
+        },
+        { "label": "D", "text": "Disable the FOREIGN KEY in SALES table and then DELETE rows" },
+        {
+          "label": "E",
+          "text": "Create the FOREIGN KEY in the SALES table on SALES_ID column with ON DELETE CASCADE option"
+        }
+      ],
+      "answer": [true, false, true, true, false],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "You want to create a sales table with the following column specifications and data types:"
+        },
+        { "type": 1, "text": "SALESID: Number" },
+        { "type": 1, "text": "STOREID: Number" },
+        { "type": 1, "text": "ITEMID: Number" },
+        { "type": 1, "text": "QTY: Number, should be set to 1 when no value is specified" },
+        {
+          "type": 1,
+          "text": "SLSDATE: Date, should be set to current date when no value is specified"
+        },
+        {
+          "type": 1,
+          "text": "PAYMENT: Characters up to 30 characters, should be set to CASH when no value is specified"
+        },
+        { "type": 1, "text": "Which statement would create the table?" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/oracle-1z0-061/40a.PNG" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Option A" },
+        { "label": "B", "text": "Option B" },
+        { "label": "C", "text": "Option C" },
+        { "label": "D", "text": "Option D" }
+      ],
+      "answer": [false, true, false, false],
+      "explanation": []
     }
   ]
 }

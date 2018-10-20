@@ -6,10 +6,9 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
+import CoverMenuTop from './CoverMenuTop'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ExamMenuLeft from './ExamMenuLeft'
 
 const drawerWidth = 240
 
@@ -96,7 +95,7 @@ const styles = theme => ({
   }
 })
 
-class ExamNav extends Component {
+class CoverNav extends Component {
   state = {
     open: false
   }
@@ -110,7 +109,7 @@ class ExamNav extends Component {
   }
 
   render() {
-    const { title, examMode, enterMarkedMode, setExamMode, classes } = this.props
+    const { openConfirmSE, setMode, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -126,9 +125,7 @@ class ExamNav extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6">
-              {title} - {examMode === 0 ? 'All Questions' : 'Marked Questions'}
-            </Typography>
+            <CoverMenuTop setMode={setMode} openConfirmSE={openConfirmSE} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -144,7 +141,6 @@ class ExamNav extends Component {
             </IconButton>
           </div>
           <Divider />
-          <ExamMenuLeft enterMarkedMode={enterMarkedMode} setExamMode={setExamMode} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
@@ -155,4 +151,4 @@ class ExamNav extends Component {
   }
 }
 
-export default withStyles(styles)(ExamNav)
+export default withStyles(styles)(CoverNav)

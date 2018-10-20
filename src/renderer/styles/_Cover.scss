@@ -1,18 +1,19 @@
-.cover-top {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px;
-}
-
 .cover-content {
   height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10vh;
+  justify-content: center;
   overflow: auto;
+
+  .cover-item {
+    margin-top: 20px;
+  }
 }
 
-.cover-item {
-  margin-top: 20px;
+.cover-menu-top {
+  width: 90vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
