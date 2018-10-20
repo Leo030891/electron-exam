@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
+import Slider from 'react-rangeslider'
 import ForwardIcon from '@material-ui/icons/ChevronRightSharp'
 import BackIcon from '@material-ui/icons/ChevronLeftSharp'
 import LastIcon from '@material-ui/icons/LastPageSharp'
@@ -20,6 +21,7 @@ const styles = theme => ({
 
 function BottomBar(props) {
   const { time, explanation, openTestMenu, viewExplanation, classes } = props
+  const { question, marked, examMode, totalQuestions, handleSlider } = props
   const { onFirstClick, onBackClick, onForwardClick, onLastClick } = props
   return (
     <div className="bottom-bar">
@@ -27,7 +29,16 @@ function BottomBar(props) {
         <TimerIcon className="clock-icon" />
         <Typography variant="subtitle1">{getTimeHHMMSS(time)}</Typography>
       </div>
-      <div>
+      <div className="slider">
+        <Slider
+          min={1}
+          max={examMode === 0 ? totalQuestions : marked.length}
+          step={1}
+          value={examMode === 0 ? question + 1 : marked.indexOf(question) + 1}
+          onChange={handleSlider}
+        />
+      </div>
+      <div className="arrows">
         <IconButton onClick={onFirstClick}>
           <FirstIcon />
         </IconButton>

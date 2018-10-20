@@ -27,6 +27,7 @@
     "@material-ui/icons": "^3.0.1",
     "electron-devtools-installer": "^2.2.4",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0"
+    "react-dom": "^16.4.0",
+    "react-rangeslider": "^2.2.0"
   }
 }

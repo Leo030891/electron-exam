@@ -13,7 +13,7 @@ const styles = theme => ({})
 function ExamScreen(props) {
   const { exam, question, time, answers, marked, explanation, expRef } = props
   const { onAnswerCheck, onAnswerMultiple, viewExplanation, openTestMenu } = props
-  const { setQuestion, markQuestion, classes } = props
+  const { setQuestion, markQuestion, handleSlider, examMode, classes } = props
   return (
     <div className="ExamScreen">
       <TopBar
@@ -80,8 +80,13 @@ function ExamScreen(props) {
         })}
       </div>
       <BottomBar
+        examMode={examMode}
+        totalQuestions={exam.test.length}
+        question={question}
+        marked={marked}
         time={time}
         explanation={explanation}
+        handleSlider={handleSlider}
         onFirstClick={() => setQuestion(0, 0)}
         onBackClick={() => setQuestion(question - 1, 1)}
         onForwardClick={() => setQuestion(question + 1, 2)}

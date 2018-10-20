@@ -158,10 +158,6 @@ export default class App extends Component {
     request.end()
   }
 
-  openPromptLR = () => this.setState({ promptLR: true })
-
-  closePromptLR = () => this.setState({ promptLR: false })
-
   deleteExam = () => {
     const { filepaths, indexExam, sessions, history } = this.state
     let filename = filepaths[indexExam]
@@ -243,7 +239,19 @@ export default class App extends Component {
     clearInterval(this.timer)
   }
 
+  handleSlider = value => {
+    const { examMode, question, marked } = this.state
+    if (question === value - 1) return
+    if (examMode === 0) {
+      let mode = value - 1 > question ? 2 : 1
+      this.setQuestion(value - 1, mode)
+    } else if (examMode === 1) {
+      this.setState({ question: marked[value - 1] })
+    }
+  }
+
   setQuestion = (question, mode) => {
+    console.log(question, mode)
     if (question < 0 || question > this.state.exam.test.length - 1) return
     const { examMode } = this.state
     if (examMode === 0) {
@@ -429,11 +437,11 @@ export default class App extends Component {
   resumeSession = () => {
     const { sessions, indexSess, exams, filepaths } = this.state
     let session = sessions[indexSess]
-    let { time, question, answers, filename } = session
+    let { time, question, answers, marked, filename } = session
     let indexExam = filepaths.indexOf(filename)
     let exam = exams[indexExam]
     this.setState(
-      { mode: 2, mainMode: 0, confirmRS: false, indexExam, exam, time, question, answers },
+      { mode: 2, mainMode: 0, confirmRS: false, indexExam, exam, time, question, answers, marked },
       () => {
         this.initTimer()
       }
@@ -448,6 +456,10 @@ export default class App extends Component {
       writeFile(filepath, JSON.stringify(newSessions)).catch(console.error)
     })
   }
+
+  openPromptLR = () => this.setState({ promptLR: true })
+
+  closePromptLR = () => this.setState({ promptLR: false })
 
   closeAnchorEl1 = () => this.setState({ anchorEl1: null })
 
@@ -653,12 +665,14 @@ export default class App extends Component {
         >
           <ExamScreen
             expRef={this.explanation}
+            examMode={examMode}
             exam={exam}
             question={question}
             time={time}
             answers={answers}
             marked={marked}
             explanation={explanation}
+            handleSlider={this.handleSlider}
             setQuestion={this.setQuestion}
             markQuestion={this.markQuestion}
             onAnswerCheck={this.onAnswerCheck}
