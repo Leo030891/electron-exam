@@ -57,7 +57,7 @@ export default createMuiTheme({
         borderRadius: 0,
         color: theme.palette.grey[800],
         '&:hover': {
-          backgroundColor: 'none'
+          backgroundColor: 'transparent'
         }
       }
     },

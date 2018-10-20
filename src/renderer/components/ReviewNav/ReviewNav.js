@@ -151,11 +151,6 @@ class ReviewNav extends Component {
             </IconButton>
           </div>
           <Divider />
-          {this.state.open && (
-            <Typography variant="subtitle1" align="center">
-              Review
-            </Typography>
-          )}
           <ReviewMenuLeftTop total={total} report={report} setReviewType={this.setReviewType} />
           <Divider />
           {this.state.open && (
@@ -163,7 +158,6 @@ class ReviewNav extends Component {
           )}
           {this.state.open && <Divider />}
           {reviewMode !== 0 && <ReviewMenuLeftBottom backToSummary={this.backToSummary} />}
-          <Divider />
           <ReviewMenuLeftBack exit={exit} />
         </Drawer>
         <main className={classes.content}>

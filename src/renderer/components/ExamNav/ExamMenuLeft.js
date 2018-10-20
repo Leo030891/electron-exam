@@ -1,4 +1,5 @@
 import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -8,7 +9,17 @@ import AllIcon from '@material-ui/icons/ListAltSharp'
 import BookmarkIcon from '@material-ui/icons/BookmarkSharp'
 import { execFile } from 'child_process'
 
-function ExamMenuLeft({ enterMarkedMode, setExamMode }) {
+const styles = theme => ({
+  listItem: {
+    '&:hover': {
+      backgroundColor: 'rgb(225, 242, 255)',
+      outline: '2px solid rgb(1, 139, 244)',
+      color: 'rgb(1, 139, 244)'
+    }
+  }
+})
+
+function ExamMenuLeft({ enterMarkedMode, setExamMode, classes }) {
   const list = [
     { text: 'All Questions', icon: <AllIcon />, click: () => setExamMode(0) },
     { text: 'Marked Questions', icon: <BookmarkIcon />, click: enterMarkedMode },
@@ -21,7 +32,7 @@ function ExamMenuLeft({ enterMarkedMode, setExamMode }) {
   return (
     <List>
       {list.map((l, i) => (
-        <ListItem key={l.text} onClick={l.click} button>
+        <ListItem key={l.text} onClick={l.click} classes={{ button: classes.listItem }} button>
           <ListItemIcon>{l.icon}</ListItemIcon>
           <ListItemText primary={l.text} />
         </ListItem>
@@ -30,4 +41,4 @@ function ExamMenuLeft({ enterMarkedMode, setExamMode }) {
   )
 }
 
-export default ExamMenuLeft
+export default withStyles(styles)(ExamMenuLeft)

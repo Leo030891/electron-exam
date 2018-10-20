@@ -16,6 +16,15 @@ import { getTimeHHMMSS } from '../../utils/dateHelpers'
 const styles = theme => ({
   explaining: {
     color: 'rgb(31, 144, 224)'
+  },
+  iconButton: {
+    borderRadius: 0,
+    color: theme.palette.grey[800],
+    '&:hover': {
+      backgroundColor: 'rgb(225, 242, 255)',
+      color: 'rgb(31, 144, 224)',
+      outline: '2px solid rgb(1, 139, 244)'
+    }
   }
 })
 
@@ -39,27 +48,33 @@ function BottomBar(props) {
         />
       </div>
       <div className="arrows">
-        <IconButton onClick={onFirstClick}>
+        <IconButton classes={{ root: classes.iconButton }} onClick={onFirstClick}>
           <FirstIcon />
         </IconButton>
-        <IconButton onClick={onBackClick}>
+        <IconButton classes={{ root: classes.iconButton }} onClick={onBackClick}>
           <BackIcon />
         </IconButton>
-        <IconButton onClick={onForwardClick}>
+        <IconButton classes={{ root: classes.iconButton }} onClick={onForwardClick}>
           <ForwardIcon />
         </IconButton>
-        <IconButton onClick={onLastClick}>
+        <IconButton classes={{ root: classes.iconButton }} onClick={onLastClick}>
           <LastIcon />
         </IconButton>
       </div>
       <div className="menu-icon">
         <IconButton
           onClick={viewExplanation}
-          classes={{ root: classNames({ [`${classes.explaining}`]: explanation }) }}
+          style={{ color: explanation && 'rgb(31, 144, 224)' }}
+          classes={{
+            root: classNames(
+              { [`${classes.iconButton}`]: true },
+              { [`${classes.explaining}`]: explanation }
+            )
+          }}
         >
           <CheckIcon />
         </IconButton>
-        <IconButton onClick={openTestMenu}>
+        <IconButton classes={{ root: classes.iconButton }} onClick={openTestMenu}>
           <MenuIcon />
         </IconButton>
       </div>

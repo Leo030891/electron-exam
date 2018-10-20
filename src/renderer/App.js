@@ -17,6 +17,7 @@ import StartExamIcon from '@material-ui/icons/PowerSettingsNewSharp'
 import ExitExamIcon from '@material-ui/icons/StopSharp'
 import TimerIcon from '@material-ui/icons/TimerSharp'
 import SaveIcon from '@material-ui/icons/SaveSharp'
+import TimeExpiredIcon from '@material-ui/icons/TimerOffSharp'
 import { readDirectory, getFilename } from './utils/fileHelpers'
 import isEqual from 'lodash/isEqual'
 import fs from 'fs'
@@ -63,6 +64,7 @@ export default class App extends Component {
       confirmDS: false,
       confirmRS: false,
       confirmFAE: false,
+      confirmTE: false,
       anchorEl1: null,
       anchorEl2: null,
       anchorEl3: null,
@@ -228,7 +230,8 @@ export default class App extends Component {
       const { time } = this.state
       if (time === 0) {
         clearInterval(this.timer)
-        // end exam show alert
+        this.setState({ confirmTE: true })
+        return
       }
       this.setState({ time: time - 1 })
     }, 1000)
@@ -251,7 +254,6 @@ export default class App extends Component {
   }
 
   setQuestion = (question, mode) => {
-    console.log(question, mode)
     if (question < 0 || question > this.state.exam.test.length - 1) return
     const { examMode } = this.state
     if (examMode === 0) {
@@ -374,7 +376,15 @@ export default class App extends Component {
     }
     history.push(report)
     this.setState(
-      { mode: 3, reviewMode: 0, report, confirmEE: false, history, indexExam: null },
+      {
+        mode: 3,
+        reviewMode: 0,
+        report,
+        confirmEE: false,
+        confirmTE: false,
+        history,
+        indexExam: null
+      },
       () => {
         let filepath = path.resolve(__static, 'history.json')
         writeFile(filepath, JSON.stringify(history)).catch(console.error)
@@ -506,12 +516,15 @@ export default class App extends Component {
 
   closeConfirmFAE = () => this.setState({ confirmFAE: false })
 
+  closeConfirmTE = () => this.setState({ confirmTE: false })
+
   render() {
-    const { loading, mode, mainMode, reviewMode, reviewType, confirmRS, confirmFAE } = this.state
+    const { loading, mode, mainMode, examMode, reviewMode, reviewType } = this.state
+    const { confirmRS, confirmFAE, confirmTE, confirmDS } = this.state
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
-    const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR, confirmDS } = this.state
+    const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
-    const { report, history, sessions, marked, examMode } = this.state
+    const { report, history, sessions, marked } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
       const menuItems1 = [
@@ -710,6 +723,17 @@ export default class App extends Component {
           icon={<SaveIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmSS}
           onOkay={this.saveSession}
+        />,
+        <Confirm
+          key="time-expired"
+          alert={true}
+          open={confirmTE}
+          title="Time Expired"
+          message="Time Expired"
+          detail="Exam time has expired. Click OK to view results."
+          icon={<TimeExpiredIcon fontSize="inherit" className="confirm-icon" />}
+          onClose={this.closeConfirmTE}
+          onOkay={this.exitExam}
         />,
         <Popup
           key="popup-2"

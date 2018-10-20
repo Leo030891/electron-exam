@@ -7,7 +7,15 @@ import ListItemText from '@material-ui/core/ListItemText'
 import AddLocalIcon from '@material-ui/icons/PlaylistAddSharp'
 import { AddRemoteIcon } from '../Icons'
 
-const styles = theme => ({})
+const styles = theme => ({
+  listItem: {
+    '&:hover': {
+      backgroundColor: 'rgb(225, 242, 255)',
+      outline: '2px solid rgb(1, 139, 244)',
+      color: 'rgb(1, 139, 244)'
+    }
+  }
+})
 
 function MainMenuLeftTop({ loadLocalExam, openPromptLR, classes }) {
   const list = [
@@ -17,7 +25,7 @@ function MainMenuLeftTop({ loadLocalExam, openPromptLR, classes }) {
   return (
     <List disablePadding>
       {list.map((l, i) => (
-        <ListItem key={l.text} onClick={l.click} button>
+        <ListItem key={l.text} button onClick={l.click} classes={{ button: classes.listItem }}>
           <ListItemIcon>{l.icon}</ListItemIcon>
           <ListItemText primary={l.text} />
         </ListItem>

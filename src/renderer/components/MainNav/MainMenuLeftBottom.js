@@ -7,7 +7,15 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import SettingsIcon from '@material-ui/icons/SettingsSharp'
 
-const styles = theme => ({})
+const styles = theme => ({
+  listItem: {
+    '&:hover': {
+      backgroundColor: 'rgb(225, 242, 255)',
+      outline: '2px solid rgb(1, 139, 244)',
+      color: 'rgb(1, 139, 244)'
+    }
+  }
+})
 
 function MainMenuLeftBottom({ setMainMode, classes }) {
   const list = [
@@ -22,7 +30,7 @@ function MainMenuLeftBottom({ setMainMode, classes }) {
       <Divider />
       <List disablePadding>
         {list.map((l, i) => (
-          <ListItem key={l.text} onClick={l.click} button>
+          <ListItem key={l.text} onClick={l.click} classes={{ button: classes.listItem }} button>
             <ListItemIcon>{l.icon}</ListItemIcon>
             <ListItemText primary={l.text} />
           </ListItem>

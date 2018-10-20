@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import mainWinDimens from 'common/mainWinDimens'
 import html from 'common/html'
+import { MAIN_ICON } from 'common/icons'
 
 let mainWin
 
@@ -11,7 +12,8 @@ function createMainWin() {
 
   mainWin = new BrowserWindow({
     width,
-    height
+    height,
+    icon: MAIN_ICON
   })
 
   mainWin.setMenu(null)

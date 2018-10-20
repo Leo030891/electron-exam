@@ -20,7 +20,8 @@
   font-size: 48px;
   cursor: pointer;
   &:hover {
-    background-color: darken($color: rgb(232, 244, 252), $amount: 10);
+    background-color: darken($color: rgb(232, 244, 252), $amount: 7.5);
+    outline: 2px solid rgb(1, 139, 244);
   }
 
   .panel-icon {

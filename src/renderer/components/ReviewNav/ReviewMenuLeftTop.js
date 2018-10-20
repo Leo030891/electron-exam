@@ -1,4 +1,5 @@
 import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -8,7 +9,17 @@ import AllIcon from '@material-ui/icons/ListAltSharp'
 import IncorrectIcon from '@material-ui/icons/CloseSharp'
 import { IncompleteIcon } from '../Icons'
 
-function ReviewMenuLeftTop({ total, report: { incomplete, incorrect }, setReviewType }) {
+const styles = theme => ({
+  listItem: {
+    '&:hover': {
+      backgroundColor: 'rgb(225, 242, 255)',
+      outline: '2px solid rgb(1, 139, 244)',
+      color: 'rgb(1, 139, 244)'
+    }
+  }
+})
+
+function ReviewMenuLeftTop({ total, report: { incomplete, incorrect }, setReviewType, classes }) {
   const list = [
     {
       text: 'All Questions',
@@ -20,19 +31,19 @@ function ReviewMenuLeftTop({ total, report: { incomplete, incorrect }, setReview
       text: 'Incorrect Answers',
       total: `(${incorrect.length})`,
       icon: <IncorrectIcon />,
-      click: () => setReviewType('incorrect')
+      click: () => incorrect.length && setReviewType('incorrect')
     },
     {
       text: 'Incomplete',
       total: `(${incomplete.length})`,
       icon: <IncompleteIcon />,
-      click: () => setReviewType('incomplete')
+      click: () => incomplete.length && setReviewType('incomplete')
     }
   ]
   return (
     <List disablePadding>
       {list.map((l, i) => (
-        <ListItem key={l.text} onClick={l.click} button>
+        <ListItem key={l.text} onClick={l.click} classes={{ button: classes.listItem }} button>
           <ListItemIcon>{l.icon}</ListItemIcon>
           <ListItemText
             disableTypography
@@ -48,4 +59,4 @@ function ReviewMenuLeftTop({ total, report: { incomplete, incorrect }, setReview
   )
 }
 
-export default ReviewMenuLeftTop
+export default withStyles(styles)(ReviewMenuLeftTop)
