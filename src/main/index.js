@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import mainWinDimens from 'common/mainWinDimens'
 import html from 'common/html'
 import { MAIN_ICON } from 'common/icons'
@@ -9,6 +10,7 @@ const firstInstance = app.requestSingleInstanceLock()
 const inDev = process.env.NODE_ENV === 'development'
 
 function createMainWin() {
+  autoUpdater.checkForUpdatesAndNotify()
   const [width, height] = mainWinDimens()
 
   mainWin = new BrowserWindow({

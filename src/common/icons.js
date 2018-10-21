@@ -1,3 +1,3 @@
 import path from 'path'
 
-export const MAIN_ICON = path.resolve(__static, 'exam-icon.ico')
+export const MAIN_ICON = path.resolve(__static, 'bulb.ico')

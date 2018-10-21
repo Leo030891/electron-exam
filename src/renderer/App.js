@@ -155,6 +155,7 @@ export default class App extends Component {
   }
 
   loadRemoteExam = str => {
+    return
     const url = new URL(str)
     const filename = url.pathname.split('/')[2] + '.json'
     const request = remote.net.request(url.href)
