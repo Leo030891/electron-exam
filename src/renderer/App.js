@@ -263,6 +263,7 @@ export default class App extends Component {
   }
 
   setQuestion = (question, mode) => {
+    if (mode === 'click') return this.setState({ question })
     if (question < 0 || question > this.state.exam.test.length - 1) return
     const { examMode } = this.state
     if (examMode === 0) {
@@ -711,8 +712,13 @@ export default class App extends Component {
           key="exam-screen"
           title={exam.code}
           examMode={examMode}
+          total={exam.test.length}
+          question={question}
+          marked={marked}
+          answers={answers}
           enterMarkedMode={this.enterMarkedMode}
           setExamMode={this.setExamMode}
+          setQuestion={this.setQuestion}
         >
           <ExamScreen
             expRef={this.explanation}

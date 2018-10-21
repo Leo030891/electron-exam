@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ExamMenuLeft from './ExamMenuLeft'
+import QuestionGrid from './QuestionGrid'
 
 const drawerWidth = 240
 
@@ -110,7 +111,8 @@ class ExamNav extends Component {
   }
 
   render() {
-    const { title, examMode, enterMarkedMode, setExamMode, classes } = this.props
+    const { title, total, answers, question, marked, examMode, classes } = this.props
+    const { enterMarkedMode, setExamMode, setQuestion } = this.props
 
     return (
       <div className={classes.root}>
@@ -145,6 +147,17 @@ class ExamNav extends Component {
           </div>
           <Divider />
           <ExamMenuLeft enterMarkedMode={enterMarkedMode} setExamMode={setExamMode} />
+          <Divider />
+          {this.state.open && (
+            <QuestionGrid
+              total={total}
+              answers={answers}
+              question={question}
+              marked={marked}
+              setQuestion={setQuestion}
+            />
+          )}
+          {this.state.open && <Divider />}
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />

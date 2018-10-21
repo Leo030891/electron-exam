@@ -84,3 +84,68 @@
     }
   }
 }
+
+.QuestionGrid {
+  width: 240px;
+  height: 47vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.65rem;
+    padding-top: 10px;
+
+    .mini-answered {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(168, 213, 245);
+      border: 0.25px solid;
+    }
+
+    .mini-marked {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(249, 255, 158);
+      border: 0.25px solid;
+    }
+
+    .mini-incomplete {
+      width: 10px;
+      height: 10px;
+      background-color: rgb(227, 227, 227);
+      border: 0.25px solid;
+    }
+  }
+
+  .grid {
+    width: 220px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .question-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    margin: 3px;
+    cursor: pointer;
+
+    &:hover {
+      outline: 2px solid rgb(31, 144, 224);
+    }
+  }
+}
