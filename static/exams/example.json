@@ -1,0 +1,33 @@
+{
+  "title": "Example Exam",
+  "code": "000-000",
+  "group": "",
+  "time": 10,
+  "pass": 75,
+  "cover": [{ "type": 2, "text": "Example Exam" }],
+  "test": [
+    {
+      "type": 0,
+      "question": [
+        {
+          "type": 1,
+          "text": "Evaluation the following expression:"
+        },
+        { "type": 1, "text": "There are 12 eggs in one dozen." }
+      ],
+      "choices": [{ "label": "A", "text": "True" }, { "label": "B", "text": "False" }],
+      "answer": [true, false],
+      "explanation": [{ "type": 1, "text": "Just look in your fridge" }]
+    },
+    {
+      "type": 2,
+      "question": [
+        { "type": 1, "text": "Fill in the blank in the following statement." },
+        { "type": 1, "text": "The state capital of __________ is Sacramento." }
+      ],
+      "choices": [],
+      "answer": ["california"],
+      "explanation": []
+    }
+  ]
+}

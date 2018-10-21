@@ -65,6 +65,7 @@ class ReviewExam extends Component {
                       >
                         <Explanation
                           expRef={null}
+                          type={q.type}
                           answers={answers[number - 1]}
                           correctAnswers={q.answer}
                           explanation={q.explanation}

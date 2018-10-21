@@ -1,7 +1,8 @@
 {
   "name": "electron-exam",
   "version": "1.0.0",
-  "description": "",
+  "description": "An exam simulator",
+  "repository": "https://github.com/benjaminadk/electron-exam",
   "main": "./dist/main/main.js",
   "scripts": {
     "dev": "electron-webpack dev",
@@ -11,7 +12,24 @@
   },
   "keywords": [],
   "author": "benjaminadk",
-  "license": "ISC",
+  "license": "MIT",
+  "build": {
+    "appId": "com.electron.examsimulator",
+    "productName": "Exam Simulator",
+    "win": {
+      "icon": "static/exam-icon.ico",
+      "publish": {
+        "provider": "github",
+        "owner": "benjaminadk"
+      },
+      "target": [
+        "nsis"
+      ]
+    },
+    "directories": {
+      "output": "release"
+    }
+  },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-react": "^7.0.0",

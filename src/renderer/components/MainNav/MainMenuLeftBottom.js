@@ -1,4 +1,5 @@
 import React from 'react'
+import { shell } from 'electron'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -6,6 +7,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import SettingsIcon from '@material-ui/icons/SettingsSharp'
+import InfoIcon from '@material-ui/icons/InfoSharp'
+import HelpIcon from '@material-ui/icons/HelpSharp'
 
 const styles = theme => ({
   listItem: {
@@ -19,11 +22,13 @@ const styles = theme => ({
 
 function MainMenuLeftBottom({ setMainMode, classes }) {
   const list = [
+    { text: 'About', icon: <InfoIcon />, click: () => {} },
     {
-      text: 'Settings',
-      icon: <SettingsIcon />,
-      click: () => setMainMode(3)
-    }
+      text: 'Documentation',
+      icon: <HelpIcon />,
+      click: () => shell.openExternal('https://github.com/benjaminadk/electron-exam/wiki')
+    },
+    { text: 'Settings', icon: <SettingsIcon />, click: () => setMainMode(3) }
   ]
   return (
     <div style={{ position: 'absolute', bottom: 0, width: 240, overflow: 'hidden' }}>

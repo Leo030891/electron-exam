@@ -13,6 +13,12 @@ function CoverScreen({ cover }) {
               {c.text}
             </Typography>
           )
+        } else if (c.type === 2) {
+          return (
+            <Typography key={i} variant="h6" className="cover-item">
+              {c.text}
+            </Typography>
+          )
         }
       })}
     </div>

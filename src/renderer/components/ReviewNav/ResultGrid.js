@@ -20,7 +20,7 @@ class ResultGrid extends Component {
   }
 
   render() {
-    const { total, setReviewType } = this.props
+    const { reviewType, total, setReviewType } = this.props
     return (
       <div className="ResultGrid">
         <div className="title">
@@ -32,7 +32,10 @@ class ResultGrid extends Component {
             <div
               key={`item-${i}`}
               className="result-item"
-              style={{ backgroundColor: this.getBackgroundColor(i) }}
+              style={{
+                backgroundColor: this.getBackgroundColor(i),
+                outline: reviewType === i && '2px solid rgb(31, 144, 224)'
+              }}
               onClick={() => setReviewType(i)}
             >
               <Typography variant="overline">{i + 1}</Typography>

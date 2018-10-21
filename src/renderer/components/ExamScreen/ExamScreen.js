@@ -5,6 +5,7 @@ import TopBar from './TopBar'
 import Question from './Question'
 import Checkboxes from './Checkboxes'
 import MultipleChoice from './MultipleChoice'
+import FillInBlank from './FillInBlank'
 import Explanation from './Explanation'
 import BottomBar from './BottomBar'
 
@@ -12,7 +13,7 @@ const styles = theme => ({})
 
 function ExamScreen(props) {
   const { exam, question, time, answers, marked, explanation, expRef } = props
-  const { onAnswerCheck, onAnswerMultiple, viewExplanation, openTestMenu } = props
+  const { onAnswerCheck, onAnswerMultiple, onAnswerFillIn, viewExplanation, openTestMenu } = props
   const { setQuestion, markQuestion, handleSlider, examMode, classes } = props
   return (
     <div className="ExamScreen">
@@ -47,7 +48,7 @@ function ExamScreen(props) {
                         explanation={explanation}
                         onAnswerMultiple={onAnswerMultiple}
                       />
-                    ) : (
+                    ) : t.type === 1 ? (
                       <Checkboxes
                         review={false}
                         choices={t.choices}
@@ -57,7 +58,16 @@ function ExamScreen(props) {
                         explanation={explanation}
                         onAnswerCheck={onAnswerCheck}
                       />
-                    )}
+                    ) : t.type === 2 ? (
+                      <FillInBlank
+                        review={false}
+                        question={i}
+                        answers={answers[i]}
+                        correctAnswers={t.answers}
+                        explanation={explanation}
+                        onAnswerFillIn={onAnswerFillIn}
+                      />
+                    ) : null}
                   </div>
                   {explanation && (
                     <Slide
@@ -68,6 +78,7 @@ function ExamScreen(props) {
                     >
                       <Explanation
                         expRef={expRef}
+                        type={t.type}
                         answers={answers[i]}
                         correctAnswers={t.answer}
                         explanation={t.explanation}

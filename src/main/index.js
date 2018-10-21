@@ -5,6 +5,7 @@ import { MAIN_ICON } from 'common/icons'
 
 let mainWin
 
+const firstInstance = app.requestSingleInstanceLock()
 const inDev = process.env.NODE_ENV === 'development'
 
 function createMainWin() {
@@ -13,7 +14,8 @@ function createMainWin() {
   mainWin = new BrowserWindow({
     width,
     height,
-    icon: MAIN_ICON
+    icon: MAIN_ICON,
+    title: `Exam Simulator ${app.getVersion()}`
   })
 
   mainWin.setMenu(null)
@@ -39,5 +41,15 @@ function setupDevtools() {
     .catch(console.log)
 }
 
-app.on('ready', createMainWin)
-app.on('window-all-closed', () => app.quit())
+if (!firstInstance) {
+  app.quit()
+} else {
+  app.on('second-instance', () => {
+    if (mainWin) {
+      if (mainWin.isMinimized()) mainWin.restore()
+      mainWin.focus()
+    }
+  })
+  app.on('ready', createMainWin)
+  app.on('window-all-closed', () => app.quit())
+}

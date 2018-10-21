@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import CoverMenuTop from './CoverMenuTop'
+import CoverMenuLeft from './CoverMenuLeft'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 
@@ -110,7 +111,7 @@ class CoverNav extends Component {
 
   render() {
     const { openConfirmSE, setMode, classes } = this.props
-
+    const { title, code, passing, timeLimit, total } = this.props
     return (
       <div className={classes.root}>
         <AppBar
@@ -125,7 +126,7 @@ class CoverNav extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <CoverMenuTop setMode={setMode} openConfirmSE={openConfirmSE} />
+            <CoverMenuTop title={title} setMode={setMode} openConfirmSE={openConfirmSE} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -141,6 +142,9 @@ class CoverNav extends Component {
             </IconButton>
           </div>
           <Divider />
+          {this.state.open && (
+            <CoverMenuLeft code={code} passing={passing} timeLimit={timeLimit} total={total} />
+          )}
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />

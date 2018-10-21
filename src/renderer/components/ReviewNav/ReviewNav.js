@@ -123,7 +123,7 @@ class ReviewNav extends Component {
   }
 
   render() {
-    const { reviewMode, title, code, report, total, exit, classes } = this.props
+    const { reviewMode, reviewType, title, code, report, total, exit, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -160,7 +160,12 @@ class ReviewNav extends Component {
           <ReviewMenuLeftTop total={total} report={report} setReviewType={this.setReviewType} />
           <Divider />
           {this.state.open && (
-            <ResultGrid total={total} report={report} setReviewType={this.setReviewType} />
+            <ResultGrid
+              reviewType={reviewType}
+              total={total}
+              report={report}
+              setReviewType={this.setReviewType}
+            />
           )}
           {this.state.open && <Divider />}
           {reviewMode !== 0 && <ReviewMenuLeftBottom backToSummary={this.backToSummary} />}

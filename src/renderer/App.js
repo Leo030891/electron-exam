@@ -348,6 +348,17 @@ export default class App extends Component {
     this.setState({ answers })
   }
 
+  onAnswerFillIn = (value, x) => {
+    let { answers, exam } = this.state
+    let correct = exam.test[x].answer
+    if (correct.indexOf(value) !== -1) {
+      answers[x] = [true]
+    } else {
+      answers[x] = [false]
+    }
+    this.setState({ answers })
+  }
+
   exitExam = () => {
     clearInterval(this.timer)
     const { exam, answers, time, history, filepaths, indexExam } = this.state
@@ -358,7 +369,7 @@ export default class App extends Component {
       let answer = exam.test[i].answer
       if (a.indexOf(true) === -1) {
         incomplete.push(i)
-      } else if (isEqual(a, answer)) {
+      } else if (isEqual(a, answer) || (a.length === 1 && !!a)) {
         correct.push(i)
       } else {
         incorrect.push(i)
@@ -665,7 +676,16 @@ export default class App extends Component {
       ]
     } else if (mode === 1) {
       return [
-        <CoverNav key="cover-screen" setMode={this.setMode} openConfirmSE={this.openConfirmSE}>
+        <CoverNav
+          key="cover-screen"
+          title={exam.title}
+          code={exam.code}
+          passing={exam.pass}
+          timeLimit={exam.time}
+          total={exam.test.length}
+          setMode={this.setMode}
+          openConfirmSE={this.openConfirmSE}
+        >
           <CoverScreen cover={exam.cover} />
         </CoverNav>,
         <Confirm
@@ -707,6 +727,7 @@ export default class App extends Component {
             markQuestion={this.markQuestion}
             onAnswerCheck={this.onAnswerCheck}
             onAnswerMultiple={this.onAnswerMultiple}
+            onAnswerFillIn={this.onAnswerFillIn}
             viewExplanation={this.viewExplanation}
             openTestMenu={this.openTestMenu}
           />
@@ -764,6 +785,7 @@ export default class App extends Component {
       return (
         <ReviewNav
           reviewMode={reviewMode}
+          reviewType={reviewType}
           title={exam.title}
           code={exam.code}
           total={exam.test.length}

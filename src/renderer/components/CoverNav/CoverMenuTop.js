@@ -19,10 +19,10 @@ const styles = theme => ({
   }
 })
 
-function CoverMenuTop({ setMode, openConfirmSE, classes }) {
+function CoverMenuTop({ title, setMode, openConfirmSE, classes }) {
   return (
     <div className="cover-menu-top">
-      <Typography variant="h6">Start Exam</Typography>
+      <Typography variant="h6">{`Start Exam - ${title}`}</Typography>
       <div>
         <IconButton classes={{ root: classes.iconButton }} onClick={() => setMode(0)}>
           <BackIcon />
