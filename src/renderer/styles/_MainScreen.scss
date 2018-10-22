@@ -4,6 +4,15 @@
   overflow-y: auto;
 }
 
+.history-info {
+  display: flex;
+  align-items: center;
+}
+
+.history-title {
+  margin-right: 30px;
+}
+
 .panel-details {
   display: flex;
   flex-direction: column;

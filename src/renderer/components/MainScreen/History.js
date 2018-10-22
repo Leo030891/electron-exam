@@ -51,12 +51,20 @@ class History extends Component {
       if (codes.indexOf(el.code) === -1) codes.push(el.code)
     })
     let grouped = groupBy(history, 'code')
-    this.setState({ grouped, codes })
+    let averages = []
+    for (let j = 0; j < codes.length; j++) {
+      let sum = 0
+      grouped[codes[j]].forEach(g => {
+        sum += g.score
+      })
+      averages.push(Math.round(sum / grouped[codes[j]].length))
+    }
+    this.setState({ grouped, codes, averages })
   }
 
   render() {
     const { history, onHistoryClick, classes } = this.props
-    const { grouped, codes } = this.state
+    const { grouped, codes, averages } = this.state
     if (history.length) {
       return (
         <div className="panels">
@@ -68,7 +76,12 @@ class History extends Component {
                   expandIcon={<ExpandMoreIcon />}
                   classes={{ root: classes.summaryRoot }}
                 >
-                  <Typography variant="subtitle1">{`${c}   /   ${grouped[c][0].title}`}</Typography>
+                  <div className="history-info">
+                    <Typography variant="subtitle1" className="history-title">{`${c}   /   ${
+                      grouped[c][0].title
+                    }`}</Typography>
+                    <Typography variant="caption"> Average Score: {averages[i]}%</Typography>
+                  </div>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                   <div className="panel-details">

@@ -30,3 +30,27 @@
     color: rgb(1, 139, 244);
   }
 }
+
+.about-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .about-paper {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    .about-item {
+      display: flex;
+      justify-content: space-between;
+
+      .about-link {
+        color: rgb(1, 139, 244);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

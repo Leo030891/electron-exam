@@ -17,7 +17,7 @@
     "appId": "com.electron.examsimulator",
     "productName": "Exam Simulator",
     "win": {
-      "icon": "static/exam-icon.ico",
+      "icon": "static/icon.ico",
       "publish": {
         "provider": "github",
         "owner": "benjaminadk"

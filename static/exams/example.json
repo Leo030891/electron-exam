@@ -27,6 +27,64 @@
       ],
       "choices": [],
       "answer": ["california"],
+      "explanation": [
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/general/2a.gif" }
+      ]
+    },
+    {
+      "type": 1,
+      "question": [
+        {
+          "type": 1,
+          "text": "Which of the following NBA players currently play on the Los Angeles Lakers?"
+        }
+      ],
+      "choices": [
+        { "label": "A", "text": "James Harden" },
+        { "label": "B", "text": "Russel Westbrook" },
+        { "label": "C", "text": "LeBron James" },
+        { "label": "D", "text": "Rajon Rondo" },
+        { "label": "E", "text": "Carmelo Anthony" },
+        { "label": "F", "text": "Lonzo Ball" }
+      ],
+      "answer": [false, false, true, true, false, true],
+      "explanation": []
+    },
+    {
+      "type": 0,
+      "question": [
+        { "type": 1, "text": "Which famous artist painted the following painting?" },
+        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/general/4a.jpg" }
+      ],
+      "choices": [
+        { "label": "A", "text": "Vincent van Gogh" },
+        { "label": "B", "text": "Andy Warhol" },
+        { "label": "C", "text": "Pablo Picasso" },
+        { "label": "D", "text": "Salvador Dali" }
+      ],
+      "answer": [false, false, false, true],
+      "explanation": []
+    },
+    {
+      "type": 1,
+      "question": [
+        {
+          "type": 1,
+          "text": "Netflix has emerged as the most popular streaming service in the world."
+        },
+        { "type": 1, "text": "As of 2018, Netflix has an estimated 137 million subscribers." },
+        {
+          "type": 1,
+          "text": "Approximately, how many of these subscribers live in the United States?"
+        }
+      ],
+      "choices": [
+        { "label": "A", "text": "100 million" },
+        { "label": "B", "text": "60 million" },
+        { "label": "C", "text": "10 million" },
+        { "label": "D", "text": "40 million" }
+      ],
+      "answer": [false, true, false, false],
       "explanation": []
     }
   ]

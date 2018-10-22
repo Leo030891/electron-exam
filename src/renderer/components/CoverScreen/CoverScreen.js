@@ -15,7 +15,7 @@ function CoverScreen({ cover }) {
           )
         } else if (c.type === 2) {
           return (
-            <Typography key={i} variant="h6" className="cover-item">
+            <Typography key={i} variant="h5" className="cover-item">
               {c.text}
             </Typography>
           )

@@ -20,9 +20,9 @@ const styles = theme => ({
   }
 })
 
-function MainMenuLeftBottom({ setMainMode, classes }) {
+function MainMenuLeftBottom({ setMainMode, openAboutSE, classes }) {
   const list = [
-    { text: 'About', icon: <InfoIcon />, click: () => {} },
+    { text: 'About', icon: <InfoIcon />, click: openAboutSE },
     {
       text: 'Documentation',
       icon: <HelpIcon />,

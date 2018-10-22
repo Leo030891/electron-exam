@@ -12,6 +12,7 @@ import Prompt from './components/App/Prompt'
 import Confirm from './components/App/Confirm'
 import Loading from './components/App/Loading'
 import Popup from './components/App/Popup'
+import About from './components/App/About'
 import ErrorIcon from '@material-ui/icons/ErrorSharp'
 import DeleteIcon from '@material-ui/icons/DeleteSharp'
 import StartExamIcon from '@material-ui/icons/PowerSettingsNewSharp'
@@ -26,13 +27,16 @@ import fs from 'fs'
 import path from 'path'
 import { promisify } from 'util'
 
+// promisify fs operation to use promises vs callbacks
 const readdir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 const deleteFile = promisify(fs.unlink)
 
+// reference the electron mainWin object
 const mainWin = remote.BrowserWindow.fromId(1)
 
+// main React class
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -56,6 +60,7 @@ export default class App extends Component {
       report: null,
       fileData: null,
       filepaths: null,
+      aboutES: false,
       promptLR: false,
       confirmDE: false,
       confirmSE: false,
@@ -80,12 +85,15 @@ export default class App extends Component {
     this.explanation = React.createRef()
   }
 
+  // load exams, history and sessions from json files when component has mounted
   componentDidMount() {
     this.loadExams()
     this.loadHistory()
     this.loadSessions()
   }
 
+  // load exams by reading entire static/exams directory
+  // readDirectory also gets all file stats and filepaths
   loadExams = () => {
     let dir = path.resolve(__static, 'exams')
     readdir(dir)
@@ -104,6 +112,7 @@ export default class App extends Component {
       .catch(console.error)
   }
 
+  // reads history file and sets state
   loadHistory = () => {
     let filepath = path.resolve(__static, 'history.json')
     readFile(filepath)
@@ -114,6 +123,7 @@ export default class App extends Component {
       .catch(console.error)
   }
 
+  // reads sessions file and sets state
   loadSessions = () => {
     let filepath = path.resolve(__static, 'sessions.json')
     readFile(filepath)
@@ -124,6 +134,8 @@ export default class App extends Component {
       .catch(console.error)
   }
 
+  // reads and copies any local file into static/exams and updates state
+  // validates exam json schema with ajv against pre-defined schema
   loadLocalExam = () => {
     remote.dialog.showOpenDialog(
       mainWin,
@@ -154,6 +166,8 @@ export default class App extends Component {
     )
   }
 
+  // fetch an exam from a remote source
+  // currently under construction
   loadRemoteExam = str => {
     return
     const url = new URL(str)
@@ -169,6 +183,8 @@ export default class App extends Component {
     request.end()
   }
 
+  // delete exam and rewrite file
+  // finds related history and sessions and deletes/rewrites
   deleteExam = () => {
     const { filepaths, indexExam, sessions, history } = this.state
     let filename = filepaths[indexExam]
@@ -185,6 +201,7 @@ export default class App extends Component {
       .catch(console.error)
   }
 
+  // helper to delete exam
   updateHistory = history => {
     let filepath = path.resolve(__static, 'history.json')
     this.setState({ history }, () => {
@@ -192,6 +209,7 @@ export default class App extends Component {
     })
   }
 
+  // helper to delete exam
   updateSessions = sessions => {
     let filepath = path.resolve(__static, 'sessions.json')
     this.setState({ sessions }, () => {
@@ -199,33 +217,56 @@ export default class App extends Component {
     })
   }
 
+  // set App mode --> 0 = main, 1 = cover, 2 = exam, 3 = review
   setMode = mode => this.setState({ mode })
 
+  // set Main mode --> 0 = exams, 1 = history, 2 = sessions, 3 = settings
   setMainMode = mainMode => this.setState({ mainMode })
 
+  // set Review mode --> 0 = summary, 1 = detail
   setReviewMode = reviewMode => this.setState({ reviewMode })
 
+  // set Review question type --> Number = specific question, all, marked, incomplete
   setReviewType = reviewType => this.setState({ reviewType })
 
+  // opens exam menu at coords and stores index
   onExamClick = (e, i) => {
-    this.setState({ anchorEl1: { left: e.clientX, top: e.clientY }, indexExam: i })
+    this.setState({
+      anchorEl1: { left: e.clientX, top: e.clientY },
+      indexExam: i
+    })
   }
-
+  // opens history menu at coords and stores index
   onHistoryClick = (e, i) => {
-    this.setState({ anchorEl3: { left: e.clientX, top: e.clientY }, indexHist: i })
+    this.setState({
+      anchorEl3: { left: e.clientX, top: e.clientY },
+      indexHist: i
+    })
   }
 
+  // opens sessions menu at coords and stores index
   onSessionClick = (e, i) => {
-    this.setState({ anchorEl4: { left: e.clientX, top: e.clientY }, indexSess: i })
+    this.setState({
+      anchorEl4: { left: e.clientX, top: e.clientY },
+      indexSess: i
+    })
   }
 
+  // initializes exam process
   enterTestMode = () => {
     let answers = []
     let marked = []
     let exam = this.state.exams[this.state.indexExam]
     let time = exam.time * 60
     exam.test.forEach(t => answers.push(Array(t.choices.length).fill(false)))
-    this.setState({ mode: 1, exam, answers, marked, time, anchorEl1: null })
+    this.setState({
+      mode: 1,
+      exam,
+      answers,
+      marked,
+      time,
+      anchorEl1: null
+    })
   }
 
   startExam = () => {
@@ -472,7 +513,17 @@ export default class App extends Component {
     let indexExam = filepaths.indexOf(filename)
     let exam = exams[indexExam]
     this.setState(
-      { mode: 2, mainMode: 0, confirmRS: false, indexExam, exam, time, question, answers, marked },
+      {
+        mode: 2,
+        mainMode: 0,
+        confirmRS: false,
+        indexExam,
+        exam,
+        time,
+        question,
+        answers,
+        marked
+      },
       () => {
         this.initTimer()
       }
@@ -500,11 +551,19 @@ export default class App extends Component {
 
   closeAnchorEl4 = () => this.setState({ anchorEl4: null })
 
-  openConfirmDE = () => this.setState({ confirmDE: true, anchorEl1: null })
+  openConfirmDE = () =>
+    this.setState({
+      confirmDE: true,
+      anchorEl1: null
+    })
 
   closeConfirmDE = () => this.setState({ confirmDE: false })
 
-  openConfirmDH = () => this.setState({ confirmDH: true, anchorEl3: null })
+  openConfirmDH = () =>
+    this.setState({
+      confirmDH: true,
+      anchorEl3: null
+    })
 
   closeConfirmDH = () => this.setState({ confirmDH: false })
 
@@ -517,19 +576,35 @@ export default class App extends Component {
 
   closeConfirmSE = () => this.setState({ confirmSE: false })
 
-  openConfirmEE = () => this.setState({ confirmEE: true, anchorEl2: null })
+  openConfirmEE = () =>
+    this.setState({
+      confirmEE: true,
+      anchorEl2: null
+    })
 
   closeConfirmEE = () => this.setState({ confirmEE: false })
 
-  openConfirmSS = () => this.setState({ confirmSS: true, anchorEl2: null })
+  openConfirmSS = () =>
+    this.setState({
+      confirmSS: true,
+      anchorEl2: null
+    })
 
   closeConfirmSS = () => this.setState({ confirmSS: false })
 
-  openConfirmDS = () => this.setState({ confirmDS: true, anchorEl4: null })
+  openConfirmDS = () =>
+    this.setState({
+      confirmDS: true,
+      anchorEl4: null
+    })
 
   closeConfirmDS = () => this.setState({ confirmDS: false })
 
-  openConfirmRS = () => this.setState({ confirmRS: true, anchorEl4: null })
+  openConfirmRS = () =>
+    this.setState({
+      confirmRS: true,
+      anchorEl4: null
+    })
 
   closeConfirmRS = () => this.setState({ confirmRS: false })
 
@@ -541,8 +616,12 @@ export default class App extends Component {
 
   closeConfirmSVE = () => this.setState({ confirmSVE: false })
 
+  openAboutSE = () => this.setState({ aboutES: true })
+
+  closeAboutSE = () => this.setState({ aboutES: false })
+
   render() {
-    const { loading, mode, mainMode, examMode, reviewMode, reviewType } = this.state
+    const { loading, mode, mainMode, examMode, reviewMode, reviewType, aboutES } = this.state
     const { confirmRS, confirmFAE, confirmTE, confirmDS, confirmSVE } = this.state
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
     const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR } = this.state
@@ -569,6 +648,7 @@ export default class App extends Component {
           setMainMode={this.setMainMode}
           loadLocalExam={this.loadLocalExam}
           openPromptLR={this.openPromptLR}
+          openAboutSE={this.openAboutSE}
         >
           <MainScreen
             mainMode={mainMode}
@@ -674,6 +754,12 @@ export default class App extends Component {
           anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
           menuItems={menuItems4}
           onClose={this.closeAnchorEl4}
+        />,
+        <About
+          key="about"
+          open={aboutES}
+          version={remote.app.getVersion()}
+          onClose={this.closeAboutSE}
         />
       ]
     } else if (mode === 1) {

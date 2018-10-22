@@ -111,7 +111,7 @@ class MainNav extends Component {
   }
 
   render() {
-    const { mainMode, setMainMode, loadLocalExam, openPromptLR, classes } = this.props
+    const { mainMode, setMainMode, loadLocalExam, openPromptLR, openAboutSE, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -145,7 +145,7 @@ class MainNav extends Component {
           <Divider />
           <MainMenuLeftTop loadLocalExam={loadLocalExam} openPromptLR={openPromptLR} />
           <Divider />
-          <MainMenuLeftBottom setMainMode={setMainMode} />
+          <MainMenuLeftBottom setMainMode={setMainMode} openAboutSE={openAboutSE} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
