@@ -1,41 +1,40 @@
 {
   "title": "Example Exam",
   "code": "000-000",
-  "group": "",
   "time": 10,
   "pass": 75,
-  "cover": [{ "type": 2, "text": "Example Exam" }],
+  "cover": [{ "variant": 2, "text": "Example Exam" }],
   "test": [
     {
-      "type": 0,
+      "variant": 0,
       "question": [
         {
-          "type": 1,
+          "variant": 1,
           "text": "Evaluation the following expression:"
         },
-        { "type": 1, "text": "There are 12 eggs in one dozen." }
+        { "variant": 1, "text": "There are 12 eggs in one dozen." }
       ],
       "choices": [{ "label": "A", "text": "True" }, { "label": "B", "text": "False" }],
       "answer": [true, false],
-      "explanation": [{ "type": 1, "text": "Just look in your fridge" }]
+      "explanation": [{ "variant": 1, "text": "Just look in your fridge" }]
     },
     {
-      "type": 2,
+      "variant": 2,
       "question": [
-        { "type": 1, "text": "Fill in the blank in the following statement." },
-        { "type": 1, "text": "The state capital of __________ is Sacramento." }
+        { "variant": 1, "text": "Fill in the blank in the following statement." },
+        { "variant": 1, "text": "The state capital of __________ is Sacramento." }
       ],
       "choices": [],
       "answer": ["california"],
       "explanation": [
-        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/general/2a.gif" }
+        { "variant": 0, "text": "https://s3.amazonaws.com/electron-exam/general/2a.gif" }
       ]
     },
     {
-      "type": 1,
+      "variant": 1,
       "question": [
         {
-          "type": 1,
+          "variant": 1,
           "text": "Which of the following NBA players currently play on the Los Angeles Lakers?"
         }
       ],
@@ -51,10 +50,10 @@
       "explanation": []
     },
     {
-      "type": 0,
+      "variant": 0,
       "question": [
-        { "type": 1, "text": "Which famous artist painted the following painting?" },
-        { "type": 0, "text": "https://s3.amazonaws.com/electron-exam/general/4a.jpg" }
+        { "variant": 1, "text": "Which famous artist painted the following painting?" },
+        { "variant": 0, "text": "https://s3.amazonaws.com/electron-exam/general/4a.jpg" }
       ],
       "choices": [
         { "label": "A", "text": "Vincent van Gogh" },
@@ -66,15 +65,15 @@
       "explanation": []
     },
     {
-      "type": 1,
+      "variant": 1,
       "question": [
         {
-          "type": 1,
+          "variant": 1,
           "text": "Netflix has emerged as the most popular streaming service in the world."
         },
-        { "type": 1, "text": "As of 2018, Netflix has an estimated 137 million subscribers." },
+        { "variant": 1, "text": "As of 2018, Netflix has an estimated 137 million subscribers." },
         {
-          "type": 1,
+          "variant": 1,
           "text": "Approximately, how many of these subscribers live in the United States?"
         }
       ],

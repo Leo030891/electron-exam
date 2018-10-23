@@ -6,8 +6,8 @@ import isEqual from 'lodash/isEqual'
 
 const styles = theme => ({})
 
-function Explanation({ expRef, type, answers, correctAnswers, explanation, classes }) {
-  const status = type === 2 ? answers[0] : isEqual(answers, correctAnswers)
+function Explanation({ expRef, variant, answers, correctAnswers, explanation, classes }) {
+  const status = variant === 2 ? answers[0] : isEqual(answers, correctAnswers)
   return (
     <div ref={expRef} className="explanation">
       <Typography variant="subtitle1">
@@ -15,7 +15,7 @@ function Explanation({ expRef, type, answers, correctAnswers, explanation, class
         <span style={{ color: status ? 'green' : 'red' }}>{status ? 'CORRECT' : 'INCORRECT'}</span>
       </Typography>
       <Typography variant="subtitle1">
-        The correct answer is <strong>{decodeCorrect(correctAnswers, type)}</strong>
+        The correct answer is <strong>{decodeCorrect(correctAnswers, variant)}</strong>
       </Typography>
       <Typography variant="subtitle1">
         <strong>Explanation: </strong>
@@ -23,9 +23,9 @@ function Explanation({ expRef, type, answers, correctAnswers, explanation, class
       <div>
         {explanation.length > 0 &&
           explanation.map((e, i) => {
-            if (e.type === 0) {
+            if (e.variant === 0) {
               return <img key={`explanation - ${i}`} src={e.text} alt="" />
-            } else if (e.type === 1) {
+            } else if (e.variant === 1) {
               return (
                 <Typography key={`explanation - ${i}`} variant="subtitle1">
                   {e.text}

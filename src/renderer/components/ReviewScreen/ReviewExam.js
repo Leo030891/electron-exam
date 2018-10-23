@@ -35,7 +35,7 @@ class ReviewExam extends Component {
                     <div>
                       <Question question={q.question} />
                       <div>
-                        {q.type === 0 ? (
+                        {q.variant === 0 ? (
                           <MultipleChoice
                             review={true}
                             choices={q.choices}
@@ -65,7 +65,7 @@ class ReviewExam extends Component {
                       >
                         <Explanation
                           expRef={null}
-                          type={q.type}
+                          variant={q.variant}
                           answers={answers[number - 1]}
                           correctAnswers={q.answer}
                           explanation={q.explanation}

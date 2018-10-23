@@ -7,7 +7,7 @@ var schema = {
   $id: 'http://example.com/root.json',
   type: 'object',
   title: 'The Root Schema',
-  required: ['title', 'code', 'group', 'time', 'pass', 'cover', 'test'],
+  required: ['title', 'code', 'time', 'pass', 'cover', 'test'],
   properties: {
     title: {
       $id: '#/properties/title',
@@ -23,14 +23,6 @@ var schema = {
       title: 'The Code Schema',
       default: '',
       examples: ['1z0-061'],
-      pattern: '^(.*)$'
-    },
-    group: {
-      $id: '#/properties/group',
-      type: 'string',
-      title: 'The Group Schema',
-      default: '',
-      examples: [''],
       pattern: '^(.*)$'
     },
     time: {
@@ -55,13 +47,13 @@ var schema = {
         $id: '#/properties/cover/items',
         type: 'object',
         title: 'The Items Schema',
-        required: ['type', 'text'],
+        required: ['variant', 'text'],
         properties: {
-          type: {
-            $id: '#/properties/cover/items/properties/type',
+          variant: {
+            $id: '#/properties/cover/items/properties/variant',
             type: 'integer',
             enum: [0, 1],
-            title: 'The Type Schema',
+            title: 'The Variant Schema',
             default: 0,
             examples: [0]
           },
@@ -86,30 +78,30 @@ var schema = {
         $id: '#/properties/test/items',
         type: 'object',
         title: 'The Items Schema',
-        required: ['type', 'question', 'choices', 'answer', 'explanation'],
+        required: ['variant', 'question', 'choices', 'answer', 'explanation'],
         properties: {
-          type: {
-            $id: '#/properties/test/items/properties/type',
+          variant: {
+            $id: '#/properties/test/items/properties/variant',
             type: 'integer',
-            enum: [0, 1],
-            title: 'The Type Schema',
+            enum: [0, 1, 2],
+            title: 'The Question Variant Schema',
             default: 0,
             examples: [1]
           },
           question: {
             $id: '#/properties/test/items/properties/question',
             type: 'array',
-            title: 'The Question Schema',
+            title: 'The Question Content Schema',
             items: {
               $id: '#/properties/test/items/properties/question/items',
               type: 'object',
               title: 'The Items Schema',
-              required: ['type', 'text'],
+              required: ['variant', 'text'],
               properties: {
-                type: {
-                  $id: '#/properties/test/items/properties/question/items/properties/type',
+                variant: {
+                  $id: '#/properties/test/items/properties/question/items/properties/variant',
                   type: 'integer',
-                  title: 'The Type Schema',
+                  title: 'The Variant Schema',
                   default: 0,
                   examples: [1]
                 },

@@ -5,8 +5,8 @@ function Question({ question }) {
   return (
     <div>
       {question.map((q, j) => {
-        if (q.type === 0) return <img key={`img-${j}`} className="question-img" src={q.text} />
-        else if (q.type === 1)
+        if (q.variant === 0) return <img key={`img-${j}`} className="question-img" src={q.text} />
+        else if (q.variant === 1)
           return (
             <Typography key={`text-${j}`} className="question-text" variant="subtitle1">
               {q.text}

@@ -5,15 +5,15 @@ function CoverScreen({ cover }) {
   return (
     <div className="cover-content">
       {cover.map((c, i) => {
-        if (c.type === 0) {
+        if (c.variant === 0) {
           return <img key={i} src={c.text} className="cover-item" />
-        } else if (c.type === 1) {
+        } else if (c.variant === 1) {
           return (
             <Typography key={i} variant="subtitle1" className="cover-item">
               {c.text}
             </Typography>
           )
-        } else if (c.type === 2) {
+        } else if (c.variant === 2) {
           return (
             <Typography key={i} variant="h5" className="cover-item">
               {c.text}

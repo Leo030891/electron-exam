@@ -38,7 +38,7 @@ function ExamScreen(props) {
                 <div>
                   <Question question={t.question} />
                   <div>
-                    {t.type === 0 ? (
+                    {t.variant === 0 ? (
                       <MultipleChoice
                         review={false}
                         choices={t.choices}
@@ -48,7 +48,7 @@ function ExamScreen(props) {
                         explanation={explanation}
                         onAnswerMultiple={onAnswerMultiple}
                       />
-                    ) : t.type === 1 ? (
+                    ) : t.variant === 1 ? (
                       <Checkboxes
                         review={false}
                         choices={t.choices}
@@ -58,7 +58,7 @@ function ExamScreen(props) {
                         explanation={explanation}
                         onAnswerCheck={onAnswerCheck}
                       />
-                    ) : t.type === 2 ? (
+                    ) : t.variant === 2 ? (
                       <FillInBlank
                         review={false}
                         question={i}
@@ -78,7 +78,7 @@ function ExamScreen(props) {
                     >
                       <Explanation
                         expRef={expRef}
-                        type={t.type}
+                        variant={t.variant}
                         answers={answers[i]}
                         correctAnswers={t.answer}
                         explanation={t.explanation}
