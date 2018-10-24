@@ -31,6 +31,12 @@ function Explanation({ expRef, variant, answers, correctAnswers, explanation, cl
                   {e.text}
                 </Typography>
               )
+            } else if (e.variant === 2) {
+              return (
+                <Typography key={`explanation - ${i}`} variant="h5">
+                  {e.text}
+                </Typography>
+              )
             }
           })}
       </div>
