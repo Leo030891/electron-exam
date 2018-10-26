@@ -21,7 +21,7 @@ export default createMuiTheme({
   },
   palette: {
     primary: {
-      main: theme.palette.primary.main
+      main: 'rgb(1, 139, 244)'
     }
   },
   props: {

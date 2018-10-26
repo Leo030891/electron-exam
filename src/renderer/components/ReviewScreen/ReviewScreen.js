@@ -77,6 +77,7 @@ class ReviewScreen extends Component {
     const { questions, index, number } = this.state
     const { reviewMode, reviewType, exam, report } = this.props
     const { title, status, score, answers, date, elapsed } = report
+    const { incomplete, incorrect } = report
     if (reviewMode === 0) {
       return (
         <Slide key="review" in={reviewMode === 0} direction="left">
@@ -87,7 +88,14 @@ class ReviewScreen extends Component {
             />
             <div className="summary">
               <Typography variant="h5">{exam.title}</Typography>
-              <SummaryCard exam={exam} status={status} elapsed={elapsed} date={date} />
+              <SummaryCard
+                exam={exam}
+                status={status}
+                elapsed={elapsed}
+                date={date}
+                incorrect={incorrect}
+                incomplete={incomplete}
+              />
               <ScoreComp pass={exam.pass} score={score} />
             </div>
           </div>

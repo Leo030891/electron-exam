@@ -3,11 +3,12 @@ import Slide from '@material-ui/core/Slide'
 import Exams from './Exams'
 import History from './History'
 import Sessions from './Sessions'
-import Settings from './Settings'
+import Options from '../Options/Options'
 
 function MainScreen(props) {
   const { mainMode, exams, fileData, filepaths, history, sessions } = props
   const { onExamClick, onHistoryClick, onSessionClick, setMainMode } = props
+  const { saveOptions, options } = props
   if (mainMode === 0) {
     return (
       <Slide key="exams" in={mainMode === 0} direction="left">
@@ -29,7 +30,7 @@ function MainScreen(props) {
   } else if (mainMode === 3) {
     return (
       <Slide key="settings" in={mainMode === 3} direction="left">
-        <Settings setMainMode={setMainMode} />
+        <Options options={options} setMainMode={setMainMode} saveOptions={saveOptions} />
       </Slide>
     )
   }

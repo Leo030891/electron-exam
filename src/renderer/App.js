@@ -79,7 +79,8 @@ export default class App extends Component {
       anchorEl4: null,
       indexExam: null,
       indexHist: null,
-      indexSess: null
+      indexSess: null,
+      options: { timer: true }
     }
 
     this.explanation = React.createRef()
@@ -90,6 +91,7 @@ export default class App extends Component {
     this.loadExams()
     this.loadHistory()
     this.loadSessions()
+    this.loadOptions()
   }
 
   // load exams by reading entire static/exams directory
@@ -131,6 +133,14 @@ export default class App extends Component {
         let sessions = data.length ? JSON.parse(data) : []
         this.setState({ sessions })
       })
+      .catch(console.error)
+  }
+
+  // reads options file and sets state
+  loadOptions = () => {
+    let filepath = path.resolve(__static, 'options.json')
+    readFile(filepath)
+      .then(data => this.setState({ options: JSON.parse(data) }))
       .catch(console.error)
   }
 
@@ -269,12 +279,14 @@ export default class App extends Component {
     })
   }
 
+  // starts timer and opens exam
   startExam = () => {
     this.closeConfirmSE()
     this.setMode(2)
     this.initTimer()
   }
 
+  // starts the exam timer
   initTimer = () => {
     this.timer = setInterval(() => {
       const { time } = this.state
@@ -287,6 +299,7 @@ export default class App extends Component {
     }, 1000)
   }
 
+  // pauses the exam timer
   pauseTimer = () => {
     this.setState({ confirmRE: true, anchorEl2: null })
     clearInterval(this.timer)
@@ -620,13 +633,15 @@ export default class App extends Component {
 
   closeAboutSE = () => this.setState({ aboutES: false })
 
+  saveOptions = options => this.setState({ options })
+
   render() {
     const { loading, mode, mainMode, examMode, reviewMode, reviewType, aboutES } = this.state
     const { confirmRS, confirmFAE, confirmTE, confirmDS, confirmSVE } = this.state
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
     const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
-    const { report, history, sessions, marked } = this.state
+    const { report, history, sessions, marked, options } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
       const menuItems1 = [
@@ -657,10 +672,12 @@ export default class App extends Component {
             filepaths={filepaths}
             history={history}
             sessions={sessions}
+            options={options}
             onExamClick={this.onExamClick}
             onHistoryClick={this.onHistoryClick}
             onSessionClick={this.onSessionClick}
             setMainMode={this.setMainMode}
+            saveOptions={this.saveOptions}
           />
         </MainNav>,
         <Prompt

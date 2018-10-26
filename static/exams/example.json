@@ -3,7 +3,14 @@
   "code": "000-000",
   "time": 10,
   "pass": 75,
-  "cover": [{ "variant": 2, "text": "Example Exam" }],
+  "cover": [
+    { "variant": 0, "text": "https://s3.amazonaws.com/electron-exam/general/icon.png" },
+    {
+      "variant": 2,
+      "text": "Welcome to Exam Simulator"
+    },
+    { "variant": 1, "text": "Example Exam" }
+  ],
   "test": [
     {
       "variant": 0,

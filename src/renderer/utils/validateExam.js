@@ -9,11 +9,18 @@ var schema = {
   title: 'The Root Schema',
   required: ['title', 'code', 'time', 'pass', 'cover', 'test'],
   properties: {
+    author: {
+      $id: '#/properties/author',
+      type: 'string',
+      title: 'The Author Schema',
+      default: 'anonymous',
+      pattern: '^(.*)$'
+    },
     title: {
       $id: '#/properties/title',
       type: 'string',
       title: 'The Title Schema',
-      default: '',
+      default: 'Untitled Exam',
       examples: ['Oracle Database'],
       pattern: '^(.*)$'
     },
@@ -21,7 +28,7 @@ var schema = {
       $id: '#/properties/code',
       type: 'string',
       title: 'The Code Schema',
-      default: '',
+      default: '000-000',
       examples: ['1z0-061'],
       pattern: '^(.*)$'
     },
@@ -29,14 +36,14 @@ var schema = {
       $id: '#/properties/time',
       type: 'integer',
       title: 'The Time Schema',
-      default: 0,
+      default: 60,
       examples: [120]
     },
     pass: {
       $id: '#/properties/pass',
       type: 'integer',
       title: 'The Pass Schema',
-      default: 0,
+      default: 60,
       examples: [65]
     },
     cover: {
@@ -52,9 +59,9 @@ var schema = {
           variant: {
             $id: '#/properties/cover/items/properties/variant',
             type: 'integer',
-            enum: [0, 1],
+            enum: [0, 1, 2],
             title: 'The Variant Schema',
-            default: 0,
+            default: 1,
             examples: [0]
           },
           text: {
@@ -101,8 +108,9 @@ var schema = {
                 variant: {
                   $id: '#/properties/test/items/properties/question/items/properties/variant',
                   type: 'integer',
+                  enum: [0, 1, 2],
                   title: 'The Variant Schema',
-                  default: 0,
+                  default: 1,
                   examples: [1]
                 },
                 text: {
@@ -154,7 +162,7 @@ var schema = {
             items: {
               $id: '#/properties/test/items/properties/answer/items',
               type: 'boolean',
-              title: 'The Items Schema',
+              title: 'The Answer Schema',
               default: false,
               examples: [true, true, true, false]
             }
