@@ -22,11 +22,9 @@ class FillInBlank extends Component {
   }
 
   componentDidMount() {
-    const { answers, fillIn, review } = this.props
+    const { fillIn, review } = this.props
     if (review) return
-    if (answers[0]) {
-      this.setState({ value: fillIn })
-    }
+    this.setState({ value: fillIn })
   }
 
   onChange = e => {
