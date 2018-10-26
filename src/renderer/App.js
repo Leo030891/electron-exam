@@ -54,6 +54,7 @@ export default class App extends Component {
       exam: null,
       question: 0,
       answers: null,
+      fillIns: null,
       marked: null,
       time: null,
       explanation: false,
@@ -266,14 +267,19 @@ export default class App extends Component {
   enterTestMode = () => {
     let answers = []
     let marked = []
+    let fillIns = []
     let exam = this.state.exams[this.state.indexExam]
     let time = exam.time * 60
-    exam.test.forEach(t => answers.push(Array(t.choices.length).fill(false)))
+    exam.test.forEach(t => {
+      answers.push(Array(t.choices.length).fill(false))
+      fillIns.push('')
+    })
     this.setState({
       mode: 1,
       exam,
       answers,
       marked,
+      fillIns,
       time,
       anchorEl1: null
     })
@@ -405,14 +411,15 @@ export default class App extends Component {
   }
 
   onAnswerFillIn = (value, x) => {
-    let { answers, exam } = this.state
+    let { answers, fillIns, exam } = this.state
     let correct = exam.test[x].answer
     if (correct.indexOf(value) !== -1) {
       answers[x] = [true]
     } else {
       answers[x] = [false]
     }
-    this.setState({ answers })
+    fillIns[x] = value
+    this.setState({ answers, fillIns })
   }
 
   exitExam = () => {
@@ -641,7 +648,7 @@ export default class App extends Component {
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
     const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
-    const { report, history, sessions, marked, options } = this.state
+    const { report, history, sessions, marked, options, fillIns } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
       const menuItems1 = [
@@ -831,6 +838,7 @@ export default class App extends Component {
             time={time}
             answers={answers}
             marked={marked}
+            fillIns={fillIns}
             explanation={explanation}
             handleSlider={this.handleSlider}
             setQuestion={this.setQuestion}

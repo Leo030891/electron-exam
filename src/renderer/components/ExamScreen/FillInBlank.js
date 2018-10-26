@@ -21,6 +21,14 @@ class FillInBlank extends Component {
     }
   }
 
+  componentDidMount() {
+    const { answers, fillIn, review } = this.props
+    if (review) return
+    if (answers[0]) {
+      this.setState({ value: fillIn })
+    }
+  }
+
   onChange = e => {
     this.setState({ value: e.target.value })
     this.props.onAnswerFillIn(e.target.value.toLowerCase(), this.props.question)

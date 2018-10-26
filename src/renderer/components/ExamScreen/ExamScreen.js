@@ -14,7 +14,7 @@ const styles = theme => ({})
 function ExamScreen(props) {
   const { exam, question, time, answers, marked, explanation, expRef } = props
   const { onAnswerCheck, onAnswerMultiple, onAnswerFillIn, viewExplanation, openTestMenu } = props
-  const { setQuestion, markQuestion, handleSlider, examMode, classes } = props
+  const { setQuestion, markQuestion, handleSlider, examMode, fillIns, classes } = props
   return (
     <div className="ExamScreen">
       <TopBar
@@ -63,7 +63,8 @@ function ExamScreen(props) {
                         review={false}
                         question={i}
                         answers={answers[i]}
-                        correctAnswers={t.answers}
+                        correctAnswers={t.answer}
+                        fillIn={fillIns[i]}
                         explanation={explanation}
                         onAnswerFillIn={onAnswerFillIn}
                       />
