@@ -20,7 +20,7 @@ import ExitExamIcon from '@material-ui/icons/StopSharp'
 import TimerIcon from '@material-ui/icons/TimerSharp'
 import SaveIcon from '@material-ui/icons/SaveSharp'
 import TimeExpiredIcon from '@material-ui/icons/TimerOffSharp'
-import { readDirectory, getFilename } from './utils/fileHelpers'
+import { readDirectory, getFilename, formatFilename } from './utils/fileHelpers'
 import validateExam from './utils/validateExam'
 import isEqual from 'lodash/isEqual'
 import fs from 'fs'
@@ -180,15 +180,20 @@ export default class App extends Component {
   // fetch an exam from a remote source
   // currently under construction
   loadRemoteExam = str => {
-    return
     const url = new URL(str)
-    const filename = url.pathname.split('/')[2] + '.json'
     const request = remote.net.request(url.href)
+
     request.on('response', response => {
       response.on('data', data => {
-        writeFile(path.resolve(__static, 'exams', filename), data)
-          .then(this.loadExams)
-          .catch(console.error)
+        if (validateExam(data) !== 'valid') {
+          this.setState({ confirmSVE: true })
+        } else {
+          let exam = JSON.parse(data)
+          let filename = formatFilename(exam.title)
+          writeFile(path.resolve(__static, 'exams', filename), data)
+            .then(this.loadExams)
+            .catch(console.error)
+        }
       })
     })
     request.end()

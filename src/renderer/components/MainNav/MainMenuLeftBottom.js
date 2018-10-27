@@ -1,5 +1,5 @@
 import React from 'react'
-import { shell } from 'electron'
+import { shell, remote } from 'electron'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -9,6 +9,7 @@ import Divider from '@material-ui/core/Divider'
 import SettingsIcon from '@material-ui/icons/SettingsSharp'
 import InfoIcon from '@material-ui/icons/InfoSharp'
 import HelpIcon from '@material-ui/icons/HelpSharp'
+import MakerIcon from '@material-ui/icons/OpenInNewSharp'
 
 const styles = theme => ({
   listItem: {
@@ -22,6 +23,11 @@ const styles = theme => ({
 
 function MainMenuLeftBottom({ setMainMode, openAboutSE, classes }) {
   const list = [
+    {
+      text: 'Exam Maker',
+      icon: <MakerIcon />,
+      click: () => shell.openExternal('https://exam-maker.herokuapp.com/')
+    },
     { text: 'About', icon: <InfoIcon />, click: openAboutSE },
     {
       text: 'Documentation',

@@ -17,3 +17,12 @@ export function readDirectory(dir, filenames) {
 export function getFilename(filepath) {
   return filepath.split('\\').pop()
 }
+
+export function formatFilename(str) {
+  return (
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/\s/g, '-') + '.json'
+  )
+}

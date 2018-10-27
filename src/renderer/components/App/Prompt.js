@@ -34,6 +34,7 @@ class Prompt extends Component {
 
   onClick = () => {
     this.props.onOkay(this.state.value)
+    this.setState({ value: '' })
     this.props.onClose()
   }
 

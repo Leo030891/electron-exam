@@ -111,8 +111,8 @@ class MainNav extends Component {
   }
 
   render() {
-    const { mainMode, setMainMode, loadLocalExam, openPromptLR, openAboutSE, classes } = this.props
-
+    const { mainMode, classes } = this.props
+    const { setMainMode, loadLocalExam, openPromptLR, openAboutSE } = this.props
     return (
       <div className={classes.root}>
         <AppBar
