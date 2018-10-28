@@ -11,12 +11,18 @@ const styles = theme => ({
   typoTitle: {
     marginLeft: theme.spacing.unit,
     fontSize: '.7rem'
+  },
+  dialog: {
+    width: '50%',
+    borderRadius: 0,
+    boxShadow: theme.shadows[3],
+    border: `1px solid ${theme.palette.grey[600]}`
   }
 })
 
 function Confirm({ alert, open, title, message, detail, icon, onClose, onOkay, classes }) {
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} classes={{ paper: classes.dialog }}>
       <DialogTitle disableTypography>
         <Typography variant="caption" color="inherit" classes={{ root: classes.typoTitle }}>
           {title}

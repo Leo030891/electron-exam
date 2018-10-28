@@ -62,6 +62,7 @@ export default class App extends Component {
       fileData: null,
       filepaths: null,
       aboutES: false,
+      notePrompt: false,
       promptLR: false,
       confirmDE: false,
       confirmSE: false,
@@ -564,6 +565,25 @@ export default class App extends Component {
     })
   }
 
+  updateExplanation = (explanation, i) => {
+    const { exam, filepaths } = this.state
+    const newExam = Object.assign({}, exam)
+    newExam.test[i].explanation = explanation
+    this.setState({ exam: newExam }, () => {
+      let filepath = filepaths[i]
+      writeFile(filepath, JSON.stringify(newExam))
+        .then(() => {
+          this.loadExams()
+          this.closeNotePrompt()
+        })
+        .catch(console.error)
+    })
+  }
+
+  openNotePrompt = () => this.setState({ notePrompt: true })
+
+  closeNotePrompt = () => this.setState({ notePrompt: false })
+
   openPromptLR = () => this.setState({ promptLR: true })
 
   closePromptLR = () => this.setState({ promptLR: false })
@@ -651,7 +671,7 @@ export default class App extends Component {
     const { loading, mode, mainMode, examMode, reviewMode, reviewType, aboutES } = this.state
     const { confirmRS, confirmFAE, confirmTE, confirmDS, confirmSVE } = this.state
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
-    const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, promptLR } = this.state
+    const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, notePrompt, promptLR } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
     const { report, history, sessions, marked, options, fillIns } = this.state
     if (loading) return <Loading />
@@ -907,6 +927,7 @@ export default class App extends Component {
     } else if (mode === 3) {
       return (
         <ReviewNav
+          key="review"
           reviewMode={reviewMode}
           reviewType={reviewType}
           title={exam.title}
@@ -916,12 +937,16 @@ export default class App extends Component {
           exit={this.exitReviewMode}
           setReviewMode={this.setReviewMode}
           setReviewType={this.setReviewType}
+          openNotePrompt={this.openNotePrompt}
         >
           <ReviewScreen
             reviewMode={reviewMode}
             reviewType={reviewType}
             exam={exam}
             report={report}
+            notePrompt={notePrompt}
+            closeNotePrompt={this.closeNotePrompt}
+            updateExplanation={this.updateExplanation}
           />
         </ReviewNav>
       )

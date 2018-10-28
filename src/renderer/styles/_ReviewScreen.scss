@@ -109,7 +109,7 @@
 
 .ResultGrid {
   width: 240px;
-  height: 47vh;
+  height: 45vh;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -169,5 +169,30 @@
     &:hover {
       outline: 2px solid rgb(31, 144, 224);
     }
+  }
+}
+
+.note-content {
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding-top: 10px;
+
+  .note-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 15px;
+  }
+}
+
+.note-actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .note-ok {
+    margin-right: 10px;
   }
 }

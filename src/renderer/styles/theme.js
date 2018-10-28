@@ -66,14 +66,6 @@ export default createMuiTheme({
         color: theme.palette.grey[800]
       }
     },
-    MuiDialog: {
-      paper: {
-        width: '50%',
-        borderRadius: 0,
-        boxShadow: theme.shadows[3],
-        border: `1px solid ${theme.palette.grey[600]}`
-      }
-    },
     MuiDialogTitle: {
       root: {
         height: 25,

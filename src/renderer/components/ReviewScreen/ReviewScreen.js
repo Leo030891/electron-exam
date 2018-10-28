@@ -5,6 +5,7 @@ import TopBar from './TopBar'
 import SummaryCard from './SummaryCard'
 import ScoreComp from './ScoreProgress'
 import ReviewExam from './ReviewExam'
+import NotePrompt from '../App/NotePrompt'
 
 class ReviewScreen extends Component {
   constructor(props) {
@@ -76,6 +77,7 @@ class ReviewScreen extends Component {
   render() {
     const { questions, index, number } = this.state
     const { reviewMode, reviewType, exam, report } = this.props
+    const { notePrompt, closeNotePrompt, updateExplanation } = this.props
     const { title, status, score, answers, date, elapsed } = report
     const { incomplete, incorrect } = report
     if (reviewMode === 0) {
@@ -102,7 +104,7 @@ class ReviewScreen extends Component {
         </Slide>
       )
     } else if (reviewMode === 1) {
-      return (
+      return [
         <Slide key="question" in={reviewMode === 1} direction="left">
           <ReviewExam
             reviewType={reviewType}
@@ -113,8 +115,16 @@ class ReviewScreen extends Component {
             answers={answers}
             setIndex={this.setIndex}
           />
-        </Slide>
-      )
+        </Slide>,
+        <NotePrompt
+          key="note-prompt"
+          open={notePrompt}
+          explanation={exam.test[index].explanation}
+          index={index}
+          onClose={closeNotePrompt}
+          onOkay={updateExplanation}
+        />
+      ]
     } else {
       return null
     }

@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { HistoryIcon } from '../Icons'
+import NoteIcon from '@material-ui/icons/NoteAddSharp'
 
 const styles = theme => ({
   listItem: {
@@ -16,8 +17,15 @@ const styles = theme => ({
   }
 })
 
-function ReviewMenuLeftBottom({ backToSummary, classes }) {
-  const list = [{ text: 'Back to Summary', icon: <HistoryIcon />, click: backToSummary }]
+function ReviewMenuLeftBottom({ backToSummary, openNotePrompt, classes }) {
+  const list = [
+    {
+      text: 'Add Notes',
+      icon: <NoteIcon />,
+      click: openNotePrompt
+    },
+    { text: 'Back to Summary', icon: <HistoryIcon />, click: backToSummary }
+  ]
   return (
     <List disablePadding>
       {list.map((l, i) => (

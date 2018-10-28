@@ -20,6 +20,12 @@ const styles = theme => ({
   },
   notchedOutline: {
     borderRadius: 0
+  },
+  dialog: {
+    width: '50%',
+    borderRadius: 0,
+    boxShadow: theme.shadows[3],
+    border: `1px solid ${theme.palette.grey[600]}`
   }
 })
 
@@ -44,7 +50,7 @@ class Prompt extends Component {
     const { open, title, message, label, onClose, classes } = this.props
     const { value } = this.state
     return (
-      <Dialog open={open} onClose={onClose}>
+      <Dialog open={open} onClose={onClose} classes={{ paper: classes.dialog }}>
         <DialogTitle disableTypography>
           <Typography variant="caption" color="inherit" classes={{ root: classes.typoTitle }}>
             {title}

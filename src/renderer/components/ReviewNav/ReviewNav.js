@@ -124,7 +124,7 @@ class ReviewNav extends Component {
 
   render() {
     const { reviewMode, reviewType, title, code, report, total, exit, classes } = this.props
-
+    const { openNotePrompt } = this.props
     return (
       <div className={classes.root}>
         <AppBar
@@ -168,7 +168,12 @@ class ReviewNav extends Component {
             />
           )}
           {this.state.open && <Divider />}
-          {reviewMode !== 0 && <ReviewMenuLeftBottom backToSummary={this.backToSummary} />}
+          {reviewMode !== 0 && (
+            <ReviewMenuLeftBottom
+              backToSummary={this.backToSummary}
+              openNotePrompt={openNotePrompt}
+            />
+          )}
           <ReviewMenuLeftBack exit={exit} />
         </Drawer>
         <main className={classes.content}>
