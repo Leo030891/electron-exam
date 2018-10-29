@@ -16,6 +16,7 @@ import ImageIcon from '@material-ui/icons/ImageSharp'
 import TextIcon from '@material-ui/icons/TitleSharp'
 import BoldIcon from '@material-ui/icons/FormatBoldSharp'
 import DeleteIcon from '@material-ui/icons/DeleteSharp'
+import LinkIcon from '@material-ui/icons/LinkSharp'
 
 const styles = theme => ({
   typoTitle: {
@@ -24,7 +25,11 @@ const styles = theme => ({
   },
   outlinedInput: {
     width: 600,
-    fontSize: '.80rem'
+    fontSize: '.75rem'
+  },
+  outlinedInput2: {
+    width: 290,
+    fontSize: '.75rem'
   },
   notchedOutline: {
     borderRadius: 0
@@ -56,7 +61,7 @@ const styles = theme => ({
     color: theme.palette.common.white
   },
   dialog: {
-    width: '70%',
+    width: '85%',
     maxHeight: '75%',
     borderRadius: 0,
     boxShadow: theme.shadows[3],
@@ -67,7 +72,8 @@ const styles = theme => ({
 const NODE_TYPES = [
   { icon: <TextIcon />, value: 1 },
   { icon: <ImageIcon />, value: 0 },
-  { icon: <BoldIcon />, value: 2 }
+  { icon: <BoldIcon />, value: 2 },
+  { icon: <LinkIcon />, value: 3 }
 ]
 
 class NotePrompt extends Component {
@@ -90,9 +96,22 @@ class NotePrompt extends Component {
     this.setState({ explanation })
   }
 
+  onChangeHref = (e, i) => {
+    const { explanation } = this.state
+    explanation[i].href = e.target.value
+    this.setState({ explanation })
+  }
+
   onToggle = (e, v, i) => {
     const { explanation } = this.state
     explanation[i].variant = v
+    if (v === 3) {
+      explanation[i] = Object.assign({}, explanation[i], { href: '' })
+    } else {
+      if (explanation[i].hasOwnProperty('href')) {
+        delete explanation[i].href
+      }
+    }
     this.setState({ explanation })
   }
 
@@ -111,8 +130,8 @@ class NotePrompt extends Component {
 
   onOkay = () => {
     const { explanation } = this.state
-    const { index, onOkay } = this.props
-    onOkay(explanation, index)
+    const { onOkay } = this.props
+    onOkay(explanation)
   }
 
   render() {
@@ -150,20 +169,53 @@ class NotePrompt extends Component {
                         </ToggleButton>
                       ))}
                     </ToggleButtonGroup>
-                    <TextField
-                      variant="outlined"
-                      label="Text / Source URL"
-                      value={e.text}
-                      onChange={e => this.onChange(e, i)}
-                      autoFocus
-                      InputProps={{
-                        classes: {
-                          root: classes.outlinedInput,
-                          notchedOutline: classes.notchedOutline
-                        }
-                      }}
-                      InputLabelProps={{ shrink: true }}
-                    />
+                    {e.variant === 3 ? (
+                      <div className="note-link">
+                        <TextField
+                          variant="outlined"
+                          label="URL"
+                          value={e.href}
+                          onChange={e => this.onChangeHref(e, i)}
+                          InputProps={{
+                            classes: {
+                              root: classes.outlinedInput2,
+                              notchedOutline: classes.notchedOutline
+                            }
+                          }}
+                          InputLabelProps={{ shrink: true }}
+                          style={{ marginRight: 20 }}
+                        />
+                        <TextField
+                          variant="outlined"
+                          label="Text"
+                          value={e.text}
+                          onChange={e => this.onChange(e, i)}
+                          InputProps={{
+                            classes: {
+                              root: classes.outlinedInput2,
+                              notchedOutline: classes.notchedOutline
+                            }
+                          }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </div>
+                    ) : (
+                      <TextField
+                        variant="outlined"
+                        label="Text / Source URL"
+                        value={e.text}
+                        onChange={e => this.onChange(e, i)}
+                        autoFocus
+                        InputProps={{
+                          classes: {
+                            root: classes.outlinedInput,
+                            notchedOutline: classes.notchedOutline
+                          }
+                        }}
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    )}
+
                     <IconButton
                       onClick={() => this.removeNode(i)}
                       classes={{ root: classes.iconButton }}

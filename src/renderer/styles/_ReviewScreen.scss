@@ -196,3 +196,13 @@
     margin-right: 10px;
   }
 }
+
+.explanation-link {
+  &:hover {
+    background-color: white !important;
+  }
+}
+
+.explanation-icon {
+  margin-right: 10px;
+}

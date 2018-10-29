@@ -1,6 +1,9 @@
 import React from 'react'
+import { shell } from 'electron'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import OpenIcon from '@material-ui/icons/OpenInNewSharp'
 import decodeCorrect from '../../utils/decodeCorrect'
 import isEqual from 'lodash/isEqual'
 
@@ -36,6 +39,17 @@ function Explanation({ expRef, variant, answers, correctAnswers, explanation, cl
                 <Typography key={`explanation - ${i}`} variant="h5">
                   {e.text}
                 </Typography>
+              )
+            } else if (e.variant === 3) {
+              return (
+                <Button
+                  key={`explanation - ${i}`}
+                  className="explanation-link"
+                  onClick={() => shell.openExternal(e.href)}
+                >
+                  <OpenIcon className="explanation-icon" />
+                  {e.text}
+                </Button>
               )
             }
           })}

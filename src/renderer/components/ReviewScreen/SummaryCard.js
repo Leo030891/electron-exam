@@ -39,9 +39,9 @@ function SummaryCard({ exam, status, elapsed, incomplete, incorrect, date }) {
         <Typography variant="subtitle1">{getTimeHHMMSS(elapsed)}</Typography>
         <Typography variant="subtitle1">{`${exam.test.length -
           incomplete.length -
-          incorrect.length}/${exam.test.length}`}</Typography>
-        <Typography variant="subtitle1">{`${incorrect.length}/${exam.test.length}`}</Typography>
-        <Typography variant="subtitle1">{`${incomplete.length}/${exam.test.length}`}</Typography>
+          incorrect.length} / ${exam.test.length}`}</Typography>
+        <Typography variant="subtitle1">{`${incorrect.length} / ${exam.test.length}`}</Typography>
+        <Typography variant="subtitle1">{`${incomplete.length} / ${exam.test.length}`}</Typography>
         <Typography variant="subtitle1" style={{ color: status ? 'green' : 'red' }}>
           {status ? 'PASS' : 'FAIL'}
         </Typography>
