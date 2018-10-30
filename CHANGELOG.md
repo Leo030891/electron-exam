@@ -13,10 +13,11 @@
 ### Added
 
 - CHANGELOG file
-- Link to open Exam Maker Web App
+- View Answer, Pause Exam, End Exam added to Exam Menu
+- Link to open Exam Maker Web App in Main Menu
 - Ability to load remote Exam files
-- Note Taking feature to Review Mode
-- Ability to add external link nodes to Explanation/Notes
+- Note Taking feature in Review Mode
+- Ability to add external links to Explanation/Notes
 - @material-ui/lab package
 
 ## 1.0.0 2018-10-26

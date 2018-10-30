@@ -19,7 +19,7 @@ const styles = theme => ({
   }
 })
 
-function ExamMenuLeft({ enterMarkedMode, setExamMode, classes }) {
+function ExamMenuTop({ enterMarkedMode, setExamMode, classes }) {
   const list = [
     { text: 'All Questions', icon: <AllIcon />, click: () => setExamMode(0) },
     { text: 'Marked Questions', icon: <BookmarkIcon />, click: enterMarkedMode },
@@ -30,7 +30,7 @@ function ExamMenuLeft({ enterMarkedMode, setExamMode, classes }) {
     }
   ]
   return (
-    <List>
+    <List disablePadding>
       {list.map((l, i) => (
         <ListItem key={l.text} onClick={l.click} classes={{ button: classes.listItem }} button>
           <ListItemIcon>{l.icon}</ListItemIcon>
@@ -41,4 +41,4 @@ function ExamMenuLeft({ enterMarkedMode, setExamMode, classes }) {
   )
 }
 
-export default withStyles(styles)(ExamMenuLeft)
+export default withStyles(styles)(ExamMenuTop)

@@ -857,6 +857,9 @@ export default class App extends Component {
           enterMarkedMode={this.enterMarkedMode}
           setExamMode={this.setExamMode}
           setQuestion={this.setQuestion}
+          viewExplanation={this.viewExplanation}
+          pauseExam={this.pauseTimer}
+          endExam={this.openConfirmEE}
         >
           <ExamScreen
             expRef={this.explanation}
