@@ -7,6 +7,7 @@
 ### Changed
 
 - Moved MuiDialog style from theme to component level
+- Fill In The Blank processing
 
 ### Added
 
