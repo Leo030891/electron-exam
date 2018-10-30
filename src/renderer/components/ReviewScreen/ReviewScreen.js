@@ -74,10 +74,15 @@ class ReviewScreen extends Component {
     this.setState({ index, number })
   }
 
+  updateExplanation = explanation => {
+    const { index } = this.state
+    this.props.updateExplanation(explanation, index)
+  }
+
   render() {
     const { questions, index, number } = this.state
     const { reviewMode, reviewType, exam, report } = this.props
-    const { notePrompt, closeNotePrompt, updateExplanation } = this.props
+    const { notePrompt, closeNotePrompt } = this.props
     const { title, status, score, answers, date, elapsed } = report
     const { incomplete, incorrect } = report
     if (reviewMode === 0) {
@@ -122,7 +127,7 @@ class ReviewScreen extends Component {
           explanation={exam.test[index].explanation}
           index={index}
           onClose={closeNotePrompt}
-          onOkay={updateExplanation}
+          onOkay={this.updateExplanation}
         />
       ]
     } else {

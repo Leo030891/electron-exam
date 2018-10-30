@@ -90,6 +90,13 @@ class NotePrompt extends Component {
     this.setState({ explanation })
   }
 
+  componentDidUpdate(prevProps) {
+    const { explanation } = this.props
+    if (prevProps.explanation !== explanation) {
+      this.setState({ explanation })
+    }
+  }
+
   onChange = (e, i) => {
     const { explanation } = this.state
     explanation[i].text = e.target.value

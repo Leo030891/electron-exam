@@ -67,7 +67,7 @@ class ReviewExam extends Component {
                           expRef={null}
                           variant={q.variant}
                           answers={answers[number - 1]}
-                          correctAnswers={q.answer}
+                          correctAnswers={q.variant === 2 ? q.choices : q.answer}
                           explanation={q.explanation}
                         />
                       </Slide>

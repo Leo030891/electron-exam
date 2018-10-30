@@ -566,11 +566,11 @@ export default class App extends Component {
     })
   }
 
-  updateExplanation = explanation => {
+  updateExplanation = (explanation, index) => {
     const { exams, exam, filepaths } = this.state
     let i = exams.findIndex(el => el.title === exam.title)
     const newExam = Object.assign({}, exam)
-    newExam.test[i].explanation = explanation
+    newExam.test[index].explanation = explanation
     this.setState({ exam: newExam }, () => {
       let filepath = filepaths[i]
       console.log(filepath, filepaths, exam, i)

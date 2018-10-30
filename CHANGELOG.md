@@ -8,6 +8,7 @@
 
 - Moved MuiDialog style from theme to component level
 - Fill In The Blank processing
+- Example Test is now based on Making a Murderer
 
 ### Added
 
