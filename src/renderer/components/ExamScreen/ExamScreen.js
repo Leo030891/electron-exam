@@ -81,7 +81,7 @@ function ExamScreen(props) {
                         expRef={expRef}
                         variant={t.variant}
                         answers={answers[i]}
-                        correctAnswers={t.answer}
+                        correctAnswers={t.variant === 2 ? t.choices : t.answer}
                         explanation={t.explanation}
                       />
                     </Slide>

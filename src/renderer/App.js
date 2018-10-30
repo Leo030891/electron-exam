@@ -418,7 +418,8 @@ export default class App extends Component {
 
   onAnswerFillIn = (value, x) => {
     let { answers, fillIns, exam } = this.state
-    let correct = exam.test[x].answer
+    let correct = []
+    exam.test[x].choices.forEach(c => correct.push(c.text.toLowerCase()))
     if (correct.indexOf(value) !== -1) {
       answers[x] = [true]
     } else {
