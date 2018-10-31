@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [1.0.1] 2018-10-30
+
 ### Changed
 
 - Moved MuiDialog style from theme to component level
@@ -25,3 +27,4 @@
 - Initial Release
 
 [unreleased]: https://github.com/benjaminadk/electron-exam/compare/v1.0.0...HEAD
+[1.0.1]: https://github.com/benjaminadk/electron-exam/compare/v1.0.0...v1.0.1
