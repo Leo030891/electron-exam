@@ -1,20 +1,18 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import Slide from '@material-ui/core/Slide'
 import TopBar from './TopBar'
 import Question from './Question'
 import Checkboxes from './Checkboxes'
 import MultipleChoice from './MultipleChoice'
 import FillInBlank from './FillInBlank'
+import ListOrder from './ListOrder'
 import Explanation from './Explanation'
 import BottomBar from './BottomBar'
 
-const styles = theme => ({})
-
 function ExamScreen(props) {
-  const { exam, question, time, answers, marked, explanation, expRef } = props
-  const { onAnswerCheck, onAnswerMultiple, onAnswerFillIn, viewExplanation, openTestMenu } = props
-  const { setQuestion, markQuestion, handleSlider, examMode, fillIns, classes } = props
+  const { exam, question, time, answers, marked, explanation, expRef, viewExplanation } = props
+  const { onAnswerCheck, onAnswerMultiple, onAnswerFillIn, onAnswerDragOrder, orders } = props
+  const { setQuestion, markQuestion, handleSlider, examMode, fillIns, openTestMenu } = props
   return (
     <div className="ExamScreen">
       <TopBar
@@ -62,11 +60,19 @@ function ExamScreen(props) {
                       <FillInBlank
                         review={false}
                         question={i}
-                        answers={answers[i]}
-                        correctAnswers={t.answer}
                         fillIn={fillIns[i]}
                         explanation={explanation}
                         onAnswerFillIn={onAnswerFillIn}
+                      />
+                    ) : t.variant === 3 ? (
+                      <ListOrder
+                        review={false}
+                        choices={t.choices}
+                        question={i}
+                        answers={answers[i]}
+                        order={orders[i]}
+                        explanation={explanation}
+                        onAnswerDragOrder={onAnswerDragOrder}
                       />
                     ) : null}
                   </div>
@@ -81,7 +87,7 @@ function ExamScreen(props) {
                         expRef={expRef}
                         variant={t.variant}
                         answers={answers[i]}
-                        correctAnswers={t.variant === 2 ? t.choices : t.answer}
+                        correctAnswers={t.variant === 0 || t.variant === 1 ? t.answer : t.choices}
                         explanation={t.explanation}
                       />
                     </Slide>
@@ -110,4 +116,4 @@ function ExamScreen(props) {
   )
 }
 
-export default withStyles(styles)(ExamScreen)
+export default ExamScreen

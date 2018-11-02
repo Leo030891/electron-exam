@@ -19,7 +19,7 @@ const styles = theme => ({
   }
 })
 
-function ReviewMenuLeftTop({ total, report: { incomplete, incorrect }, setReviewType, classes }) {
+function ReviewMenuTop({ total, report: { incomplete, incorrect }, setReviewType, classes }) {
   const list = [
     {
       text: 'All Questions',
@@ -59,4 +59,4 @@ function ReviewMenuLeftTop({ total, report: { incomplete, incorrect }, setReview
   )
 }
 
-export default withStyles(styles)(ReviewMenuLeftTop)
+export default withStyles(styles)(ReviewMenuTop)

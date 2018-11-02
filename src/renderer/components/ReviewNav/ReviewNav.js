@@ -9,9 +9,9 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import Typography from '@material-ui/core/Typography'
-import ReviewMenuLeftTop from './ReviewMenuLeftTop'
-import ReviewMenuLeftBack from './ReviewMenuLeftBack'
-import ReviewMenuLeftBottom from './ReviewMenuLeftBottom'
+import ReviewMenuTop from './ReviewMenuTop'
+import ReviewMenuBack from './ReviewMenuBack'
+import ReviewMenuBottom from './ReviewMenuBottom'
 import ResultGrid from './ResultGrid'
 
 const drawerWidth = 240
@@ -157,7 +157,7 @@ class ReviewNav extends Component {
             </IconButton>
           </div>
           <Divider />
-          <ReviewMenuLeftTop total={total} report={report} setReviewType={this.setReviewType} />
+          <ReviewMenuTop total={total} report={report} setReviewType={this.setReviewType} />
           <Divider />
           {this.state.open && (
             <ResultGrid
@@ -169,12 +169,9 @@ class ReviewNav extends Component {
           )}
           {this.state.open && <Divider />}
           {reviewMode !== 0 && (
-            <ReviewMenuLeftBottom
-              backToSummary={this.backToSummary}
-              openNotePrompt={openNotePrompt}
-            />
+            <ReviewMenuBottom backToSummary={this.backToSummary} openNotePrompt={openNotePrompt} />
           )}
-          <ReviewMenuLeftBack exit={exit} />
+          <ReviewMenuBack exit={exit} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />

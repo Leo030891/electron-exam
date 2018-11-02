@@ -4,6 +4,20 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Renamed menu components
+
+### Added
+
+- Added Packages - `react-dnd`, `react-dnd-html5-backend`, `immutability-helper`
+- New question type - Drag & Drop Order List
+
+### Fix
+
+- Review mode fill in blank explanation bug
+- Removed unused imports
+
 ## [1.0.1] 2018-10-30
 
 ### Changed
@@ -20,7 +34,7 @@
 - Ability to load remote Exam files
 - Note Taking feature in Review Mode
 - Ability to add external links to Explanation/Notes
-- @material-ui/lab package
+- Added Package - `@material-ui/lab`
 
 ## 1.0.0 2018-10-26
 

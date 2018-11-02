@@ -17,7 +17,7 @@ const styles = theme => ({
   }
 })
 
-function ReviewMenuLeftBottom({ backToSummary, openNotePrompt, classes }) {
+function ReviewMenuBottom({ backToSummary, openNotePrompt, classes }) {
   const list = [
     {
       text: 'Add Notes',
@@ -38,4 +38,4 @@ function ReviewMenuLeftBottom({ backToSummary, openNotePrompt, classes }) {
   )
 }
 
-export default withStyles(styles)(ReviewMenuLeftBottom)
+export default withStyles(styles)(ReviewMenuBottom)

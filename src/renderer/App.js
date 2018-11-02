@@ -85,6 +85,7 @@ export default class App extends Component {
       options: { timer: true }
     }
 
+    // ref for auto scroll feature
     this.explanation = React.createRef()
   }
 
@@ -183,7 +184,6 @@ export default class App extends Component {
   loadRemoteExam = str => {
     const url = new URL(str)
     const request = remote.net.request(url.href)
-
     request.on('response', response => {
       response.on('data', data => {
         if (validateExam(data) !== 'valid') {
@@ -274,11 +274,13 @@ export default class App extends Component {
     let answers = []
     let marked = []
     let fillIns = []
+    let orders = []
     let exam = this.state.exams[this.state.indexExam]
     let time = exam.time * 60
     exam.test.forEach(t => {
       answers.push(Array(t.choices.length).fill(false))
       fillIns.push('')
+      orders.push(null)
     })
     this.setState({
       mode: 1,
@@ -286,6 +288,7 @@ export default class App extends Component {
       answers,
       marked,
       fillIns,
+      orders,
       time,
       anchorEl1: null
     })
@@ -317,6 +320,7 @@ export default class App extends Component {
     clearInterval(this.timer)
   }
 
+  // manages set question slider
   handleSlider = value => {
     const { examMode, question, marked } = this.state
     if (question === value - 1) return
@@ -328,6 +332,7 @@ export default class App extends Component {
     }
   }
 
+  // set question index depending of examMode and direction
   setQuestion = (question, mode) => {
     if (mode === 'click') return this.setState({ question })
     if (question < 0 || question > this.state.exam.test.length - 1) return
@@ -355,6 +360,7 @@ export default class App extends Component {
     }
   }
 
+  // toggles the marked status of a question
   markQuestion = i => {
     const { marked, examMode } = this.state
     var newMarked = marked.slice(0)
@@ -374,6 +380,7 @@ export default class App extends Component {
     this.setState({ marked: newMarked })
   }
 
+  // sets exam to only show marked questions
   enterMarkedMode = () => {
     const { marked } = this.state
     if (!marked.length) return
@@ -381,8 +388,10 @@ export default class App extends Component {
     this.setState({ question: marked[0] })
   }
 
+  // sets the exam mode
   setExamMode = examMode => this.setState({ examMode })
 
+  // shows explanation is question and auto scrolls it into view
   viewExplanation = () => {
     this.setState({ explanation: !this.state.explanation }, () => {
       if (this.state.explanation) {
@@ -397,16 +406,19 @@ export default class App extends Component {
     })
   }
 
+  // opens the main test menu
   openTestMenu = e => {
     this.setState({ anchorEl2: { left: e.clientX, top: e.clientY } })
   }
 
+  // records answer type multiple answer/checkbox
   onAnswerCheck = (checked, x, y) => {
     let { answers } = this.state
     answers[x][y] = checked
     this.setState({ answers })
   }
 
+  // records answer type multiple choice
   onAnswerMultiple = (x, y) => {
     let { answers } = this.state
     for (let i = 0; i < answers[x].length; i++) {
@@ -416,6 +428,7 @@ export default class App extends Component {
     this.setState({ answers })
   }
 
+  // records answer type fillin
   onAnswerFillIn = (value, x) => {
     let { answers, fillIns, exam } = this.state
     let correct = []
@@ -429,15 +442,29 @@ export default class App extends Component {
     this.setState({ answers, fillIns })
   }
 
+  // records answer type drag order
+  onAnswerDragOrder = (userGuess, x) => {
+    let { answers, orders } = this.state
+    let correct = userGuess.map((u, i) => i)
+    answers[x] = [isEqual(correct, userGuess)]
+    orders[x] = userGuess
+    this.setState({ answers, orders })
+  }
+
+  // exits the exam and computes report and enters review mode
   exitExam = () => {
     clearInterval(this.timer)
-    const { exam, answers, time, history, filepaths, indexExam } = this.state
+    const { exam, answers, fillIns, orders, time, history, filepaths, indexExam } = this.state
     let correct = []
     let incorrect = []
     let incomplete = []
     answers.forEach((a, i) => {
       let answer = exam.test[i].answer
-      if (a.indexOf(true) === -1) {
+      if (a.indexOf(true) === -1 && a.length > 1) {
+        incomplete.push(i)
+      } else if (exam.test[i].variant === 2 && !fillIns[i]) {
+        incomplete.push(i)
+      } else if (exam.test[i].variant === 3 && !orders[i]) {
         incomplete.push(i)
       } else if (isEqual(a, answer) || (a.length === 1 && !!a)) {
         correct.push(i)
@@ -460,6 +487,8 @@ export default class App extends Component {
       incorrect,
       incomplete,
       answers,
+      fillIns,
+      orders,
       date,
       elapsed
     }
@@ -467,6 +496,7 @@ export default class App extends Component {
     this.setState(
       {
         mode: 3,
+        question: 0,
         reviewMode: 0,
         report,
         confirmEE: false,
@@ -481,6 +511,7 @@ export default class App extends Component {
     )
   }
 
+  // enter review mode
   enterReviewMode = () => {
     const { history, exams, filepaths, indexHist } = this.state
     let report = history[indexHist]
@@ -489,6 +520,7 @@ export default class App extends Component {
     this.setState({ report, exam, mode: 3 })
   }
 
+  // exit review mode
   exitReviewMode = () => {
     this.setState({ mode: 0, mainMode: 0, anchorEl3: null })
   }
@@ -506,12 +538,13 @@ export default class App extends Component {
 
   saveSession = () => {
     clearInterval(this.timer)
-    const { exam, answers, question, time, filepaths, indexExam, sessions, marked } = this.state
+    const { exam, answers, question, time, filepaths, indexExam, sessions } = this.state
+    const { fillIns, orders, marked } = this.state
     let date = new Date()
     let filename = filepaths[indexExam]
     let completed = 0
     answers.forEach((a, i) => {
-      if (a.indexOf(true) !== -1) {
+      if (a.indexOf(true) !== -1 || fillIns[i] || orders[i]) {
         completed++
       }
     })
@@ -521,6 +554,8 @@ export default class App extends Component {
       code: exam.code,
       completed,
       answers,
+      fillIns,
+      orders,
       marked,
       question,
       time,
@@ -536,7 +571,7 @@ export default class App extends Component {
   resumeSession = () => {
     const { sessions, indexSess, exams, filepaths } = this.state
     let session = sessions[indexSess]
-    let { time, question, answers, marked, filename } = session
+    let { time, question, answers, marked, fillIns, orders, filename } = session
     let indexExam = filepaths.indexOf(filename)
     let exam = exams[indexExam]
     this.setState(
@@ -549,7 +584,9 @@ export default class App extends Component {
         time,
         question,
         answers,
-        marked
+        marked,
+        fillIns,
+        orders
       },
       () => {
         this.initTimer()
@@ -676,7 +713,7 @@ export default class App extends Component {
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
     const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, notePrompt, promptLR } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
-    const { report, history, sessions, marked, options, fillIns } = this.state
+    const { report, history, sessions, marked, options, fillIns, orders } = this.state
     if (loading) return <Loading />
     else if (mode === 0) {
       const menuItems1 = [
@@ -870,6 +907,7 @@ export default class App extends Component {
             answers={answers}
             marked={marked}
             fillIns={fillIns}
+            orders={orders}
             explanation={explanation}
             handleSlider={this.handleSlider}
             setQuestion={this.setQuestion}
@@ -877,6 +915,7 @@ export default class App extends Component {
             onAnswerCheck={this.onAnswerCheck}
             onAnswerMultiple={this.onAnswerMultiple}
             onAnswerFillIn={this.onAnswerFillIn}
+            onAnswerDragOrder={this.onAnswerDragOrder}
             viewExplanation={this.viewExplanation}
             openTestMenu={this.openTestMenu}
           />

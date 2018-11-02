@@ -84,7 +84,7 @@ class ReviewScreen extends Component {
     const { reviewMode, reviewType, exam, report } = this.props
     const { notePrompt, closeNotePrompt } = this.props
     const { title, status, score, answers, date, elapsed } = report
-    const { incomplete, incorrect } = report
+    const { incomplete, incorrect, fillIns, orders } = report
     if (reviewMode === 0) {
       return (
         <Slide key="review" in={reviewMode === 0} direction="left">
@@ -118,6 +118,8 @@ class ReviewScreen extends Component {
             number={number}
             questions={questions}
             answers={answers}
+            fillIns={fillIns}
+            orders={orders}
             setIndex={this.setIndex}
           />
         </Slide>,

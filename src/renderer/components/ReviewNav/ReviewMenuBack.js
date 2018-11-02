@@ -1,15 +1,11 @@
 import React from 'react'
-import { shell, remote } from 'electron'
 import { withStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
-import SettingsIcon from '@material-ui/icons/SettingsSharp'
-import InfoIcon from '@material-ui/icons/InfoSharp'
-import HelpIcon from '@material-ui/icons/HelpSharp'
-import MakerIcon from '@material-ui/icons/OpenInNewSharp'
+import ExitIcon from '@material-ui/icons/ArrowBackSharp'
 
 const styles = theme => ({
   listItem: {
@@ -21,21 +17,8 @@ const styles = theme => ({
   }
 })
 
-function MainMenuLeftBottom({ setMainMode, openAboutSE, classes }) {
-  const list = [
-    {
-      text: 'Exam Maker',
-      icon: <MakerIcon />,
-      click: () => shell.openExternal('https://exam-maker.herokuapp.com/')
-    },
-    { text: 'About', icon: <InfoIcon />, click: openAboutSE },
-    {
-      text: 'Documentation',
-      icon: <HelpIcon />,
-      click: () => shell.openExternal('https://github.com/benjaminadk/electron-exam/wiki')
-    },
-    { text: 'Settings', icon: <SettingsIcon />, click: () => setMainMode(3) }
-  ]
+function ReviewMenuBack({ exit, classes }) {
+  const list = [{ text: 'Back to Main', icon: <ExitIcon />, click: exit }]
   return (
     <div style={{ position: 'absolute', bottom: 0, width: 240, overflow: 'hidden' }}>
       <Divider />
@@ -52,4 +35,4 @@ function MainMenuLeftBottom({ setMainMode, openAboutSE, classes }) {
   )
 }
 
-export default withStyles(styles)(MainMenuLeftBottom)
+export default withStyles(styles)(ReviewMenuBack)
