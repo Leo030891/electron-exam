@@ -7,8 +7,8 @@ function CoverScreen({ cover }) {
       {cover.map((c, i) => {
         if (c.variant === 0) {
           return (
-            <React.Fragment>
-              <img key={i} src={c.text} className="cover-item" />
+            <React.Fragment key={i}>
+              <img src={c.text} className="cover-item" />
               <br />
             </React.Fragment>
           )

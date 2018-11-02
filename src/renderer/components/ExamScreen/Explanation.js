@@ -25,8 +25,8 @@ function Explanation({ expRef, variant, answers, correctAnswers, explanation }) 
           explanation.map((e, i) => {
             if (e.variant === 0) {
               return (
-                <React.Fragment>
-                  <img key={i} src={e.text} alt="" />
+                <React.Fragment key={i}>
+                  <img src={e.text} alt="" />
                   <br />
                 </React.Fragment>
               )

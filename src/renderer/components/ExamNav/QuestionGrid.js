@@ -3,10 +3,10 @@ import Typography from '@material-ui/core/Typography'
 
 class QuestionGrid extends Component {
   getBackgroundColor = i => {
-    const { marked, answers } = this.props
+    const { marked, fillIns, orders, answers } = this.props
     let incomplete = []
     answers.forEach((a, j) => {
-      if (a.indexOf(true) === -1) {
+      if (a.indexOf(true) === -1 && !fillIns[j] && !orders[j]) {
         incomplete.push(j)
       }
     })

@@ -7,8 +7,8 @@ function Question({ question }) {
       {question.map((q, j) => {
         if (q.variant === 0)
           return (
-            <React.Fragment>
-              <img key={j} className="question-item" src={q.text} />
+            <React.Fragment key={j}>
+              <img src={q.text} className="question-image" />
               <br />
             </React.Fragment>
           )

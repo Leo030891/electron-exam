@@ -890,6 +890,8 @@ export default class App extends Component {
           total={exam.test.length}
           question={question}
           marked={marked}
+          fillIns={fillIns}
+          orders={orders}
           answers={answers}
           enterMarkedMode={this.enterMarkedMode}
           setExamMode={this.setExamMode}
