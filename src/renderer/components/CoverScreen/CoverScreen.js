@@ -6,7 +6,12 @@ function CoverScreen({ cover }) {
     <div className="cover-content">
       {cover.map((c, i) => {
         if (c.variant === 0) {
-          return <img key={i} src={c.text} className="cover-item" />
+          return (
+            <React.Fragment>
+              <img key={i} src={c.text} className="cover-item" />
+              <br />
+            </React.Fragment>
+          )
         } else if (c.variant === 1) {
           return (
             <Typography key={i} variant="subtitle1" className="cover-item">

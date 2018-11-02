@@ -16,6 +16,7 @@
 ### Fix
 
 - Review mode fill in blank explanation bug
+- Two consecutive images now separated by line break
 - Removed unused imports
 
 ## [1.0.1] 2018-10-30
