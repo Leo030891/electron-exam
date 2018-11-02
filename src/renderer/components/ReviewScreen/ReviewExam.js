@@ -4,6 +4,8 @@ import TopBar from './TopBar'
 import Question from '../ExamScreen/Question'
 import Checkboxes from '../ExamScreen/Checkboxes'
 import MultipleChoice from '../ExamScreen/MultipleChoice'
+import FillInBlank from '../ExamScreen/FillInBlank'
+import StaticList from './StaticList'
 import Explanation from '../ExamScreen/Explanation'
 import BottomBar from './BottomBar'
 
@@ -13,6 +15,7 @@ class ReviewExam extends Component {
   }
   render() {
     const { reviewType, title, index, number, questions, answers, setIndex } = this.props
+    const { fillIns, orders } = this.props
     return (
       <div className="ReviewExam">
         <TopBar
@@ -39,23 +42,23 @@ class ReviewExam extends Component {
                           <MultipleChoice
                             review={true}
                             choices={q.choices}
-                            question={i}
                             answers={answers[number - 1]}
                             correctAnswers={q.answer}
                             explanation={true}
-                            onAnswerMultiple={() => {}}
                           />
-                        ) : (
+                        ) : q.variant === 1 ? (
                           <Checkboxes
                             review={true}
                             choices={q.choices}
-                            question={i}
                             answers={answers[number - 1]}
                             correctAnswers={q.answer}
                             explanation={true}
-                            onAnswerCheck={() => {}}
                           />
-                        )}
+                        ) : q.variant === 2 ? (
+                          <FillInBlank review={true} fillIn={fillIns[i]} explanation={true} />
+                        ) : q.variant === 3 ? (
+                          <StaticList choices={q.choices} order={orders[i]} />
+                        ) : null}
                       </div>
                       <Slide
                         in={true}
@@ -67,7 +70,7 @@ class ReviewExam extends Component {
                           expRef={null}
                           variant={q.variant}
                           answers={answers[number - 1]}
-                          correctAnswers={q.variant === 2 ? q.choices : q.answer}
+                          correctAnswers={q.variant === 0 || q.variant === 1 ? q.answer : q.choices}
                           explanation={q.explanation}
                         />
                       </Slide>

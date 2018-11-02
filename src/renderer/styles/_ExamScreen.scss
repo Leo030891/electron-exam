@@ -44,6 +44,23 @@
     margin-top: 50px;
   }
 
+  .drag-order {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+
+    .drag-order-choice {
+      max-width: 500px;
+      min-height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px dashed lightgrey;
+      margin-bottom: 15px;
+      cursor: move;
+    }
+  }
+
   .explanation {
     width: 75%;
     display: flex;

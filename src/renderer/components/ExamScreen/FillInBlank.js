@@ -22,8 +22,7 @@ class FillInBlank extends Component {
   }
 
   componentDidMount() {
-    const { fillIn, review } = this.props
-    if (review) return
+    const { fillIn } = this.props
     this.setState({ value: fillIn })
   }
 
@@ -34,7 +33,7 @@ class FillInBlank extends Component {
 
   render() {
     const { value } = this.state
-    const { classes } = this.props
+    const { review, classes } = this.props
     return (
       <div className="fill-in-blank">
         <TextField
@@ -43,6 +42,7 @@ class FillInBlank extends Component {
           value={value}
           onChange={this.onChange}
           autoFocus
+          disabled={review}
           InputProps={{
             classes: {
               root: classes.outlinedInput,

@@ -1,43 +1,36 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import AddLocalIcon from '@material-ui/icons/PlaylistAddSharp'
+import { AddRemoteIcon } from '../Icons'
 
-const styles = theme => ({})
+const styles = theme => ({
+  listItem: {
+    '&:hover': {
+      backgroundColor: 'rgb(225, 242, 255)',
+      outline: '2px solid rgb(1, 139, 244)',
+      color: 'rgb(1, 139, 244)'
+    }
+  }
+})
 
-function MainMenuTop({ mainMode, setMainMode, classes }) {
+function MainMenuTop({ loadLocalExam, openPromptLR, classes }) {
+  const list = [
+    { text: 'Load Local File', icon: <AddLocalIcon />, click: loadLocalExam },
+    { text: 'Load Remote File', icon: <AddRemoteIcon />, click: openPromptLR }
+  ]
   return (
-    <div className="main-menu-top">
-      <Typography
-        variant="h5"
-        className="items"
-        style={{
-          borderBottom: mainMode === 0 ? '3px solid rgb(31, 144, 224)' : '3px solid transparent'
-        }}
-        onClick={() => setMainMode(0)}
-      >
-        Exams
-      </Typography>
-      <Typography
-        variant="h5"
-        className="items"
-        onClick={() => setMainMode(1)}
-        style={{
-          borderBottom: mainMode === 1 ? '3px solid rgb(31, 144, 224)' : '3px solid transparent'
-        }}
-      >
-        History
-      </Typography>
-      <Typography
-        variant="h5"
-        className="items"
-        onClick={() => setMainMode(2)}
-        style={{
-          borderBottom: mainMode === 2 ? '3px solid rgb(31, 144, 224)' : '3px solid transparent'
-        }}
-      >
-        Sessions
-      </Typography>
-    </div>
+    <List disablePadding>
+      {list.map((l, i) => (
+        <ListItem key={l.text} button onClick={l.click} classes={{ button: classes.listItem }}>
+          <ListItemIcon>{l.icon}</ListItemIcon>
+          <ListItemText primary={l.text} />
+        </ListItem>
+      ))}
+    </List>
   )
 }
 

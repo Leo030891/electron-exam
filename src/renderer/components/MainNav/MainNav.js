@@ -8,9 +8,9 @@ import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import TopBar from './TopBar'
 import MainMenuTop from './MainMenuTop'
-import MainMenuLeftTop from './MainMenuLeftTop'
-import MainMenuLeftBottom from './MainMenuLeftBottom'
+import MainMenuBottom from './MainMenuBottom'
 
 const drawerWidth = 240
 
@@ -127,7 +127,7 @@ class MainNav extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <MainMenuTop mainMode={mainMode} setMainMode={setMainMode} />
+            <TopBar mainMode={mainMode} setMainMode={setMainMode} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -143,9 +143,9 @@ class MainNav extends Component {
             </IconButton>
           </div>
           <Divider />
-          <MainMenuLeftTop loadLocalExam={loadLocalExam} openPromptLR={openPromptLR} />
+          <MainMenuTop loadLocalExam={loadLocalExam} openPromptLR={openPromptLR} />
           <Divider />
-          <MainMenuLeftBottom setMainMode={setMainMode} openAboutSE={openAboutSE} />
+          <MainMenuBottom setMainMode={setMainMode} openAboutSE={openAboutSE} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
