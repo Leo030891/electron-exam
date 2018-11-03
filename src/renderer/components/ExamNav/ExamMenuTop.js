@@ -12,7 +12,7 @@ import { execFile } from 'child_process'
 const styles = theme => ({
   listItem: {
     '&:hover': {
-      backgroundColor: 'rgb(225, 242, 255)',
+      backgroundColor: 'rgb(232, 244, 252)',
       outline: '2px solid rgb(1, 139, 244)',
       color: 'rgb(1, 139, 244)'
     }

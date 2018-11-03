@@ -1,18 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { remote } from 'electron'
 
-function getMainColor() {
-  let color = remote.systemPreferences.getAccentColor()
-  return `#${color.substr(0, 6)}`
-}
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: getMainColor()
-    }
-  }
-})
+const theme = createMuiTheme({})
 
 export default createMuiTheme({
   typography: {

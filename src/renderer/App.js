@@ -294,21 +294,20 @@ export default class App extends Component {
     })
   }
 
-  // starts timer and opens exam
+  // starts exam
   startExam = () => {
     this.closeConfirmSE()
     this.setMode(2)
     this.initTimer()
   }
 
-  // starts the exam timer
+  // starts the exam timer & stops exam when time expires
   initTimer = () => {
     this.timer = setInterval(() => {
       const { time } = this.state
       if (time === 0) {
         clearInterval(this.timer)
-        this.setState({ confirmTE: true })
-        return
+        return this.setState({ confirmTE: true })
       }
       this.setState({ time: time - 1 })
     }, 1000)
@@ -525,6 +524,7 @@ export default class App extends Component {
     this.setState({ mode: 0, mainMode: 0, anchorEl3: null })
   }
 
+  // deletes a history entry and updates state and file
   deleteHistory = () => {
     const { history, indexHist } = this.state
     let newHistory = history.filter((h, i) => indexHist !== i)
@@ -536,6 +536,7 @@ export default class App extends Component {
     })
   }
 
+  // stops exam and saves data from state to a sessions file
   saveSession = () => {
     clearInterval(this.timer)
     const { exam, answers, question, time, filepaths, indexExam, sessions } = this.state
@@ -568,6 +569,7 @@ export default class App extends Component {
     })
   }
 
+  // reads a session and loads data into state
   resumeSession = () => {
     const { sessions, indexSess, exams, filepaths } = this.state
     let session = sessions[indexSess]
@@ -594,6 +596,7 @@ export default class App extends Component {
     )
   }
 
+  // delete a session and update sessions file and state
   deleteSession = () => {
     const { sessions, indexSess } = this.state
     let newSessions = sessions.filter((s, i) => i !== indexSess)
@@ -603,6 +606,7 @@ export default class App extends Component {
     })
   }
 
+  // updates exam file with user notes/explanation
   updateExplanation = (explanation, index) => {
     const { exams, exam, filepaths } = this.state
     let i = exams.findIndex(el => el.title === exam.title)
@@ -610,7 +614,6 @@ export default class App extends Component {
     newExam.test[index].explanation = explanation
     this.setState({ exam: newExam }, () => {
       let filepath = filepaths[i]
-      console.log(filepath, filepaths, exam, i)
       writeFile(filepath, JSON.stringify(newExam))
         .then(() => {
           this.loadExams()
@@ -928,7 +931,7 @@ export default class App extends Component {
           open={confirmRE}
           title="Exam Paused"
           message="Exam Paused"
-          detail="Click OK to start timer and unpause exam."
+          detail="Click OK to start timer and resume exam."
           icon={<TimerIcon fontSize="inherit" className="confirm-icon" />}
           onOkay={this.closeConfirmRE}
         />,

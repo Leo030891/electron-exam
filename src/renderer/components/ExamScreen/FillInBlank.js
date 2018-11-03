@@ -22,13 +22,13 @@ class FillInBlank extends Component {
   }
 
   componentDidMount() {
-    const { fillIn } = this.props
-    this.setState({ value: fillIn })
+    this.setState({ value: this.props.fillIn })
   }
 
   onChange = e => {
+    const { question, onAnswerFillIn } = this.props
     this.setState({ value: e.target.value })
-    this.props.onAnswerFillIn(e.target.value.toLowerCase(), this.props.question)
+    onAnswerFillIn(e.target.value.toLowerCase(), question)
   }
 
   render() {

@@ -19,7 +19,7 @@
 - Review mode fill in blank explanation bug
 - Two consecutive images now separated by line break
 - Question Grid fill in blank completed bug
-- Removed unused imports
+- Removed unused imports and files
 
 ## [1.0.1] 2018-10-30
 

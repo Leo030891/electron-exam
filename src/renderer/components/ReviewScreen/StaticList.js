@@ -12,8 +12,8 @@ function StaticItem({ text, style }) {
 function StaticList({ order, choices }) {
   let list = []
   for (let i = 0; i < choices.length; i++) {
-    let { text } = choices[order[i]]
-    let correct = order[i] === i
+    let { text } = order ? choices[order[i]] : choices[i]
+    let correct = order ? order[i] === i : false
     list.push({ text, correct })
   }
   return (
@@ -23,7 +23,7 @@ function StaticList({ order, choices }) {
           key={i}
           text={l.text}
           style={{
-            border: `2px dashed ${l.correct ? 'rgb(1, 139, 244)' : 'lightgrey'}`
+            border: `2px dashed ${l.correct ? 'rgb(1, 139, 244)' : 'rgb(185, 185, 185)'}`
           }}
         />
       ))}
