@@ -6,11 +6,13 @@
 
 ### Changed
 
+- Expanded exam validation parameters
 - Renamed menu components
 - Images max-height set to 50vh
 
 ### Added
 
+- Exam validation error prints list of specific errors
 - Added Packages - `react-dnd`, `react-dnd-html5-backend`, `immutability-helper`
 - New question type - Drag & Drop Order List
 

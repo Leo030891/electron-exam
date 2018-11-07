@@ -10,6 +10,7 @@ import ReviewNav from './components/ReviewNav/ReviewNav'
 import ReviewScreen from './components/ReviewScreen/ReviewScreen'
 import Prompt from './components/App/Prompt'
 import Confirm from './components/App/Confirm'
+import ConfirmSVE from './components/App/ConfirmSVE'
 import Loading from './components/App/Loading'
 import Popup from './components/App/Popup'
 import About from './components/App/About'
@@ -75,6 +76,7 @@ export default class App extends Component {
       confirmFAE: false,
       confirmTE: false,
       confirmSVE: false,
+      detailSVE: null,
       anchorEl1: null,
       anchorEl2: null,
       anchorEl3: null,
@@ -167,8 +169,9 @@ export default class App extends Component {
           let file = getFilename(filepath[0])
           readFile(filepath[0])
             .then(data => {
-              if (validateExam(data) !== 'valid') {
-                this.setState({ confirmSVE: true })
+              const result = validateExam(data)
+              if (result !== 'valid') {
+                this.setState({ confirmSVE: true, detailSVE: result })
                 return
               }
               writeFile(path.resolve(__static, 'exams', file), data).then(this.loadExams)
@@ -186,15 +189,16 @@ export default class App extends Component {
     const request = remote.net.request(url.href)
     request.on('response', response => {
       response.on('data', data => {
-        if (validateExam(data) !== 'valid') {
-          this.setState({ confirmSVE: true })
-        } else {
-          let exam = JSON.parse(data)
-          let filename = formatFilename(exam.title)
-          writeFile(path.resolve(__static, 'exams', filename), data)
-            .then(this.loadExams)
-            .catch(console.error)
+        const result = validateExam(data)
+        if (result !== 'valid') {
+          this.setState({ confirmSVE: true, detailSVE: result })
+          return
         }
+        const exam = JSON.parse(data)
+        const filename = formatFilename(exam.title)
+        writeFile(path.resolve(__static, 'exams', filename), data)
+          .then(this.loadExams)
+          .catch(console.error)
       })
     })
     request.end()
@@ -702,7 +706,7 @@ export default class App extends Component {
 
   closeConfirmTE = () => this.setState({ confirmTE: false })
 
-  closeConfirmSVE = () => this.setState({ confirmSVE: false })
+  closeConfirmSVE = () => this.setState({ confirmSVE: false, detailSVE: null })
 
   openAboutSE = () => this.setState({ aboutES: true })
 
@@ -712,7 +716,7 @@ export default class App extends Component {
 
   render() {
     const { loading, mode, mainMode, examMode, reviewMode, reviewType, aboutES } = this.state
-    const { confirmRS, confirmFAE, confirmTE, confirmDS, confirmSVE } = this.state
+    const { confirmRS, confirmFAE, confirmTE, confirmDS, confirmSVE, detailSVE } = this.state
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
     const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, notePrompt, promptLR } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
@@ -764,14 +768,12 @@ export default class App extends Component {
           onClose={this.closePromptLR}
           onOkay={this.loadRemoteExam}
         />,
-        <Confirm
+        <ConfirmSVE
           key="schema-validation-error"
-          alert={true}
           open={confirmSVE}
-          title="Error"
+          title="JSON Schema Error"
           message="JSON Schema Error"
-          detail="Insert link to get more information here."
-          icon={<ErrorIcon fontSize="inherit" className="confirm-icon" />}
+          detail={detailSVE}
           onClose={this.closeConfirmSVE}
           onOkay={this.closeConfirmSVE}
         />,
