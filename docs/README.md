@@ -6,7 +6,7 @@
 
 ![Platform](https://img.shields.io/badge/platform-osx-lightgrey.svg?style=flat-square) ![Travis](https://img.shields.io/travis/benjaminadk/electron-exam.svg?style=flat-square)
 
-- An exam simulator built with Electron, React and JSON
+#### `Exam Simulator` is exactly that, an exam simulator
 
 ### :notebook: [Documentation](https://github.com/benjaminadk/electron-exam/wiki)
 
