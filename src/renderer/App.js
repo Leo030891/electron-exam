@@ -10,6 +10,7 @@ import ReviewNav from './components/ReviewNav/ReviewNav'
 import ReviewScreen from './components/ReviewScreen/ReviewScreen'
 import Prompt from './components/App/Prompt'
 import Confirm from './components/App/Confirm'
+import ConfirmSVE from './components/App/ConfirmSVE'
 import Loading from './components/App/Loading'
 import Popup from './components/App/Popup'
 import About from './components/App/About'
@@ -75,6 +76,7 @@ export default class App extends Component {
       confirmFAE: false,
       confirmTE: false,
       confirmSVE: false,
+      detailSVE: null,
       anchorEl1: null,
       anchorEl2: null,
       anchorEl3: null,
@@ -167,8 +169,9 @@ export default class App extends Component {
           let file = getFilename(filepath[0])
           readFile(filepath[0])
             .then(data => {
-              if (validateExam(data) !== 'valid') {
-                this.setState({ confirmSVE: true })
+              const result = validateExam(data)
+              if (result !== 'valid') {
+                this.setState({ confirmSVE: true, detailSVE: result })
                 return
               }
               writeFile(path.resolve(__static, 'exams', file), data).then(this.loadExams)
@@ -186,15 +189,16 @@ export default class App extends Component {
     const request = remote.net.request(url.href)
     request.on('response', response => {
       response.on('data', data => {
-        if (validateExam(data) !== 'valid') {
-          this.setState({ confirmSVE: true })
-        } else {
-          let exam = JSON.parse(data)
-          let filename = formatFilename(exam.title)
-          writeFile(path.resolve(__static, 'exams', filename), data)
-            .then(this.loadExams)
-            .catch(console.error)
+        const result = validateExam(data)
+        if (result !== 'valid') {
+          this.setState({ confirmSVE: true, detailSVE: result })
+          return
         }
+        const exam = JSON.parse(data)
+        const filename = formatFilename(exam.title)
+        writeFile(path.resolve(__static, 'exams', filename), data)
+          .then(this.loadExams)
+          .catch(console.error)
       })
     })
     request.end()
@@ -294,21 +298,20 @@ export default class App extends Component {
     })
   }
 
-  // starts timer and opens exam
+  // starts exam
   startExam = () => {
     this.closeConfirmSE()
     this.setMode(2)
     this.initTimer()
   }
 
-  // starts the exam timer
+  // starts the exam timer & stops exam when time expires
   initTimer = () => {
     this.timer = setInterval(() => {
       const { time } = this.state
       if (time === 0) {
         clearInterval(this.timer)
-        this.setState({ confirmTE: true })
-        return
+        return this.setState({ confirmTE: true })
       }
       this.setState({ time: time - 1 })
     }, 1000)
@@ -525,6 +528,7 @@ export default class App extends Component {
     this.setState({ mode: 0, mainMode: 0, anchorEl3: null })
   }
 
+  // deletes a history entry and updates state and file
   deleteHistory = () => {
     const { history, indexHist } = this.state
     let newHistory = history.filter((h, i) => indexHist !== i)
@@ -536,6 +540,7 @@ export default class App extends Component {
     })
   }
 
+  // stops exam and saves data from state to a sessions file
   saveSession = () => {
     clearInterval(this.timer)
     const { exam, answers, question, time, filepaths, indexExam, sessions } = this.state
@@ -568,6 +573,7 @@ export default class App extends Component {
     })
   }
 
+  // reads a session and loads data into state
   resumeSession = () => {
     const { sessions, indexSess, exams, filepaths } = this.state
     let session = sessions[indexSess]
@@ -594,6 +600,7 @@ export default class App extends Component {
     )
   }
 
+  // delete a session and update sessions file and state
   deleteSession = () => {
     const { sessions, indexSess } = this.state
     let newSessions = sessions.filter((s, i) => i !== indexSess)
@@ -603,6 +610,7 @@ export default class App extends Component {
     })
   }
 
+  // updates exam file with user notes/explanation
   updateExplanation = (explanation, index) => {
     const { exams, exam, filepaths } = this.state
     let i = exams.findIndex(el => el.title === exam.title)
@@ -610,7 +618,6 @@ export default class App extends Component {
     newExam.test[index].explanation = explanation
     this.setState({ exam: newExam }, () => {
       let filepath = filepaths[i]
-      console.log(filepath, filepaths, exam, i)
       writeFile(filepath, JSON.stringify(newExam))
         .then(() => {
           this.loadExams()
@@ -699,7 +706,7 @@ export default class App extends Component {
 
   closeConfirmTE = () => this.setState({ confirmTE: false })
 
-  closeConfirmSVE = () => this.setState({ confirmSVE: false })
+  closeConfirmSVE = () => this.setState({ confirmSVE: false, detailSVE: null })
 
   openAboutSE = () => this.setState({ aboutES: true })
 
@@ -709,7 +716,7 @@ export default class App extends Component {
 
   render() {
     const { loading, mode, mainMode, examMode, reviewMode, reviewType, aboutES } = this.state
-    const { confirmRS, confirmFAE, confirmTE, confirmDS, confirmSVE } = this.state
+    const { confirmRS, confirmFAE, confirmTE, confirmDS, confirmSVE, detailSVE } = this.state
     const { confirmDE, confirmSE, confirmEE, confirmRE, confirmDH, confirmSS } = this.state
     const { anchorEl1, anchorEl2, anchorEl3, anchorEl4, notePrompt, promptLR } = this.state
     const { exams, exam, question, time, answers, explanation, fileData, filepaths } = this.state
@@ -761,14 +768,12 @@ export default class App extends Component {
           onClose={this.closePromptLR}
           onOkay={this.loadRemoteExam}
         />,
-        <Confirm
+        <ConfirmSVE
           key="schema-validation-error"
-          alert={true}
           open={confirmSVE}
-          title="Error"
+          title="JSON Schema Error"
           message="JSON Schema Error"
-          detail="Insert link to get more information here."
-          icon={<ErrorIcon fontSize="inherit" className="confirm-icon" />}
+          detail={detailSVE}
           onClose={this.closeConfirmSVE}
           onOkay={this.closeConfirmSVE}
         />,
@@ -890,6 +895,8 @@ export default class App extends Component {
           total={exam.test.length}
           question={question}
           marked={marked}
+          fillIns={fillIns}
+          orders={orders}
           answers={answers}
           enterMarkedMode={this.enterMarkedMode}
           setExamMode={this.setExamMode}
@@ -926,7 +933,7 @@ export default class App extends Component {
           open={confirmRE}
           title="Exam Paused"
           message="Exam Paused"
-          detail="Click OK to start timer and unpause exam."
+          detail="Click OK to start timer and resume exam."
           icon={<TimerIcon fontSize="inherit" className="confirm-icon" />}
           onOkay={this.closeConfirmRE}
         />,

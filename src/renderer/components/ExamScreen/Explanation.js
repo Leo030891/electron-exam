@@ -24,7 +24,12 @@ function Explanation({ expRef, variant, answers, correctAnswers, explanation }) 
         {explanation.length > 0 &&
           explanation.map((e, i) => {
             if (e.variant === 0) {
-              return <img key={i} src={e.text} alt="" />
+              return (
+                <React.Fragment key={i}>
+                  <img src={e.text} alt="" />
+                  <br />
+                </React.Fragment>
+              )
             } else if (e.variant === 1) {
               return (
                 <Typography key={i} variant="subtitle1">

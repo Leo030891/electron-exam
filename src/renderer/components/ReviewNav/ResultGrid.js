@@ -21,9 +21,17 @@ class ResultGrid extends Component {
     const { reviewType, total, setReviewType } = this.props
     return (
       <div className="ResultGrid">
-        <div className="title">
-          Correct <div className="mini-green" /> Incorrect <div className="mini-red" /> Incomplete{' '}
-          <div className="mini-grey" />
+        <div className="legend">
+          <div className="row">
+            Correct <div className="mini green" />
+          </div>
+          <div className="row">
+            Incorrect <div className="mini red" />
+          </div>
+          <div className="row">
+            Incomplete
+            <div className="mini grey" />
+          </div>
         </div>
         <div className="grid">
           {[...Array(total)].map((x, i) => (
@@ -32,7 +40,7 @@ class ResultGrid extends Component {
               className="result-item"
               style={{
                 backgroundColor: this.getBackgroundColor(i),
-                outline: reviewType === i && '2px solid rgb(31, 144, 224)'
+                outline: reviewType === i && '2px solid rgb(1, 139, 244)'
               }}
               onClick={() => setReviewType(i)}
             >

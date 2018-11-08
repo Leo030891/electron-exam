@@ -112,9 +112,9 @@ class ExamNav extends Component {
   }
 
   render() {
-    const { title, total, answers, question, marked, examMode, classes } = this.props
+    const { title, total, answers, question, marked, fillIns, orders, examMode } = this.props
     const { enterMarkedMode, setExamMode, setQuestion } = this.props
-    const { viewExplanation, pauseExam, endExam } = this.props
+    const { viewExplanation, pauseExam, endExam, classes } = this.props
     return (
       <div className={classes.root}>
         <AppBar
@@ -155,6 +155,8 @@ class ExamNav extends Component {
               answers={answers}
               question={question}
               marked={marked}
+              fillIns={fillIns}
+              orders={orders}
               setQuestion={setQuestion}
             />
           )}

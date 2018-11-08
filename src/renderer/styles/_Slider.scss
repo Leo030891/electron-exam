@@ -35,12 +35,12 @@
 .rangeslider .rangeslider__fill {
   display: block;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
-  background-color: lighten($color: rgb(31, 144, 224), $amount: 40);
+  background-color: lighten($color: $main-blue, $amount: 40);
 }
 
 .rangeslider-horizontal .rangeslider__fill {
   height: 100%;
-  background-color: rgb(31, 144, 224);
+  background-color: $main-blue;
   border-radius: 0px;
   top: 0;
 }

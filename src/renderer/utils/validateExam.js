@@ -1,5 +1,5 @@
 var Ajv = require('ajv')
-var ajv = new Ajv()
+var ajv = new Ajv({ allErrors: true })
 
 var schema = {
   definitions: {},
@@ -53,21 +53,21 @@ var schema = {
       items: {
         $id: '#/properties/cover/items',
         type: 'object',
-        title: 'The Items Schema',
+        title: 'The Cover Items Schema',
         required: ['variant', 'text'],
         properties: {
           variant: {
             $id: '#/properties/cover/items/properties/variant',
             type: 'integer',
             enum: [0, 1, 2],
-            title: 'The Variant Schema',
+            title: 'The Cover Item Variant Schema',
             default: 1,
             examples: [0]
           },
           text: {
             $id: '#/properties/cover/items/properties/text',
             type: 'string',
-            title: 'The Text Schema',
+            title: 'The Cover Item Text Schema',
             default: '',
             examples: [
               'https://www.oracle.com/webfolder/s/brand/assets/i/specimens/identity/logo/primary-sig.gif'
@@ -84,13 +84,13 @@ var schema = {
       items: {
         $id: '#/properties/test/items',
         type: 'object',
-        title: 'The Items Schema',
+        title: 'The Test Items Schema',
         required: ['variant', 'question', 'choices', 'answer', 'explanation'],
         properties: {
           variant: {
             $id: '#/properties/test/items/properties/variant',
             type: 'integer',
-            enum: [0, 1, 2],
+            enum: [0, 1, 2, 3],
             title: 'The Question Variant Schema',
             default: 0,
             examples: [1]
@@ -98,7 +98,7 @@ var schema = {
           question: {
             $id: '#/properties/test/items/properties/question',
             type: 'array',
-            title: 'The Question Content Schema',
+            title: 'The Question Item Schema',
             items: {
               $id: '#/properties/test/items/properties/question/items',
               type: 'object',
@@ -109,14 +109,14 @@ var schema = {
                   $id: '#/properties/test/items/properties/question/items/properties/variant',
                   type: 'integer',
                   enum: [0, 1, 2],
-                  title: 'The Variant Schema',
+                  title: 'The Question Item Variant Schema',
                   default: 1,
                   examples: [1]
                 },
                 text: {
                   $id: '#/properties/test/items/properties/question/items/properties/text',
                   type: 'string',
-                  title: 'The Text Schema',
+                  title: 'The Question Item Text Schema',
                   default: '',
                   examples: [
                     'Which three tasks can be performed using SQL functions built into Oracle Database?'
@@ -133,21 +133,21 @@ var schema = {
             items: {
               $id: '#/properties/test/items/properties/choices/items',
               type: 'object',
-              title: 'The Items Schema',
+              title: 'The Choice Items Schema',
               required: ['label', 'text'],
               properties: {
                 label: {
                   $id: '#/properties/test/items/properties/choices/items/properties/label',
-                  type: 'string',
-                  title: 'The Label Schema',
-                  default: '',
+                  type: ['string', 'integer'],
+                  title: 'The Choice Label Schema',
+                  default: 'A',
                   examples: ['A'],
                   pattern: '^(.*)$'
                 },
                 text: {
                   $id: '#/properties/test/items/properties/choices/items/properties/text',
                   type: 'string',
-                  title: 'The Text Schema',
+                  title: 'The Choice Text Schema',
                   default: '',
                   examples: ['Displaying a date in nondefault format'],
                   pattern: '^(.*)$'
@@ -162,7 +162,7 @@ var schema = {
             items: {
               $id: '#/properties/test/items/properties/answer/items',
               type: 'boolean',
-              title: 'The Answer Schema',
+              title: 'The Answer Item Schema',
               default: false,
               examples: [true, true, true, false]
             }
@@ -170,7 +170,31 @@ var schema = {
           explanation: {
             $id: '#/properties/test/items/properties/explanation',
             type: 'array',
-            title: 'The Explanation Schema'
+            title: 'The Explanation Schema',
+            items: {
+              $id: '#/properties/test/items/properties/explanation/items',
+              type: 'object',
+              title: 'The Items Schema',
+              required: ['variant', 'text'],
+              properties: {
+                variant: {
+                  $id: '#/properties/test/items/properties/explanation/items/properties/variant',
+                  type: 'integer',
+                  enum: [0, 1, 2, 3],
+                  title: 'The Explanation Variant Schema',
+                  default: 1,
+                  examples: [1]
+                },
+                text: {
+                  $id: '#/properties/test/items/properties/explanation/items/properties/text',
+                  type: 'string',
+                  title: 'The Explanation Text Schema',
+                  default: '',
+                  examples: ['The answer to the question is 3 because 2 plus 1 equals 3'],
+                  pattern: '^(.*)$'
+                }
+              }
+            }
           }
         }
       }
@@ -182,6 +206,5 @@ var validate = ajv.compile(schema)
 
 export default function(data) {
   var valid = validate(JSON.parse(data))
-  if (!valid) console.log(validate.errors)
-  return valid ? 'valid' : `${validate.errors[0].schemaPath} - ${validate.errors[0].message}`
+  return valid ? 'valid' : validate.errors
 }

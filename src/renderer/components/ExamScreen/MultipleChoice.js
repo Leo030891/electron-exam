@@ -31,7 +31,8 @@ class MultipleChoice extends Component {
   }
 
   onChange = (e, value) => {
-    this.props.onAnswerMultiple(this.props.question, parseInt(value, 10))
+    const { question, onAnswerMultiple } = this.props
+    onAnswerMultiple(question, parseInt(value, 10))
     this.setState({ value })
   }
 

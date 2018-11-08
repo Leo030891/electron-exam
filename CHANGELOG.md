@@ -6,17 +6,22 @@
 
 ### Changed
 
+- Expanded exam validation parameters
 - Renamed menu components
+- Images max-height set to 50vh
 
 ### Added
 
+- Exam validation error prints list of specific errors
 - Added Packages - `react-dnd`, `react-dnd-html5-backend`, `immutability-helper`
 - New question type - Drag & Drop Order List
 
 ### Fix
 
 - Review mode fill in blank explanation bug
-- Removed unused imports
+- Two consecutive images now separated by line break
+- Question Grid fill in blank completed bug
+- Removed unused imports and files
 
 ## [1.0.1] 2018-10-30
 

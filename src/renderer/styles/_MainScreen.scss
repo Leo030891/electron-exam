@@ -24,13 +24,13 @@
   width: 75vw;
   margin-bottom: 10px;
   padding: 2px;
-  background-color: rgb(232, 244, 252);
+  background-color: $light-blue;
   border: 1px solid;
   font-size: 48px;
   cursor: pointer;
   &:hover {
-    background-color: darken($color: rgb(232, 244, 252), $amount: 7.5);
-    outline: 2px solid rgb(1, 139, 244);
+    background-color: darken($color: $light-blue, $amount: 7.5);
+    outline: 2px solid $main-blue;
   }
 
   .panel-icon {
@@ -54,7 +54,7 @@
   align-items: center;
 
   .message {
-    background-color: rgb(232, 244, 252);
+    background-color: $light-blue;
     border: 1px solid;
     padding: 20px;
   }

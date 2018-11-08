@@ -17,28 +17,26 @@ class ListOrder extends Component {
   componentDidMount() {
     let { choices, order } = this.props
     let newChoices
-    if (order) {
-      newChoices = order.map((o, i) => choices[o])
-    } else {
-      newChoices = shuffleArray(choices.slice(0))
-    }
+    if (order) newChoices = order.map(o => choices[o])
+    else newChoices = shuffleArray(choices.slice(0))
     this.setState({ choices: newChoices })
   }
 
   renderChoices = () => {
     const { choices } = this.state
-    return choices
-      ? choices.map((c, i) => (
-          <ListItem
-            key={c.label}
-            index={i}
-            id={c.label}
-            text={c.text}
-            moveAnswer={this.moveAnswer}
-            onDragEnd={this.onDragEnd}
-          />
-        ))
-      : null
+    return (
+      choices &&
+      choices.map((c, i) => (
+        <ListItem
+          key={c.label}
+          index={i}
+          id={c.label}
+          text={c.text}
+          moveAnswer={this.moveAnswer}
+          onDragEnd={this.onDragEnd}
+        />
+      ))
+    )
   }
 
   moveAnswer = (dragIndex, hoverIndex) => {
@@ -55,12 +53,12 @@ class ListOrder extends Component {
 
   onDragEnd = () => {
     const { question, onAnswerDragOrder } = this.props
-    let userGuess = this.state.choices.map((c, i) => c.label)
+    let userGuess = this.state.choices.map(c => c.label)
     onAnswerDragOrder(userGuess, question)
   }
 
   render() {
-    return <div className="drag-order">{this.renderChoices()}</div>
+    return <div className="list-order">{this.renderChoices()}</div>
   }
 }
 

@@ -58,15 +58,17 @@ class ListItem extends Component {
   render() {
     const { text, isDragging, connectDragSource, connectDropTarget } = this.props
     const opacity = isDragging ? 0.75 : 1
-    const backgroundColor = isDragging ? 'rgb(232, 244, 252)' : 'transparent'
+    const backgroundColor = isDragging ? 'rgb(232, 244, 252)' : 'rgb(250, 250, 250)'
     const border = isDragging && '2px dashed rgb(1, 139, 244)'
     return (
       connectDragSource &&
       connectDropTarget &&
       connectDragSource(
         connectDropTarget(
-          <div className="drag-order-choice" style={{ opacity, backgroundColor, border }}>
-            <Typography variant="subtitle1">{text}</Typography>
+          <div className="list-order-box" style={{ opacity, backgroundColor, border }}>
+            <Typography variant="subtitle1" className="list-order-text">
+              {text}
+            </Typography>
           </div>
         )
       )

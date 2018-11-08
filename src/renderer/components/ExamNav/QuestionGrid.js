@@ -3,10 +3,10 @@ import Typography from '@material-ui/core/Typography'
 
 class QuestionGrid extends Component {
   getBackgroundColor = i => {
-    const { marked, answers } = this.props
+    const { marked, fillIns, orders, answers } = this.props
     let incomplete = []
     answers.forEach((a, j) => {
-      if (a.indexOf(true) === -1) {
+      if (a.indexOf(true) === -1 && !fillIns[j] && !orders[j]) {
         incomplete.push(j)
       }
     })
@@ -25,9 +25,16 @@ class QuestionGrid extends Component {
     const { total, question, setQuestion } = this.props
     return (
       <div className="QuestionGrid">
-        <div className="title">
-          Answered <div className="mini-answered" /> Marked <div className="mini-marked" />{' '}
-          Incomplete <div className="mini-incomplete" />
+        <div className="legend">
+          <div className="row">
+            Answered <div className="mini answered" />
+          </div>
+          <div className="row">
+            Marked <div className="mini marked" />
+          </div>
+          <div className="row">
+            Incomplete <div className="mini incomplete" />
+          </div>
         </div>
         <div className="grid">
           {[...Array(total)].map((x, i) => (
@@ -36,7 +43,7 @@ class QuestionGrid extends Component {
               className="question-item"
               style={{
                 backgroundColor: this.getBackgroundColor(i),
-                outline: question === i && '2px solid rgb(31, 144, 224)'
+                outline: question === i && '2px solid rgb(1, 139, 244)'
               }}
               onClick={() => setQuestion(i)}
             >

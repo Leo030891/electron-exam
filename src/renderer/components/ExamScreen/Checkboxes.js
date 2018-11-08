@@ -21,7 +21,8 @@ class Checkboxes extends Component {
   }
 
   onChange = (e, checked) => {
-    this.props.onAnswerCheck(checked, this.props.question, parseInt(e.target.value, 10))
+    const { question, onAnswerCheck } = this.props
+    onAnswerCheck(checked, question, parseInt(e.target.value, 10))
   }
 
   render() {

@@ -51,8 +51,9 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-    .question-img {
+    .question-image {
       margin: 10px 0;
+      max-height: 50vh;
     }
 
     .question-text {
@@ -81,6 +82,7 @@
       justify-content: center;
       align-items: center;
       margin-bottom: 15px;
+      background-color: rgb(250, 250, 250);
     }
   }
 
@@ -92,11 +94,11 @@
     margin-top: 20px;
     margin-bottom: 10px;
     padding: 5px;
-    background-color: rgb(232, 244, 252);
+    background-color: $light-blue;
     border: 1px solid;
 
     img {
-      max-width: 50vw;
+      max-height: 50vh;
     }
   }
 
@@ -141,7 +143,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
 
-  .title {
+  .legend {
     width: 100%;
     display: flex;
     align-items: center;
@@ -149,25 +151,28 @@
     font-size: 0.65rem;
     padding-top: 10px;
 
-    .mini-green {
+    .mini {
       width: 10px;
       height: 10px;
+      margin-left: 5px;
+      border: 0.25px solid;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+    }
+
+    .green {
       background-color: rgb(215, 251, 203);
-      border: 0.25px solid;
     }
 
-    .mini-red {
-      width: 10px;
-      height: 10px;
+    .red {
       background-color: rgb(251, 203, 203);
-      border: 0.25px solid;
     }
 
-    .mini-grey {
-      width: 10px;
-      height: 10px;
+    .grey {
       background-color: rgb(227, 227, 227);
-      border: 0.25px solid;
     }
   }
 
@@ -190,7 +195,7 @@
     cursor: pointer;
 
     &:hover {
-      outline: 2px solid rgb(31, 144, 224);
+      outline: 2px solid $main-blue;
     }
   }
 }
