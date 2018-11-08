@@ -1,6 +1,6 @@
 {
   "name": "electron-exam",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An exam simulator",
   "repository": "https://github.com/benjaminadk/electron-exam",
   "main": "./dist/main/main.js",

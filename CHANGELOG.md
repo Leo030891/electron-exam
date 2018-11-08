@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [1.0.2] 2018-11-07
+
 ### Changed
 
 - Expanded exam validation parameters
@@ -12,9 +14,11 @@
 
 ### Added
 
+- First MacOS build - `travis.ci`
 - Exam validation error prints list of specific errors
 - Added Packages - `react-dnd`, `react-dnd-html5-backend`, `immutability-helper`
 - New question type - Drag & Drop Order List
+- Changelog link on Readme
 
 ### Fix
 
