@@ -29,7 +29,7 @@
   font-size: 48px;
   cursor: pointer;
   &:hover {
-    background-color: darken($color: $light-blue, $amount: 7.5);
+    background-color: darken($color: $light-blue, $amount: 5);
     outline: 2px solid $main-blue;
   }
 
@@ -40,6 +40,7 @@
 
   .panel-info {
     display: flex;
+    align-items: center;
 
     .panel-exam {
       margin-right: 15px;

@@ -45,10 +45,10 @@ function Sessions({ sessions, onSessionClick, classes }) {
                     <SaveIcon fontSize="inherit" className="panel-icon" />
                     <div>
                       <div className="panel-info">
-                        <Typography variant="subtitle1" className="panel-exam">
-                          {s.code}
+                        <Typography variant="h6" className="panel-exam">
+                          {s.title}
                         </Typography>
-                        <Typography variant="subtitle1">{s.title}</Typography>
+                        <Typography variant="h6">{s.code}</Typography>
                       </div>
                       <div className="panel-info">
                         <Typography variant="caption" className="panel-exam">

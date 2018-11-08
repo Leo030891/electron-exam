@@ -77,9 +77,9 @@ class History extends Component {
                   classes={{ root: classes.summaryRoot }}
                 >
                   <div className="history-info">
-                    <Typography variant="subtitle1" className="history-title">{`${c}   /   ${
+                    <Typography variant="subtitle1" className="history-title">{`${
                       grouped[c][0].title
-                    }`}</Typography>
+                    }   /   ${c}`}</Typography>
                     <Typography variant="caption"> Average Score: {averages[i]}%</Typography>
                   </div>
                 </ExpansionPanelSummary>
@@ -95,13 +95,13 @@ class History extends Component {
                         <div>
                           <div className="panel-info">
                             <Typography
-                              variant="subtitle1"
+                              variant="h6"
                               className="panel-exam"
                               style={{ color: g.status ? 'green' : 'red' }}
                             >
                               {g.status ? 'PASS' : 'FAIL'}
                             </Typography>
-                            <Typography variant="subtitle1">{g.score}%</Typography>
+                            <Typography variant="h6">{g.score}%</Typography>
                           </div>
                           <div className="panel-info">
                             <Typography variant="caption" className="panel-exam">

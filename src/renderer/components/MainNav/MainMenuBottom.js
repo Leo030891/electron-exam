@@ -10,6 +10,7 @@ import SettingsIcon from '@material-ui/icons/SettingsSharp'
 import InfoIcon from '@material-ui/icons/InfoSharp'
 import HelpIcon from '@material-ui/icons/HelpSharp'
 import MakerIcon from '@material-ui/icons/OpenInNewSharp'
+import BugIcon from '@material-ui/icons/BugReportSharp'
 
 const styles = theme => ({
   listItem: {
@@ -33,6 +34,14 @@ function MainMenuBottom({ setMainMode, openAboutSE, classes }) {
       text: 'Documentation',
       icon: <HelpIcon />,
       click: () => shell.openExternal('https://github.com/benjaminadk/electron-exam/wiki')
+    },
+    {
+      text: 'Report Bug',
+      icon: <BugIcon />,
+      click: () =>
+        shell.openExternal(
+          'https://github.com/benjaminadk/electron-exam/issues/new?template=bug_report.md'
+        )
     },
     { text: 'Settings', icon: <SettingsIcon />, click: () => setMainMode(3) }
   ]

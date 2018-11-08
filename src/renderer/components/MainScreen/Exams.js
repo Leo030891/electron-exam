@@ -16,7 +16,8 @@ const styles = theme => ({
   },
   summaryRoot: {
     backgroundColor: theme.palette.grey[300],
-    minHeight: 64
+    minHeight: 64,
+    marginTop: 10
   }
 })
 
@@ -43,10 +44,10 @@ function Exams({ exams, filepaths, fileData, onExamClick, classes }) {
                   <SchoolIcon fontSize="inherit" className="panel-icon" />
                   <div>
                     <div className="panel-info">
-                      <Typography variant="subtitle1" className="panel-exam">
-                        {exam.code}
+                      <Typography variant="h6" className="panel-exam">
+                        {exam.title}
                       </Typography>
-                      <Typography variant="subtitle1">{exam.title}</Typography>
+                      <Typography variant="h6">{exam.code}</Typography>
                     </div>
                     <div className="panel-info">
                       <Typography variant="caption" className="panel-exam">
@@ -56,7 +57,12 @@ function Exams({ exams, filepaths, fileData, onExamClick, classes }) {
                         Size: {`${(fileData[i].size / 1024).toFixed(2)} KB`}
                       </Typography>
                     </div>
-                    <Typography variant="caption">{exam.test.length} Questions</Typography>
+                    <div className="panel-info">
+                      <Typography variant="caption" className="panel-exam">
+                        Questions: {exam.test.length}
+                      </Typography>
+                      <Typography variant="caption">Time Limit: {exam.time} Min</Typography>
+                    </div>
                   </div>
                 </div>
               ))}
