@@ -288,6 +288,7 @@ export default class App extends Component {
     })
     this.setState({
       mode: 1,
+      question: 0,
       exam,
       answers,
       marked,

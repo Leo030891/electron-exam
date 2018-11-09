@@ -29,7 +29,8 @@ class History extends Component {
 
     this.state = {
       grouped: null,
-      codes: null
+      codes: null,
+      averages: null
     }
   }
 
