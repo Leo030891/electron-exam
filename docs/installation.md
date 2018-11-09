@@ -1,31 +1,31 @@
-#### Currently, Exam Simulator is available for `Windows` and `MacOS`
+### Platforms
 
-#### Expect releases for `Linux` in the future.
+- Windows
+- MacOS
+- Linux - planned for the future
 
-### Windows Download Instructions
+### Windows Instructions
 
 1. Navigate to the **[Releases Page](https://github.com/benjaminadk/electron-exam/releases)**
 2. Click the `exe` file for the latest version
 3. Wait for file to download and run
 
-### MacOS Download Instruction
+### MacOS Instruction
 
 1. Navigate to the **[Releases Page](https://github.com/benjaminadk/electron-exam/releases)**
 2. Click the `dmg` file for the latest version
 3. Wait for file to download and run
 
-### Notes
+### System Warnings
 
-- At this point I have not purchased a Code Signing Certificate so Windows will display warnings when the executable is downloaded. I plan on purchasing a certificate soon. When using Chrome browser the following appears when downloading.
+Exam Simulator does not yet have a code signature certificate, your operating system may produce warnings during download and installation.
 
-![warning-one](https://s3.amazonaws.com/electron-exam/general/warning-1.PNG)
+![Chrome Warning](https://s3.amazonaws.com/electron-exam/general/warning-1.PNG)
 
-- Click on the up arrow and the **Keep**
+Click expand and **Keep**
 
-- When the `exe` is file is run on Windows 10 the following appears.
+![Windows 10 Warning](https://s3.amazonaws.com/electron-exam/general/warning-2.PNG)
 
-![warning-two](https://s3.amazonaws.com/electron-exam/general/warning-2.PNG)
-
-- Click on **More Info** and the **Run Anyway** button will appear. Click on this and Exam Simulator will function as any other application going forward.
+Click **More Info** and **Run Anyway** button will appear.
 
 Thanks for your patience!

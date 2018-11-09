@@ -1,4 +1,4 @@
-## :mortar_board: Electron Exam Simulator
+## Electron Exam Simulator
 
 [![GitHub release](https://img.shields.io/github/release/benjaminadk/electron-exam.svg?style=flat-square)](https://github.com/benjaminadk/electron-exam/releases) [![Github All Releases](https://img.shields.io/github/downloads/benjaminadk/electron-exam/total.svg?style=flat-square)](https://github.com/benjaminadk/electron-exam/releases)
 
@@ -8,8 +8,8 @@
 
 #### `Exam Simulator` is exactly that, an exam simulator
 
-### :notebook: [Documentation](https://github.com/benjaminadk/electron-exam/wiki)
+### [Documentation](https://github.com/benjaminadk/electron-exam/wiki)
 
-### :zap: [Download](https://github.com/benjaminadk/electron-exam/releases)
+### [Download](https://github.com/benjaminadk/electron-exam/releases)
 
-### :chart_with_upwards_trend: [Changelog](https://github.com/benjaminadk/electron-exam/blob/master/CHANGELOG.md)
+### [Changelog](https://github.com/benjaminadk/electron-exam/blob/master/CHANGELOG.md)
