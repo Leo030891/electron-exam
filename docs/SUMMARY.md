@@ -1,3 +1,7 @@
 - [Introduction](README.md)
 - [Installation](installation.md)
 - [Getting Started](getting-started.md)
+- [Exam Mode](exam-mode.md)
+- [Question Types](question-types.md)
+- [Loading Exam Files](loading-exam-files.md)
+- [Automatic Updates](automatic-updates.md)

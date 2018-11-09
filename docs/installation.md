@@ -1,7 +1,7 @@
 ### Platforms
 
 - Windows
-- MacOS
+- Mac OS
 - Linux - planned for the future
 
 ### Windows Instructions
@@ -10,7 +10,7 @@
 2. Click the `exe` file for the latest version
 3. Wait for file to download and run
 
-### MacOS Instruction
+### Mac OS Instruction
 
 1. Navigate to the **[Releases Page](https://github.com/benjaminadk/electron-exam/releases)**
 2. Click the `dmg` file for the latest version
