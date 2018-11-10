@@ -1,87 +1,90 @@
-### Exam Screen
+# Exam Mode
+
+## Exam Screen
 
 ![Exam Screen](https://s3.amazonaws.com/electron-exam/general/exam-mode-1.png)
 
-### Toggle Menu
+## Toggle Menu
 
-- Open and close the exam menu
+* Open and close the exam menu
 
-### All Questions
+## All Questions
 
-- Sets active questions to all questions
-- This is the default
+* Sets active questions to all questions
+* This is the default
 
-### Marked Questions
+## Marked Questions
 
-- Sets active questions to only marked questions
+* Sets active questions to only marked questions
 
-### Calculator
+## Calculator
 
-- Opens system calculator
+* Opens system calculator
 
-### Question Grid
+## Question Grid
 
-- Visualization of all questions
-- Legend displays color code
-- Answered, incomplete and marked questions are different color
-- Current question is highlighted
-- Click individual box to select current question
+* Visualization of all questions
+* Legend displays color code
+* Answered, incomplete and marked questions are different color
+* Current question is highlighted
+* Click individual box to select current question
 
-### Show Answer
+## Show Answer
 
-- Evaluate user answer
-- Reveal correct answer and explanation
+* Evaluate user answer
+* Reveal correct answer and explanation
 
-### Pause Exam
+## Pause Exam
 
-- Pause exam timer
-- Blocks further interaction
+* Pause exam timer
+* Blocks further interaction
 
-### End Exam
+## End Exam
 
-- Ends the exam
+* Ends the exam
 
-### Title Bar
+## Title Bar
 
-- Displays exam code and active question mode
+* Displays exam code and active question mode
 
-### Subtitle Bar
+## Subtitle Bar
 
-- Displays exam title and current question
+* Displays exam title and current question
 
-### Mark Question
+## Mark Question
 
-- Click to mark/unmark current question
-- Marked displays solid blue icon
-- Unmarked displays outlined grey icon
+* Click to mark/unmark current question
+* Marked displays solid blue icon
+* Unmarked displays outlined grey icon
 
-### Question
+## Question
 
-- Text and/or graphics of the current question
+* Text and/or graphics of the current question
 
-### Choices
+## Choices
 
-- Multiple Choice & Multiple Answer
-  - Answer choices for the current questions
-  - Click to select
-- Fill In The Blank
-  - Text Input
-  - Select and type answer
-- List Order
-  - List Items
-  - Drag and Drop to rearrange order
+* Multiple Choice & Multiple Answer
+  * Answer choices for the current questions
+  * Click to select
+* Fill In The Blank
+  * Text Input
+  * Select and type answer
+* List Order
+  * List Items
+  * Drag and Drop to rearrange order
 
-### Timer
+## Timer
 
-- Displays the amount of time remaining
-- Exam ends when time expires
+* Displays the amount of time remaining
+* Exam ends when time expires
 
-### Question Slider
+## Question Slider
 
-- Slide in either direction
-- Quickly changes current question
+* Slide in either direction
+* Quickly changes current question
 
-### Question Navigation
+## Question Navigation
 
-- Outer buttons navigate to first or last question
-- Inner buttons navigate to previous or next question
+* Outer buttons navigate to first or last question
+* Inner buttons navigate to previous or next question
+

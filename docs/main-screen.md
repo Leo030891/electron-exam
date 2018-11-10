@@ -1,12 +1,14 @@
-### Top Menu
+# Main Screen
+
+## Top Menu
 
 Click Exam, History or Sessions to switch between different screens
 
-### Exams
+## Exams
 
 All Exams as listed
 
-#### Exam Item
+### Exam Item
 
 1. Exam Title
 2. Exam Code
@@ -15,7 +17,7 @@ All Exams as listed
 5. Number of Questions
 6. Time Limit
 
-#### Exam Menu
+### Exam Menu
 
 Opens when Exam Item is clicked
 
@@ -24,17 +26,17 @@ Opens when Exam Item is clicked
 
 ![Exams](https://s3.amazonaws.com/electron-exam/general/main-screen-1.PNG)
 
-### History
+## History
 
 When an exam session ends a report is automatically generated
 
-#### History Group
+### History Group
 
 1. Exam Title
 2. Exam Code
 3. Average Score
 
-#### History Item
+### History Item
 
 1. Pass or Fail result
 2. Percent result
@@ -43,7 +45,7 @@ When an exam session ends a report is automatically generated
 5. Elapsed Time needed to take exam
 6. Filename
 
-#### History Menu
+### History Menu
 
 Opens when History Item is clicked
 
@@ -52,11 +54,11 @@ Opens when History Item is clicked
 
 ![History](https://s3.amazonaws.com/electron-exam/general/main-screen-2.PNG)
 
-### Sessions
+## Sessions
 
 Exams that are not completed can be stored as Sessions. This saves answers, marked questions and how much time is left so that a user can come back later and resume the exam.
 
-#### Session Item
+### Session Item
 
 1. Exam Title
 2. Exam Code
@@ -66,9 +68,10 @@ Exams that are not completed can be stored as Sessions. This saves answers, mark
 6. Time exam session was saved
 7. Filename
 
-#### Session Menu
+### Session Menu
 
 1. Resume Session - Enter Exam Mode
 2. Delete Session - Delete Session Item
 
 ![Sessions](https://s3.amazonaws.com/electron-exam/general/main-screen-3.PNG)
+
