@@ -5,7 +5,8 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import SaveIcon from '@material-ui/icons/SaveSharp'
+import NoneSaved from './NoneSaved'
+import SessionItem from './SessionItem'
 import { getFilename } from '../../utils/fileHelpers'
 import { getDateString, getTimeString, getTimeHHMMSS } from '../../utils/dateHelpers'
 
@@ -37,42 +38,17 @@ function Sessions({ sessions, onSessionClick, classes }) {
             <div className="panel-details">
               {sessions &&
                 sessions.map((s, i) => (
-                  <div
-                    key={`${s.filename}-${i}`}
+                  <SessionItem
+                    key={i}
+                    title={s.title}
+                    code={s.code}
+                    date={getDateString(s.date)}
+                    time={getTimeString(s.date)}
+                    answered={`${s.completed}/${s.answers.length}`}
+                    remaining={getTimeHHMMSS(s.time)}
+                    filename={getFilename(s.filename)}
                     onClick={e => onSessionClick(e, i)}
-                    className="panel-summary"
-                  >
-                    <SaveIcon fontSize="inherit" className="panel-icon" />
-                    <div>
-                      <div className="panel-info">
-                        <Typography variant="h6" className="panel-exam">
-                          {s.title}
-                        </Typography>
-                        <Typography variant="h6">{s.code}</Typography>
-                      </div>
-                      <div className="panel-info">
-                        <Typography variant="caption" className="panel-exam">
-                          {`Questions Answered: ${s.completed}/${s.answers.length}`}
-                        </Typography>
-                        <Typography variant="caption" className="panel-exam">
-                          {`Time Remaining: ${getTimeHHMMSS(s.time)}`}
-                        </Typography>
-                      </div>
-                      <div className="panel-info">
-                        <Typography variant="caption" className="panel-exam">
-                          {`Date: ${getDateString(s.date)}`}
-                        </Typography>
-                        <Typography variant="caption" className="panel-exam">
-                          {`Time: ${getTimeString(s.date)}`}
-                        </Typography>
-                      </div>
-                      <div className="panel-info">
-                        <Typography variant="caption">
-                          Filename: {getFilename(s.filename)}
-                        </Typography>
-                      </div>
-                    </div>
-                  </div>
+                  />
                 ))}
             </div>
           </ExpansionPanelDetails>
@@ -80,13 +56,7 @@ function Sessions({ sessions, onSessionClick, classes }) {
       </div>
     )
   } else {
-    return (
-      <div className="empty-panels">
-        <Typography variant="h6" align="center" className="message">
-          No Saved Sessions
-        </Typography>
-      </div>
-    )
+    return <NoneSaved message="No Sessions Saved" />
   }
 }
 

@@ -26,7 +26,7 @@ function ExamMenuTop({ enterMarkedMode, setExamMode, classes }) {
     {
       text: 'Calculator',
       icon: <CalcIcon />,
-      click: () => execFile(`C:/Windows/System32/calc.exe`)
+      click: () => (process.platform === 'win32' ? execFile(`C:/Windows/System32/calc.exe`) : {})
     }
   ]
   return (

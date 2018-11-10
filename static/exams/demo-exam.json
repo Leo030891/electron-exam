@@ -4,6 +4,7 @@
   "code": "000-000",
   "pass": 75,
   "time": 10,
+  "image": "https://s3.amazonaws.com/electron-exam/general/icon-50x50.png",
   "cover": [
     { "variant": 2, "text": "Demo Exam" },
     { "variant": 1, "text": "Making a Murderer Edition" },

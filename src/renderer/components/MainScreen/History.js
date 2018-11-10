@@ -5,7 +5,9 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { HistoryIcon } from '../Icons'
+import NoneSaved from './NoneSaved'
+import HistoryTitle from './HistoryTitle'
+import HistoryItem from './HistoryItem'
 import { getFilename } from '../../utils/fileHelpers'
 import { getDateString, getTimeString, getTimeHHMMSS } from '../../utils/dateHelpers'
 import groupBy from 'lodash/groupBy'
@@ -77,51 +79,21 @@ class History extends Component {
                   expandIcon={<ExpandMoreIcon />}
                   classes={{ root: classes.summaryRoot }}
                 >
-                  <div className="history-info">
-                    <Typography variant="subtitle1" className="history-title">{`${
-                      grouped[c][0].title
-                    }   /   ${c}`}</Typography>
-                    <Typography variant="caption"> Average Score: {averages[i]}%</Typography>
-                  </div>
+                  <HistoryTitle title={grouped[c][0].title} code={c} average={averages[i]} />
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                   <div className="panel-details">
                     {grouped[c].map((g, j) => (
-                      <div
-                        key={`${i}-${j}`}
-                        className="panel-summary"
+                      <HistoryItem
+                        key={j}
+                        pass={g.status}
+                        score={g.score}
+                        date={getDateString(g.date)}
+                        time={getTimeString(g.date)}
+                        elapsed={getTimeHHMMSS(g.elapsed)}
+                        filename={getFilename(g.filename)}
                         onClick={e => onHistoryClick(e, g.indexHist)}
-                      >
-                        <HistoryIcon fontSize="inherit" className="panel-icon" />
-                        <div>
-                          <div className="panel-info">
-                            <Typography
-                              variant="h6"
-                              className="panel-exam"
-                              style={{ color: g.status ? 'green' : 'red' }}
-                            >
-                              {g.status ? 'PASS' : 'FAIL'}
-                            </Typography>
-                            <Typography variant="h6">{g.score}%</Typography>
-                          </div>
-                          <div className="panel-info">
-                            <Typography variant="caption" className="panel-exam">
-                              Date: {getDateString(g.date)}
-                            </Typography>
-                            <Typography variant="caption" className="panel-exam">
-                              Time: {getTimeString(g.date)}
-                            </Typography>
-                            <Typography variant="caption">
-                              Elapsed Time: {getTimeHHMMSS(g.elapsed)}
-                            </Typography>
-                          </div>
-                          <div className="panel-info">
-                            <Typography variant="caption">
-                              Filename: {getFilename(g.filename)}
-                            </Typography>
-                          </div>
-                        </div>
-                      </div>
+                      />
                     ))}
                   </div>
                 </ExpansionPanelDetails>
@@ -130,13 +102,7 @@ class History extends Component {
         </div>
       )
     } else {
-      return (
-        <div className="empty-panels">
-          <Typography variant="h6" align="center" className="message">
-            No Saved History
-          </Typography>
-        </div>
-      )
+      return <NoneSaved message="No History Saved" />
     }
   }
 }

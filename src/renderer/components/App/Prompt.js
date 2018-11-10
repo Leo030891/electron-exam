@@ -24,8 +24,10 @@ const styles = theme => ({
   dialog: {
     width: '50%',
     borderRadius: 0,
-    boxShadow: theme.shadows[3],
-    border: `1px solid ${theme.palette.grey[600]}`
+    boxShadow: theme.shadows[3]
+  },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, .25)'
   }
 })
 
@@ -50,7 +52,12 @@ class Prompt extends Component {
     const { open, title, message, label, onClose, classes } = this.props
     const { value } = this.state
     return (
-      <Dialog open={open} onClose={onClose} classes={{ paper: classes.dialog }}>
+      <Dialog
+        open={open}
+        onClose={onClose}
+        BackdropProps={{ invisible: true, classes: { invisible: classes.backdrop } }}
+        classes={{ paper: classes.dialog }}
+      >
         <DialogTitle disableTypography>
           <Typography variant="caption" color="inherit" classes={{ root: classes.typoTitle }}>
             {title}

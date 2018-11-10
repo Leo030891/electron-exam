@@ -7,6 +7,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import HomeIcon from '@material-ui/icons/Home'
 import SchoolIcon from '@material-ui/icons/School'
+import ExamItem from './ExamItem'
+import NoneSaved from './NoneSaved'
 import { getFilename } from '../../utils/fileHelpers'
 
 const styles = theme => ({
@@ -36,35 +38,16 @@ function Exams({ exams, filepaths, fileData, onExamClick, classes }) {
           <ExpansionPanelDetails>
             <div className="panel-details">
               {exams.map((exam, i) => (
-                <div
-                  key={`${exam.title}-${i}`}
+                <ExamItem
+                  key={i}
+                  title={exam.title}
+                  code={exam.code}
+                  filename={getFilename(filepaths[i])}
+                  size={`${(fileData[i].size / 1024).toFixed(2)} KB`}
+                  questions={exam.test.length}
+                  time={exam.time}
                   onClick={e => onExamClick(e, i)}
-                  className="panel-summary"
-                >
-                  <SchoolIcon fontSize="inherit" className="panel-icon" />
-                  <div>
-                    <div className="panel-info">
-                      <Typography variant="h6" className="panel-exam">
-                        {exam.title}
-                      </Typography>
-                      <Typography variant="h6">{exam.code}</Typography>
-                    </div>
-                    <div className="panel-info">
-                      <Typography variant="caption" className="panel-exam">
-                        File: {getFilename(filepaths[i])}
-                      </Typography>
-                      <Typography variant="caption">
-                        Size: {`${(fileData[i].size / 1024).toFixed(2)} KB`}
-                      </Typography>
-                    </div>
-                    <div className="panel-info">
-                      <Typography variant="caption" className="panel-exam">
-                        Questions: {exam.test.length}
-                      </Typography>
-                      <Typography variant="caption">Time Limit: {exam.time} Min</Typography>
-                    </div>
-                  </div>
-                </div>
+                />
               ))}
             </div>
           </ExpansionPanelDetails>
@@ -72,13 +55,7 @@ function Exams({ exams, filepaths, fileData, onExamClick, classes }) {
       </div>
     )
   } else {
-    return (
-      <div className="empty-panels">
-        <Typography variant="h6" align="center" className="message">
-          No Saved Exams
-        </Typography>
-      </div>
-    )
+    return <NoneSaved message="No Exam Files Saved" />
   }
 }
 

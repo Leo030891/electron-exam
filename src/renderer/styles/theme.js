@@ -1,6 +1,12 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 
-const theme = createMuiTheme({})
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: 'rgb(1, 139, 244)'
+    }
+  }
+})
 
 export default createMuiTheme({
   typography: {
@@ -18,9 +24,6 @@ export default createMuiTheme({
       disableTouchRipple: true
     },
     MuiDialog: {
-      BackdropProps: {
-        invisible: true
-      },
       disableBackdropClick: true,
       disableEscapeKeyDown: true
     }
@@ -59,7 +62,7 @@ export default createMuiTheme({
         height: 25,
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: theme.palette.grey[600],
+        backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
         padding: 0
       }

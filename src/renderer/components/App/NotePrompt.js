@@ -64,8 +64,10 @@ const styles = theme => ({
     width: '85%',
     maxHeight: '75%',
     borderRadius: 0,
-    boxShadow: theme.shadows[3],
-    border: `1px solid ${theme.palette.grey[600]}`
+    boxShadow: theme.shadows[3]
+  },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, .25)'
   }
 })
 
@@ -110,6 +112,7 @@ class NotePrompt extends Component {
   }
 
   onToggle = (e, v, i) => {
+    if (!Number.isInteger(v)) return
     const { explanation } = this.state
     explanation[i].variant = v
     if (v === 3) {
@@ -145,7 +148,13 @@ class NotePrompt extends Component {
     const { explanation } = this.state
     const { open, onClose, classes } = this.props
     return (
-      <Dialog open={open} onClose={onClose} maxWidth={false} classes={{ paper: classes.dialog }}>
+      <Dialog
+        open={open}
+        onClose={onClose}
+        BackdropProps={{ invisible: true, classes: { invisible: classes.backdrop } }}
+        maxWidth={false}
+        classes={{ paper: classes.dialog }}
+      >
         <DialogTitle disableTypography>
           <Typography variant="caption" color="inherit" classes={{ root: classes.typoTitle }}>
             Add Notes

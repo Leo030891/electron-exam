@@ -4,6 +4,21 @@
 
 ## [Unreleased]
 
+### Changed
+
+- shorten style filenames
+- restyle exam, history, session items
+- restyle dialogs
+
+### Added
+
+- `.gitbook.yml` config file
+- `docs` folder
+
+### Fix
+
+- Reset question index to 0 when exam starts
+
 ## [1.0.2] 2018-11-07
 
 ### Changed
