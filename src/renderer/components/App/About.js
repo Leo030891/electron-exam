@@ -33,7 +33,7 @@ function About({ open, version, onClose, classes }) {
       classes={{ paper: classes.dialog }}
     >
       <DialogTitle disableTypography>
-        <Typography variant="caption" color="inherit" classes={{ root: classes.typoTitle }}>
+        <Typography variant="overline" color="inherit" classes={{ root: classes.typoTitle }}>
           About
         </Typography>
       </DialogTitle>

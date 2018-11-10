@@ -32,7 +32,7 @@ function ConfirmSVE({ open, title, message, detail, onClose, onOkay, classes }) 
       classes={{ paper: classes.dialog }}
     >
       <DialogTitle disableTypography>
-        <Typography variant="caption" color="inherit" classes={{ root: classes.typoTitle }}>
+        <Typography variant="overline" color="inherit" classes={{ root: classes.typoTitle }}>
           {title}
         </Typography>
       </DialogTitle>

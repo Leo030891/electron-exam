@@ -59,7 +59,7 @@ class Prompt extends Component {
         classes={{ paper: classes.dialog }}
       >
         <DialogTitle disableTypography>
-          <Typography variant="caption" color="inherit" classes={{ root: classes.typoTitle }}>
+          <Typography variant="overline" color="inherit" classes={{ root: classes.typoTitle }}>
             {title}
           </Typography>
         </DialogTitle>

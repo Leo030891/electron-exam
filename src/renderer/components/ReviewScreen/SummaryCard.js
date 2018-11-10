@@ -8,28 +8,28 @@ function SummaryCard({ exam, status, elapsed, incomplete, incorrect, date }) {
     <Paper elevation={1} square className="card">
       <div>
         <Typography variant="subtitle1">
-          <strong>Date: </strong>
+          <strong>Date</strong>
         </Typography>
         <Typography variant="subtitle1">
-          <strong>Time: </strong>
+          <strong>Time</strong>
         </Typography>
         <Typography variant="subtitle1">
-          <strong>Exam Code: </strong>
+          <strong>Exam Code</strong>
         </Typography>
         <Typography variant="subtitle1">
-          <strong>Elapsed Time: </strong>
+          <strong>Elapsed Time</strong>
         </Typography>
         <Typography variant="subtitle1">
-          <strong>Correct: </strong>
+          <strong>Correct</strong>
         </Typography>
         <Typography variant="subtitle1">
-          <strong>Incorrect: </strong>
+          <strong>Incorrect</strong>
         </Typography>
         <Typography variant="subtitle1">
-          <strong>Incomplete: </strong>
+          <strong>Incomplete</strong>
         </Typography>
         <Typography variant="subtitle1">
-          <strong>Grade: </strong>
+          <strong>Grade</strong>
         </Typography>
       </div>
       <div>

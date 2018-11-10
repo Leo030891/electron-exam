@@ -6,7 +6,7 @@ Click Exam, History or Sessions to switch between different screens
 
 ## Exams
 
-All Exams as listed
+All Exams as listed with relevant information.
 
 ### Exam Item
 
@@ -28,7 +28,7 @@ Opens when Exam Item is clicked
 
 ## History
 
-When an exam session ends a report is automatically generated
+When an exam session ends a report is automatically generated. This report is saved and can be studied in Review Mode.
 
 ### History Group
 
@@ -56,7 +56,7 @@ Opens when History Item is clicked
 
 ## Sessions
 
-Exams that are not completed can be stored as Sessions. This saves answers, marked questions and how much time is left so that a user can come back later and resume the exam.
+Exams that are not completed can be stored as Sessions. A Session saves answers, marked questions and how much time is left so that a user can come back later and resume the exam.
 
 ### Session Item
 
@@ -74,4 +74,3 @@ Exams that are not completed can be stored as Sessions. This saves answers, mark
 2. Delete Session - Delete Session Item
 
 ![Sessions](https://s3.amazonaws.com/electron-exam/general/main-screen-3.PNG)
-

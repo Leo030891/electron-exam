@@ -94,7 +94,7 @@ class ReviewScreen extends Component {
               bottom={`Your Score: ${score}% - ${status ? 'PASS' : 'FAIL'}`}
             />
             <div className="summary">
-              <Typography variant="h5">{exam.title}</Typography>
+              <Typography variant="h4">{exam.title}</Typography>
               <SummaryCard
                 exam={exam}
                 status={status}
@@ -132,8 +132,6 @@ class ReviewScreen extends Component {
           onOkay={this.updateExplanation}
         />
       ]
-    } else {
-      return null
     }
   }
 }

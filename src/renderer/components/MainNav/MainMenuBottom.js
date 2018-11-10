@@ -33,7 +33,7 @@ function MainMenuBottom({ setMainMode, openAboutSE, classes }) {
     {
       text: 'Documentation',
       icon: <HelpIcon />,
-      click: () => shell.openExternal('https://github.com/benjaminadk/electron-exam/wiki')
+      click: () => shell.openExternal('https://exam-simulator.gitbook.io')
     },
     {
       text: 'Report Bug',

@@ -953,7 +953,7 @@ export default class App extends Component {
           open={confirmSS}
           title="Save Session"
           message="Save Session"
-          detail="Do you want to exit exam and save current session?"
+          detail="Do you want to exit & save current session?"
           icon={<SaveIcon fontSize="inherit" className="confirm-icon" />}
           onClose={this.closeConfirmSS}
           onOkay={this.saveSession}

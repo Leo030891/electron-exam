@@ -31,7 +31,7 @@ function Confirm({ alert, open, title, message, detail, icon, onClose, onOkay, c
       classes={{ paper: classes.dialog }}
     >
       <DialogTitle disableTypography>
-        <Typography variant="caption" color="inherit" classes={{ root: classes.typoTitle }}>
+        <Typography variant="overline" color="inherit" classes={{ root: classes.typoTitle }}>
           {title}
         </Typography>
       </DialogTitle>
@@ -39,10 +39,10 @@ function Confirm({ alert, open, title, message, detail, icon, onClose, onOkay, c
         <div className="confirm-content">
           {icon}
           <div>
-            <Typography variant="h6" className="message">
+            <Typography variant="h5" className="message">
               {message}
             </Typography>
-            <Typography variant="caption">{detail}</Typography>
+            <Typography variant="subtitle2">{detail}</Typography>
           </div>
         </div>
       </DialogContent>
