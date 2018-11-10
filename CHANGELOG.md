@@ -6,6 +6,7 @@
 
 ### Changed
 
+- upgrade `react` and `react-dom` to 16.6.0
 - shorten style filenames
 - restyle exam, history, session items
 - restyle dialogs

@@ -114,7 +114,7 @@ export default class App extends Component {
           fileData.push({ size: s.size })
           filepaths.push(path.join(dir, files[i]))
         })
-        this.setState({ loading: false, exams, fileData, filepaths })
+        this.setState({ exams, fileData, filepaths, loading: false })
       })
       .catch(console.error)
   }
@@ -765,7 +765,7 @@ export default class App extends Component {
                 key="load-remote"
                 open={promptLR}
                 title="Load Remote Exam"
-                message="File must have Electron Exam format and JSON extension"
+                message="File must be Exam Simulator format with JSON extension."
                 label="Enter URL"
                 onClose={this.closePromptLR}
                 onOkay={this.loadRemoteExam}
