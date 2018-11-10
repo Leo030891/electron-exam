@@ -736,7 +736,7 @@ export default class App extends Component {
         { text: 'Resume Session', click: this.openConfirmRS },
         { text: 'Delete Session', click: this.openConfirmDS }
       ]
-      return [
+      return (
         <MainNav
           key="main-screen"
           mainMode={mainMode}
@@ -745,120 +745,144 @@ export default class App extends Component {
           openPromptLR={this.openPromptLR}
           openAboutSE={this.openAboutSE}
         >
-          <MainScreen
-            mainMode={mainMode}
-            exams={exams}
-            fileData={fileData}
-            filepaths={filepaths}
-            history={history}
-            sessions={sessions}
-            options={options}
-            onExamClick={this.onExamClick}
-            onHistoryClick={this.onHistoryClick}
-            onSessionClick={this.onSessionClick}
-            setMainMode={this.setMainMode}
-            saveOptions={this.saveOptions}
-          />
-        </MainNav>,
-        <Prompt
-          key="load-remote"
-          open={promptLR}
-          title="Load Remote Exam"
-          message="File must have Electron Exam format and JSON extension"
-          label="Enter URL"
-          onClose={this.closePromptLR}
-          onOkay={this.loadRemoteExam}
-        />,
-        <ConfirmSVE
-          key="schema-validation-error"
-          open={confirmSVE}
-          title="JSON Schema Error"
-          message="JSON Schema Error"
-          detail={detailSVE}
-          onClose={this.closeConfirmSVE}
-          onOkay={this.closeConfirmSVE}
-        />,
-        <Confirm
-          key="file-already-exists"
-          alert={true}
-          open={confirmFAE}
-          title="Error"
-          message="Duplicate File Error"
-          detail="Cannot load exam. Filename already exists."
-          icon={<ErrorIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmFAE}
-          onOkay={this.closeConfirmFAE}
-        />,
-        <Confirm
-          key="delete-exam"
-          open={confirmDE}
-          title="Delete Exam"
-          message="Delete Exam File"
-          detail="Do you want to permanently delete this exam?"
-          icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmDE}
-          onOkay={this.deleteExam}
-        />,
-        <Confirm
-          key="delete-history"
-          open={confirmDH}
-          title="Delete History"
-          message="Delete History"
-          detail="Do you want to permanently delete this history?"
-          icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmDH}
-          onOkay={this.deleteHistory}
-        />,
-        <Confirm
-          key="resume-session"
-          open={confirmRS}
-          title="Resume Session"
-          message="Resume Session"
-          detail="Do you want to resume this exam session?"
-          icon={<StartExamIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmRS}
-          onOkay={this.resumeSession}
-        />,
-        <Confirm
-          key="delete-session"
-          open={confirmDS}
-          title="Delete Session"
-          message="Delete Session"
-          detail="Do you want to permanently delete this session?"
-          icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmDS}
-          onOkay={this.deleteSession}
-        />,
-        <Popup
-          key="popup-1"
-          anchorEl={anchorEl1}
-          anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
-          menuItems={menuItems1}
-          onClose={this.closeAnchorEl1}
-        />,
-        <Popup
-          key="popup-3"
-          anchorEl={anchorEl3}
-          anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
-          menuItems={menuItems3}
-          onClose={this.closeAnchorEl3}
-        />,
-        <Popup
-          key="popup-4"
-          anchorEl={anchorEl4}
-          anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
-          menuItems={menuItems4}
-          onClose={this.closeAnchorEl4}
-        />,
-        <About
-          key="about"
-          open={aboutES}
-          version={remote.app.getVersion()}
-          onClose={this.closeAboutSE}
-        />
-      ]
+          <>
+            <MainScreen
+              mainMode={mainMode}
+              exams={exams}
+              fileData={fileData}
+              filepaths={filepaths}
+              history={history}
+              sessions={sessions}
+              options={options}
+              onExamClick={this.onExamClick}
+              onHistoryClick={this.onHistoryClick}
+              onSessionClick={this.onSessionClick}
+              setMainMode={this.setMainMode}
+              saveOptions={this.saveOptions}
+            />
+            {promptLR && (
+              <Prompt
+                key="load-remote"
+                open={promptLR}
+                title="Load Remote Exam"
+                message="File must have Electron Exam format and JSON extension"
+                label="Enter URL"
+                onClose={this.closePromptLR}
+                onOkay={this.loadRemoteExam}
+              />
+            )}
+            {confirmSVE && (
+              <ConfirmSVE
+                key="schema-validation-error"
+                open={confirmSVE}
+                title="JSON Schema Error"
+                message="JSON Schema Error"
+                detail={detailSVE}
+                onClose={this.closeConfirmSVE}
+                onOkay={this.closeConfirmSVE}
+              />
+            )}
+            {confirmFAE && (
+              <Confirm
+                key="file-already-exists"
+                alert={true}
+                open={confirmFAE}
+                title="Error"
+                message="Duplicate File Error"
+                detail="Cannot load exam. Filename already exists."
+                icon={<ErrorIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmFAE}
+                onOkay={this.closeConfirmFAE}
+              />
+            )}
+            {confirmDE && (
+              <Confirm
+                key="delete-exam"
+                open={confirmDE}
+                title="Delete Exam"
+                message="Delete Exam File"
+                detail="Do you want to permanently delete this exam?"
+                icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmDE}
+                onOkay={this.deleteExam}
+              />
+            )}
+            {confirmDH && (
+              <Confirm
+                key="delete-history"
+                open={confirmDH}
+                title="Delete History"
+                message="Delete History"
+                detail="Do you want to permanently delete this history?"
+                icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmDH}
+                onOkay={this.deleteHistory}
+              />
+            )}
+            {confirmRS && (
+              <Confirm
+                key="resume-session"
+                open={confirmRS}
+                title="Resume Session"
+                message="Resume Session"
+                detail="Do you want to resume this exam session?"
+                icon={<StartExamIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmRS}
+                onOkay={this.resumeSession}
+              />
+            )}
+            {confirmDS && (
+              <Confirm
+                key="delete-session"
+                open={confirmDS}
+                title="Delete Session"
+                message="Delete Session"
+                detail="Do you want to permanently delete this session?"
+                icon={<DeleteIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmDS}
+                onOkay={this.deleteSession}
+              />
+            )}
+            {anchorEl1 && (
+              <Popup
+                key="popup-1"
+                anchorEl={anchorEl1}
+                anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+                menuItems={menuItems1}
+                onClose={this.closeAnchorEl1}
+              />
+            )}
+            {anchorEl3 && (
+              <Popup
+                key="popup-3"
+                anchorEl={anchorEl3}
+                anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+                menuItems={menuItems3}
+                onClose={this.closeAnchorEl3}
+              />
+            )}
+            {anchorEl4 && (
+              <Popup
+                key="popup-4"
+                anchorEl={anchorEl4}
+                anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+                menuItems={menuItems4}
+                onClose={this.closeAnchorEl4}
+              />
+            )}
+            {aboutES && (
+              <About
+                key="about"
+                open={aboutES}
+                version={remote.app.getVersion()}
+                onClose={this.closeAboutSE}
+              />
+            )}
+          </>
+        </MainNav>
+      )
     } else if (mode === 1) {
-      return [
+      return (
         <CoverNav
           key="cover-screen"
           title={exam.title}
@@ -869,26 +893,30 @@ export default class App extends Component {
           setMode={this.setMode}
           openConfirmSE={this.openConfirmSE}
         >
-          <CoverScreen cover={exam.cover} />
-        </CoverNav>,
-        <Confirm
-          key="start-exam"
-          open={confirmSE}
-          title="Start Exam"
-          message="Start Exam"
-          detail="Do you want to begin taking this exam?"
-          icon={<StartExamIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmSE}
-          onOkay={this.startExam}
-        />
-      ]
+          <>
+            <CoverScreen cover={exam.cover} />
+            {confirmSE && (
+              <Confirm
+                key="start-exam"
+                open={confirmSE}
+                title="Start Exam"
+                message="Start Exam"
+                detail="Do you want to begin taking this exam?"
+                icon={<StartExamIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmSE}
+                onOkay={this.startExam}
+              />
+            )}
+          </>
+        </CoverNav>
+      )
     } else if (mode === 2) {
       const menuItems2 = [
         { text: 'Pause Exam', click: this.pauseTimer },
         { text: 'Save Session', click: this.openConfirmSS },
         { text: 'End Exam', click: this.openConfirmEE }
       ]
-      return [
+      return (
         <ExamNav
           key="exam-screen"
           title={exam.code}
@@ -906,77 +934,89 @@ export default class App extends Component {
           pauseExam={this.pauseTimer}
           endExam={this.openConfirmEE}
         >
-          <ExamScreen
-            expRef={this.explanation}
-            examMode={examMode}
-            exam={exam}
-            question={question}
-            time={time}
-            answers={answers}
-            marked={marked}
-            fillIns={fillIns}
-            orders={orders}
-            explanation={explanation}
-            handleSlider={this.handleSlider}
-            setQuestion={this.setQuestion}
-            markQuestion={this.markQuestion}
-            onAnswerCheck={this.onAnswerCheck}
-            onAnswerMultiple={this.onAnswerMultiple}
-            onAnswerFillIn={this.onAnswerFillIn}
-            onAnswerDragOrder={this.onAnswerDragOrder}
-            viewExplanation={this.viewExplanation}
-            openTestMenu={this.openTestMenu}
-          />
-        </ExamNav>,
-        <Confirm
-          key="pause-exam"
-          alert={true}
-          open={confirmRE}
-          title="Exam Paused"
-          message="Exam Paused"
-          detail="Click OK to start timer and resume exam."
-          icon={<TimerIcon fontSize="inherit" className="confirm-icon" />}
-          onOkay={this.closeConfirmRE}
-        />,
-        <Confirm
-          key="exit-exam"
-          open={confirmEE}
-          title="Exit Exam"
-          message="Exit Exam"
-          detail="Do you want to permanently exit current exam?"
-          icon={<ExitExamIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmEE}
-          onOkay={this.exitExam}
-        />,
-        <Confirm
-          key="save-session"
-          open={confirmSS}
-          title="Save Session"
-          message="Save Session"
-          detail="Do you want to exit & save current session?"
-          icon={<SaveIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmSS}
-          onOkay={this.saveSession}
-        />,
-        <Confirm
-          key="time-expired"
-          alert={true}
-          open={confirmTE}
-          title="Time Expired"
-          message="Time Expired"
-          detail="Exam time has expired. Click OK to view results."
-          icon={<TimeExpiredIcon fontSize="inherit" className="confirm-icon" />}
-          onClose={this.closeConfirmTE}
-          onOkay={this.exitExam}
-        />,
-        <Popup
-          key="popup-2"
-          anchorEl={anchorEl2}
-          anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
-          menuItems={menuItems2}
-          onClose={this.closeAnchorEl2}
-        />
-      ]
+          <>
+            <ExamScreen
+              expRef={this.explanation}
+              examMode={examMode}
+              exam={exam}
+              question={question}
+              time={time}
+              answers={answers}
+              marked={marked}
+              fillIns={fillIns}
+              orders={orders}
+              explanation={explanation}
+              handleSlider={this.handleSlider}
+              setQuestion={this.setQuestion}
+              markQuestion={this.markQuestion}
+              onAnswerCheck={this.onAnswerCheck}
+              onAnswerMultiple={this.onAnswerMultiple}
+              onAnswerFillIn={this.onAnswerFillIn}
+              onAnswerDragOrder={this.onAnswerDragOrder}
+              viewExplanation={this.viewExplanation}
+              openTestMenu={this.openTestMenu}
+            />
+            {confirmRE && (
+              <Confirm
+                key="pause-exam"
+                alert={true}
+                open={confirmRE}
+                title="Exam Paused"
+                message="Exam Paused"
+                detail="Click OK to start timer and resume exam."
+                icon={<TimerIcon fontSize="inherit" className="confirm-icon" />}
+                onOkay={this.closeConfirmRE}
+              />
+            )}
+            {confirmEE && (
+              <Confirm
+                key="exit-exam"
+                open={confirmEE}
+                title="Exit Exam"
+                message="Exit Exam"
+                detail="Do you want to permanently exit current exam?"
+                icon={<ExitExamIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmEE}
+                onOkay={this.exitExam}
+              />
+            )}
+            {confirmSS && (
+              <Confirm
+                key="save-session"
+                open={confirmSS}
+                title="Save Session"
+                message="Save Session"
+                detail="Do you want to exit & save current session?"
+                icon={<SaveIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmSS}
+                onOkay={this.saveSession}
+              />
+            )}
+            {confirmTE && (
+              <Confirm
+                key="time-expired"
+                alert={true}
+                open={confirmTE}
+                title="Time Expired"
+                message="Time Expired"
+                detail="Exam time has expired. Click OK to view results."
+                icon={<TimeExpiredIcon fontSize="inherit" className="confirm-icon" />}
+                onClose={this.closeConfirmTE}
+                onOkay={this.exitExam}
+              />
+            )}
+            {anchorEl2 && (
+              <Popup
+                key="popup-2"
+                anchorEl={anchorEl2}
+                anchorOrigin={{ horizontal: 'center', vertical: 'center' }}
+                menuItems={menuItems2}
+                onClose={this.closeAnchorEl2}
+              />
+            )}
+          </>
+        </ExamNav>
+      )
     } else if (mode === 3) {
       return (
         <ReviewNav
@@ -1003,8 +1043,6 @@ export default class App extends Component {
           />
         </ReviewNav>
       )
-    } else {
-      return null
     }
   }
 }

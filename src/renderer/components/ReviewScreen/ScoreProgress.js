@@ -1,5 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
@@ -11,7 +12,7 @@ const styles = theme => ({
     backgroundColor: 'red'
   },
   rootLP: {
-    height: 20,
+    height: '10px',
     backgroundColor: 'rgb(230, 230, 230)'
   },
   bar: {
@@ -21,24 +22,21 @@ const styles = theme => ({
 
 function ScoreComp({ pass, score, classes }) {
   return (
-    <div className="comparison">
-      <Typography>Passing Score: {pass}%</Typography>
+    <Paper square className="comparison">
+      <Typography variant="overline">Passing Score: {pass}%</Typography>
       <LinearProgress
         variant="determinate"
         value={pass}
         color="primary"
-        classes={{
-          root: classes.rootLP,
-          bar: classes.bar
-        }}
+        classes={{ root: classes.rootLP, bar: classes.bar }}
       />
+      <Typography variant="overline">Your Score: {score}%</Typography>
       <LinearProgress
         variant="determinate"
         value={score}
         classes={{ root: classes.rootLP, bar: score >= pass ? classes.pass : classes.fail }}
       />
-      <Typography>Your Score: {score}%</Typography>
-    </div>
+    </Paper>
   )
 }
 

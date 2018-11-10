@@ -47,3 +47,7 @@ When Review Mode is entered a Review Summary is presented.
 ### 8 - Score Result
 
 - Displays passing score and user score
+
+## Review Exam
+
+Review each question individually with the ability to add notes.

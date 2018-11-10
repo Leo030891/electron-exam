@@ -13,11 +13,12 @@
 ### Added
 
 - `.gitbook.yml` config file
-- `docs` folder
+- `docs` folder and gitbook documentation
 
 ### Fix
 
 - Reset question index to 0 when exam starts
+- conditionally render dialogs, menus
 
 ## [1.0.2] 2018-11-07
 

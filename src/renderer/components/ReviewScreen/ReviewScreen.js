@@ -90,11 +90,10 @@ class ReviewScreen extends Component {
         <Slide key="review" in={reviewMode === 0} direction="left">
           <div className="review-screen">
             <TopBar
-              top={'Review Exam Results'}
+              top={'Review Results'}
               bottom={`Your Score: ${score}% - ${status ? 'PASS' : 'FAIL'}`}
             />
             <div className="summary">
-              <Typography variant="h4">{exam.title}</Typography>
               <SummaryCard
                 exam={exam}
                 status={status}
