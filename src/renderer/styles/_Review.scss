@@ -156,7 +156,7 @@
       width: 10px;
       height: 10px;
       margin-left: 5px;
-      border: 0.25px solid;
+      border: 0.25px solid lightgray;
     }
 
     .row {
@@ -191,7 +191,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid;
+    outline: 1px solid lightgray;
     margin: 3px;
     cursor: pointer;
 

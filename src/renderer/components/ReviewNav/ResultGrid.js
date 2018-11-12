@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Typography from '@material-ui/core/Typography'
+import GridLegend from './GridLegend'
+import GridItem from './GridItem'
 
 class ResultGrid extends Component {
   getBackgroundColor = i => {
@@ -21,31 +22,18 @@ class ResultGrid extends Component {
     const { reviewType, total, setReviewType } = this.props
     return (
       <div className="ResultGrid">
-        <div className="legend">
-          <div className="row">
-            Correct <div className="mini green" />
-          </div>
-          <div className="row">
-            Incorrect <div className="mini red" />
-          </div>
-          <div className="row">
-            Incomplete
-            <div className="mini grey" />
-          </div>
-        </div>
+        <GridLegend />
         <div className="grid">
           {[...Array(total)].map((x, i) => (
-            <div
-              key={`item-${i}`}
-              className="result-item"
+            <GridItem
+              key={i}
+              number={i + 1}
               style={{
                 backgroundColor: this.getBackgroundColor(i),
                 outline: reviewType === i && '2px solid rgb(1, 139, 244)'
               }}
               onClick={() => setReviewType(i)}
-            >
-              <Typography variant="overline">{i + 1}</Typography>
-            </div>
+            />
           ))}
         </div>
       </div>

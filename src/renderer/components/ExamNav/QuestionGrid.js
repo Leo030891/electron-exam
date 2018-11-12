@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
+import GridLegend from './GridLegend'
+import GridItem from './GridItem'
 
 class QuestionGrid extends Component {
   getBackgroundColor = i => {
@@ -25,30 +27,18 @@ class QuestionGrid extends Component {
     const { total, question, setQuestion } = this.props
     return (
       <div className="QuestionGrid">
-        <div className="legend">
-          <div className="row">
-            Answered <div className="mini answered" />
-          </div>
-          <div className="row">
-            Marked <div className="mini marked" />
-          </div>
-          <div className="row">
-            Incomplete <div className="mini incomplete" />
-          </div>
-        </div>
+        <GridLegend />
         <div className="grid">
           {[...Array(total)].map((x, i) => (
-            <div
-              key={`item-${i}`}
-              className="question-item"
+            <GridItem
+              key={i}
+              number={i + 1}
               style={{
                 backgroundColor: this.getBackgroundColor(i),
                 outline: question === i && '2px solid rgb(1, 139, 244)'
               }}
               onClick={() => setQuestion(i)}
-            >
-              <Typography variant="overline">{i + 1}</Typography>
-            </div>
+            />
           ))}
         </div>
       </div>
